@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <remove src="MGS_Popup::css/mgs_popup.css"/>
+		<remove src="MGS_Popup::js/mgs_popup.js"/>
+		<remove src="MGS_Mpanel::js/timer.js"/>
+		<remove src="MGS_QuickView::js/mgs_quickview.js"/>
+		<remove src="MGS_Mpanel::js/jquery.magnific-popup.min.js"/>
+		<remove src="MGS_Mpanel::/js/slick.min.js"/>
+		<remove src="MGS_Mpanel::js/jquery.zoom.min"/>
+		<remove src="MGS_Guestwishlist::js/add-to-wishlist.js"/>
+		<remove src="Amasty_Promo::css/source/mkcss/ampromo.css"/>
+		<remove src="Amasty_Promo::css/source/mkcss/ampromo.min.css"/>
+
+		<!-- <link rel="preload" src="Amasty_Base::vendor/slick/amslick.min.css" as="style" />
+		<link rel="preload" src="MGS_Mpanel::css/owl.carousel.css" as="style"/>
+		<link rel="preload" src="MGS_Mpanel::css/owl.carousel.min.css" as="style"/>
+		<link rel="preload" src="MGS_Mpanel::css/owl.theme.min.css" as="style"/>
+		<link rel="preload" src="MGS_Mpanel::css/magnific-popup.css" as="style"/>
+		<link rel="preload" src="MGS_Mpanel::css/magnific-popup.min.css" as="style"/>
+		<link rel="preload" src="MGS_Mpanel::css/animate.css" as="style"/>
+		<link rel="preload" src="MGS_Mpanel::css/animate.min.css" as="style"/>
+		<link rel="preload" src="MGS_Promobanners::css/promobanners.min.css" as="style"/>
+		<link rel="preload" src="Mageplaza_Core::css/owl.carousel.css" as="style"/>
+		<link rel="preload" src="Mageplaza_Core::css/owl.carousel.min.css" as="style"/>
+		<link rel="preload" src="Mageplaza_Core::css/owl.theme.min.css" as="style"/>
+		<link rel="preload" src="Mageplaza_BannerSlider::css/animate.min.css" as="style"/>
+		<link rel="preload" src="Wyomind_ElasticsearchAutocomplete::css/autocomplete.css" as="style"/>
+		<link rel="preload" src="Wyomind_ElasticsearchAutocomplete::css/autocomplete.min.css" as="style"/>
+		<link rel="preload" src="Wyomind_ElasticsearchCore::css/jquery.jsonview.min.css" as="style"/>
+		<link rel="preload" src="MGS_Mpanel::css/color.css" as="style"/>
+		<link rel="preload" src="MGS_Mpanel::css/color.min.css" as="style"/>
+		<link rel="preload" src="MGS_Brand::css/mgs_brand.min.css" as="style"/>
+		<link rel="preload" src="css/theme.css" as="style"/>
+		<link rel="preload" src="css/theme.min.css" as="style"/>
+		<link rel="preload" src="css/responsive.css" as="style"/>
+		<link rel="preload" src="css/responsive.min.css" as="style"/>
+		<link rel="preload" src="css/menu.css" as="style"/>
+		<link rel="preload" src="css/font-awesome.min.css" as="style"/>
+		<link rel="preload" src="css/font-awesome.css" as="style"/>
+		<link rel="preload" src="css/product.css" as="style"/>
+		<link rel="preload" src="css/bootstrap.min.css" as="style"/>
+		<link rel="preload" src="css/theme_default.css" as="style"/>
+		<link rel="preload" src="mage/gallery/gallery.css" as="style"/>
+		<link rel="preload" src="mage/calendar.min.css" as="style"/>
+		<link rel="preload" src="MGS_Lookbook::css/styles.css" as="style"/>
+		<link rel="preload" src="MGS_Lookbook::css/styles.min.css" as="style"/>
+		<link rel="preload" src="Amasty_Mostviewed::css/source/mkcss/amrelated.css" as="style"/>
+		<link rel="preload" src="Amasty_Mostviewed::css/source/mkcss/amrelated.min.css" as="style"/>
+		<link rel="preload" src="Magento_Swatches::css/swatches.css" as="style"/>
+		<link rel="preload" src="Magento_Swatches::css/swatches.min.css" as="style"/>
+		<link rel="preload" src="MGS_Mmegamenu::css/megamenu.css" as="style"/>
+		<link rel="preload" src="MGS_Mmegamenu::css/megamenu.min.css" as="style"/>
+		<link rel="preload" src="Mageplaza_Core::css/owl.theme.css" as="style"/>
+		<link rel="preload" src="Amasty_Label::css/amlabel.css" as="style"/>
+		<link rel="preload" src="Amasty_Promo::css/banner.css" as="style"/>
+		<link rel="preload" src="Amasty_BannersLite::css/style.css" as="style"/>
+		<link rel="preload" src="Vnecoms_PageBuilder::css/styles.min.css" as="style"/>
+		<link rel="preload" src="Vnecoms_PageBuilder::css/font-awesome.min.css" as="style"/>
+		<link rel="preload" src="Vnecoms_PageBuilder::css/etline.min.css" as="style"/> -->
+    </head>
+	<body>
+		<referenceBlock name="mgs.popup" remove="true"/>
+		<referenceContainer name="before.body.end">
+			<block class="Magento\Framework\View\Element\Template" name="buy.one.get.free.popup" template="Magento_Theme::homepage/popup/offers_popup.phtml" after="-"/>
+		</referenceContainer>
+	</body>
+</page>

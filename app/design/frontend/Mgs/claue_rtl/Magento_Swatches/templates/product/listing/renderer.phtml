@@ -1,0 +1,17 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php
+/** @var $block \MGS\Mpanel\Block\Product\Renderer\Listing\Configurable */
+$productId = $block->getProduct()->getId();
+/** @var \Magento\Swatches\ViewModel\Product\Renderer\Configurable $configurableViewModel */
+$configurableViewModel = $block->getConfigurableViewModel();
+$helperData = $this->helper('MGS\Mpanel\Helper\Data');
+?>
+<div class="swatch-opt-<?= $block->escapeHtmlAttr($productId) ?>"
+     data-role="swatch-option-<?= $block->escapeHtmlAttr($productId) ?>"></div>
+
+

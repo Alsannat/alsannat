@@ -1,0 +1,189 @@
+.contest-wrapper .contest-left {
+    padding-left: 50px;
+}
+.contest-wrapper .contest-right {
+    padding-right: 40px;
+}
+.contest-wrapper .contest-left .contest-title  h1 {
+	font-size: 38px; 
+    margin-bottom: 10px;
+}
+.contest-wrapper .contest-right .contest-image img{
+	max-width: 100%;
+}
+.contest-register .fieldset .legend{
+	color: #c82a2e;
+    font-weight: 600;
+    border: none;
+    font-size: 26px;
+}
+.contest-register .fieldset .field.note  {
+	font-style: normal;
+}
+.contest-register .fieldset .field .label {
+	margin: 0 0 4px;
+    font-weight: 600;
+}
+.contest-register .fieldset .field.required {
+	margin-bottom: 8px;
+}
+.contest-register .fieldset .field.aboutus{
+	margin-top: 15px;
+}
+.contest-register input[type="text"], 
+.contest-register input[type="password"], 
+.contest-register input[type="url"], 
+.contest-register input[type="tel"], 
+.contest-register input[type="search"], 
+.contest-register input[type="number"], 
+.contest-register input[type="datetime"], 
+.contest-register input[type="email"],
+.contest-register select {
+	border-radius: 4px;
+	min-height: 50px;
+}
+.contest-register .fieldset .field.aboutus .control {
+	display: flex;
+    flex-wrap: wrap;
+    margin: 0 -10px;
+}
+.contest-register .fieldset .field.aboutus .control .input-choice{
+	display: flex;
+	align-items: center;
+    padding: 0 10px;
+    flex: 0 0 25%;
+    max-width: 25%;
+    margin-bottom: 5px;
+}
+.contest-register .fieldset .field.aboutus .control .input-choice input {
+    margin: 0 0 0 10px;
+    width: 15px;
+    height: 15px;
+}
+.contest-register .fieldset .field.aboutus .control .input-choice label {
+    font-weight: 500;
+    margin-bottom: 0;
+}
+.social-wrapper-outer {
+	display: flex;
+	flex-wrap: wrap;
+    justify-content: space-between;
+	margin: 20px -10px 15px;
+}
+.social-wrapper-outer .social-wrapper {
+	display: flex;
+    flex-direction: column;
+	flex: 0 0 39%;
+	max-width: 39%;
+	padding:  0 10px;
+}
+.social-wrapper-outer .social-wrapper span{
+	font-size: 13px;
+    color: #5f5f5f;
+    padding: 0;
+    margin: 0 0 3px;
+    font-weight: 600;
+    line-height: inherit;
+}
+.social-wrapper-outer .social-wrapper a {
+    height: 50px;
+    font-weight: 600;
+    padding: 0 35px;
+    line-height: 36px;
+    color: #fff !important;
+    border: none;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.social-wrapper-outer .social-wrapper a.twitter {
+	background-color: #1da1f3;
+}
+.social-wrapper-outer .social-wrapper a.instagram {
+	background: -moz-linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    background: -webkit-linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
+    background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f09433', endColorstr='#bc1888',GradientType=1 );
+    border: none !important;
+}
+.social-wrapper-outer .social-wrapper a i {
+    font-size: 22px;
+    padding-left: 10px
+}
+.contest-register .actions-toolbar>span {
+    font-size: 13px;
+    color: #c82a2e;
+    padding: 0;
+    display: block;
+    margin: 0 0 20px;
+    font-weight: 500;
+    line-height: inherit;
+}
+.contest-register .actions-toolbar .primary .black-btn {
+    width: 100%;
+    height: 50px;
+    border-radius: 4px;
+}
+.terms-and-condition {
+	margin:  23px 0 0;
+}
+.terms-and-condition .terms-heading span {
+	font-size: 14px;
+    color: #222;
+    padding: 0;
+    display: block;
+    margin: 0 0 13px;
+    font-weight: 600;
+    text-align: left;
+    line-height: inherit;
+}
+.terms-and-condition .condition ul li{
+	font-size: 13px;
+    color: #222;
+    padding: 0;
+    display: block;
+    margin: 0 0 0;
+    font-weight: 500;
+    line-height: inherit;
+}
+@media (max-width: 1366px) {
+    .contest-wrapper .contest-left .contest-title h1 {
+        font-size: 30px;
+    }
+    .contest-register .fieldset .legend {
+        font-size: 22px;
+    }
+}
+@media (max-width: 991.98px) {
+    .contest-wrapper  {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column-reverse;
+    }
+    .contest-wrapper .contest-left {
+        padding-left: 15px;
+    }
+    .contest-wrapper .contest-right {
+        padding-right: 15px;
+    }
+    .contest-wrapper .contest-right .contest-image {
+        margin-bottom: 20px;
+    }
+    .contest-index-index  .page-title-wrapper + .page-main {
+        margin-top: 20px;
+    }
+}
+@media (max-width: 559px) {
+    .contest-register .fieldset .field.aboutus .control .input-choice {
+        flex:  0 0 50%;
+        max-width: 50%;
+    }
+}
+@media (max-width: 480px) {
+    .social-wrapper-outer .social-wrapper {
+        flex:  0 0 100%;
+        max-width: 100%;
+        margin-bottom: 15px;
+    }
+}

@@ -1,0 +1,110 @@
+	<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php /** @var $block \Magento\Catalog\Block\Product\AbstractProduct */ ?>
+
+<?php
+     $_product = $block->getProduct(); 
+     $themeHelper = $this->helper('MGS\Mpanel\Helper\Data'); 
+     $_wishlistSubmitParams = $this->helper('Magento\Wishlist\Helper\Data')->getAddParams($_product);
+     $compareHelper = $this->helper('Magento\Catalog\Helper\Product\Compare'); 
+?>
+<?php $_helper = $this->helper('Magento\Catalog\Helper\Output'); ?>
+<div class="action-label-wrapper">
+<?php if (date("Y-m-d") >= substr($_product->getNewsFromDate(), 0, 10)         
+        && date("Y-m-d") <= substr($_product->getNewsToDate(), 0, 10)) { ?>
+        <div class="new-label"><?php /* @escapeNotVerified */ echo __('New') ?></div>
+<?php } ?>
+
+<?php if(!$_product->isSaleable()):  ?>
+	<div class="new-label"><?php /* @escapeNotVerified */ echo __('Out Of Stock') ?></div>
+<?php endif; ?>	
+<?php if($_product->getBestSeller()): ?>
+	  <div class="new-label"><?php /* @escapeNotVerified */ echo __('Best Seller') ?></div>		
+<?php endif; ?>
+
+<?php
+	$simplePrice = 0;
+	$_discountPercent = 0;
+	if($_product->getTypeId() == "simple" || $_product->getTypeId() == "virtual" || $_product->getTypeId() == "downloadable" || $_product->getTypeId() == "mpgiftcard")
+	{
+   		$simplePrice = $_product->getPrice();
+	}
+	else
+	{
+   		$_children = $_product->getTypeInstance()->getUsedProducts($_product);
+    	foreach ($_children as $child)
+    	{
+    		$simplePrice = $child->getPrice();
+    		break;
+   		}
+	}
+	
+	$_finalPrice =$_product->getFinalPrice();
+	$_price = $simplePrice;
+?>
+<?php if($_finalPrice<$_price): ?>
+	<?php $_discountPercent = 100 - round(($_finalPrice / $_price)*100); ?> 
+	<div class="new-label"><?php /* @escapeNotVerified */ echo __('Offer %1 %',$_discountPercent) ?></div>
+<?php endif; ?>
+
+
+<div class="actions action-add-to ">
+		<?php if ($themeHelper->getStoreConfig('mpanel/product_details/wishlist') && $this->helper('Magento\Wishlist\Helper\Data')->isAllow()) : ?>
+			<button type="button" class="action towishlist"
+				data-post='<?php /* @escapeNotVerified */ echo $_wishlistSubmitParams; ?>'
+				data-action="add-to-wishlist"
+				title="<?php /* @escapeNotVerified */ echo __('Add to Wish List') ?>">
+					<span class="pe-7s-like"></span>
+			</button>
+			<script type="text/x-magento-init">
+				{
+					"body": {
+						"addToWishlist": <?php /* @escapeNotVerified */ echo $this->helper('Magento\Framework\Json\Helper\Data')->jsonEncode($block->getWishlistOptions())?>
+					}
+				}
+			</script>
+		<?php endif; ?>
+
+        <button type="button" class="share-link" title="<?php /* @escapeNotVerified */ echo __('share') ?>">
+            <i class="fa fa-share-alt"></i>
+		</button>
+        <script type="text/javascript" >
+                    require([
+                        'jquery'
+                    ], function($){
+
+               
+	                $(document).on("click",".share-link",function() {
+	                    
+	                    if (navigator.share) {
+	                        
+	                        navigator.share({
+	                            url: window.location,
+	                           
+	                          
+	                        })
+	                        .then(() => { console.log("Shared YEEEE!!!!!"); })
+	                        .catch((error) => { console.log("Sharing Failed"); });
+	                    }
+	                    else{
+	                        alert("share system is disable in your browser");
+	                      }
+	                });
+                });
+        </script>
+</div>
+
+</div>
+
+
+<?php $themeHelper = $this->helper('MGS\Mpanel\Helper\Data'); ?>
+<?php if($themeHelper->getStoreConfig('mpanel/product_details/show_product_name')): ?>
+	<h1 class="product-name"><?php echo $_helper->productAttribute($block->getProduct(), $block->getProduct()->getName(), 'name') ?></h1>
+<?php endif; ?>

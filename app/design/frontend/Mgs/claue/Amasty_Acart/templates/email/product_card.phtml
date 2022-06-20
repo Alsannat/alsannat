@@ -1,0 +1,93 @@
+<?php
+/**
+ * @var \Magento\Backend\Block\Template $block
+ * @var \Magento\Catalog\Helper\Output $helper
+ * @var \Magento\Quote\Model\Quote $quote
+ * @var \Magento\Catalog\Helper\Image $imageHelper
+ * @var \Amasty\Acart\ViewModel\Email\ProductViewModel $viewModel
+ * @var \Magento\Framework\Escaper $escaper
+ */
+// @codingStandardsIgnoreLine
+$helper = $this->helper(\Magento\Catalog\Helper\Output::class);
+$item = $block->getData('item');
+$quote = $block->getData('quote');
+$viewModel = $block->getData('viewModel');
+$product = $viewModel->getProduct($item, $block->getData('showConfigurableImage'));
+?>
+<tr>
+    <td>
+        <table border="0" width="100%" cellpadding="0" cellspacing="0" align="center">
+            <tbody>
+                <tr>
+                    <td width="130">
+                        <?php if ($block->getData('showImage')): ?>
+                        <?php $viewModel->initProductImageHelper($quote, $product, 'amasty_acart_items_list'); ?>
+                        <?php $imageHelper = $viewModel->getProductImageHelper(); ?>
+                            <?php if ($imageHelper->getUrl() !== $imageHelper->getDefaultPlaceholderUrl()): ?>
+                                <img style="display:block;width:100%;max-width:130px;" 
+                                     src="<?= $escaper->escapeHtmlAttr($viewModel->prepareProductImageUrl($imageHelper->getUrl())) ?>"
+                                     alt="<?= $escaper->escapeHtmlAttr($imageHelper->getLabel()) ?>"
+                                     width="130"/>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                    </td>
+                    <td width="20">&nbsp;</td>
+                    <td width="250">
+                        <table border="0" width="100%" cellpadding="0" cellspacing="0">
+                            <tbody>
+                                <tr>
+                                    <td style="font-family:'Josefin Sans', Arial, Helvetica, sans-serif;font-size: 18px;color: #282828;line-height: 21px;">
+                                        <?= /* @noEscape */ $helper->productAttribute($product, $product->getName(), 'name') ?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="font-family:'Open Sans', Arial, Helvetica, sans-serif;font-size: 14px;color: #282828;line-height: 21px;">
+                                    Quantity : <?= $item->getQty(); ?>
+                                    </td>
+                                </tr>
+                                <?php if ($block->getData('showOptionList') && $options = $viewModel->getProductOptions($item, $product)): ?>
+                                    <?php foreach ($options as $option): ?>
+                                        <?php $formatedOptionValue = $viewModel->getFormatedOptionValue($option) ?>
+                                                <tr>
+                                                    <td style="font-family:'Open Sans', Arial, Helvetica, sans-serif;font-size: 14px;color: #282828;line-height: 21px;">
+                                                        <?= $escaper->escapeHtml($option['label']) ?> : 
+                                                        <?php if (isset($formatedOptionValue['full_view'])): ?>
+                                                            <?= /* @noEscape */ $formatedOptionValue['full_view'] ?>
+                                                        <?php else: ?>
+                                                            <?= /* @noEscape */ $formatedOptionValue['value'] ?>
+                                                        <?php endif; ?>
+                                                    </td>
+                                                </tr>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td>&nbsp;</td>
+                    <?php if ($block->getData('showPrice')): ?>
+                    <td align="right" width="60">
+                    <table border="0" width="60" cellpadding="0" cellspacing="0">
+                        <tbody>
+                            <tr>
+                                <td align="right" style="font-family:'Open Sans', Arial, Helvetica, sans-serif;font-size: 18px;color: #282828;">
+                                    <?= /* @noEscape */ $viewModel->getPrice($quote, $product, $block->getData('showPriceIncTax')); ?>
+                                </td>
+                            </tr>
+                            <?php if(2<1): ?>
+                            <tr>
+                                <td align="right" style="font-family:'Open Sans', Arial, Helvetica, sans-serif;font-size: 14px;color: #5d5d5d;text-decoration: line-through">
+                                    <?= /* @noEscape */ $viewModel->getPrice($quote, $product, $block->getData('showPriceIncTax')); ?>
+                                </td>
+                            </tr>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                   </td>
+                   <?php endif; ?>
+               </tr>
+               <tr><td height="20" style="border-bottom: 1px solid #e0e0e0">&nbsp;</td></tr>
+               <tr><td height="20">&nbsp;</td></tr>
+           </tbody>
+       </table>
+    </td>
+</tr>

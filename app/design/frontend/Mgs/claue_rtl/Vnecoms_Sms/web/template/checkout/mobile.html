@@ -1,0 +1,34 @@
+<div class="vsms-field-container sms-address-mobile-container" data-bind="css:{'validated': otpValidated()">
+    <input class="admin__control-text mobile-number sms-mobile-number" type="tel"  inputmode="numeric" data-bind="
+	    	value: defaultMobile,
+	        event: {change: userChanges},
+	        hasFocus: focused,
+	        valueUpdate: valueUpdate,
+	        css:{'otp-validated': otpValidated()},
+	        attr: {
+	            name: inputName,
+	            placeholder: placeholder,
+	            'aria-describedby': noticeId,
+	            id: uid,
+	            disabled: disabled,
+	            maxlength: 255
+	    }" />
+    <span class="tick"></span>
+    <!-- ko if: showOtpForm() -->
+    <a href="#" data-bind="click: sendOtp.bind($data, false), text: $t('أرسل رمز التأكيد'), visible: !isSentOtp()" class="action-otp action primary"></a>
+    <!-- ko if: isSentOtp() -->
+    <input class="admin__control-text otp-checkout-field" type="text" data-bind="
+			    	value: otp,
+			        attr: {
+			            name: inputName+'_otp',
+			            placeholder: $t('رمز التأكيد'),
+			            id: uid+'_otp',
+			            disabled: disabled,
+			            maxlength: 255,
+			    }" />
+    <button class="action primary action-save-address sms-verifybtn action-otp" type="button" data-bind="click: verifyOtp.bind($data)"><span data-bind="text: $t('تحقق')"></span></button>
+    <a href="#" class="sms-resendbtn action primary action-otp" data-bind="click: resendOtp.bind($data), text: resendBtnLabel(), css: {'disabled': countNum() != false}"></a>
+    <!-- /ko -->
+    <!-- /ko -->
+    <span data-bind="afterRender: initMobileInput"></span>
+</div>

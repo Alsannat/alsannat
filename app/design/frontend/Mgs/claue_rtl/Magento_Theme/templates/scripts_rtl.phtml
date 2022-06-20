@@ -1,0 +1,85 @@
+<script type="text/javascript" >
+    require([
+        'jquery',
+        'mgs/owlcarousel'
+        ], function($){
+
+            $(window).load(function(){
+                var count =  $('.header-wl .count-wl').html();
+                if(count > 0){
+                    $(".bt-col2 .wishurl .wishlist .count-wl").html(count);
+
+                }
+                else{
+                    // $(".bt-col2 .wishurl .wishlist .count-wl").css("display:none");
+                }
+
+            });
+
+            $(document).ready(function() {
+                console.log("scripts_rtl loaded");
+                $('#video_d').click(function(){
+                    $('#thevideo_desk').show();
+                    $(this).hide();
+                    $("#pl_v_d")[0].src += "&autoplay=1";
+                });
+                $('#video_m').click(function(){
+                    $('#thevideo_mob').show();
+                    $(this).hide();
+                    $("#pl_v_m")[0].src += "&autoplay=1";
+                });
+                $('.homepage_middle_categories').owlCarousel({
+                    loop:false,
+                    rtl:true,
+                    nav:true,
+                    navText: ["<i class='pe-7s-angle-left'></i>","<i class='pe-7s-angle-right'></i>"],
+               // items:4,
+               dots:false,
+               // dotsEach:1,
+               autoplay:true,
+                //autoplayTimeout:3000
+                responsive:{
+                   0:{
+                      items:2
+                  },
+                  768:{
+                      items:3
+                  },
+                  992:{
+                      items:4
+                  }
+              }
+
+
+          });
+
+
+                $('#static-widget123').owlCarousel({
+                    loop:false,
+                    rtl:true,
+                    nav:true,
+                    navText: ["<i class='pe-7s-angle-left'></i>","<i class='pe-7s-angle-right'></i>"],
+                    items:5,
+                    dots:true,
+                    dotsEach:1,
+                    autoplay:true,
+                //autoplayTimeout:3000
+                responsive:{
+                    0:{
+                        items:3
+                    },
+                    768:{
+                        items:3
+                    },
+                    992:{
+                        items:5
+                    }
+                }
+
+
+            });
+
+
+            });
+        });
+    </script>

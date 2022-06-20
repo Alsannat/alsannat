@@ -1,0 +1,94 @@
+
+<?php
+echo $this->getLayout()
+->createBlock('Magento\Cms\Block\Block')
+->setBlockId('mobile_custom_category_footer_menu_rtl')
+->toHtml();
+?>
+
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$customerSession = $objectManager->get('Magento\Customer\Model\Session');
+if($customerSession->isLoggedIn()) {
+
+    $wishlisturl  =  "/wishlist";
+}
+else{
+    $wishlisturl  =  "/guestwishlist";
+
+}
+
+?>
+<?php
+
+$_objectManager = \Magento\Framework\App\ObjectManager::getInstance(); //instance of\Magento\Framework\App\ObjectManager
+$storeManager = $_objectManager->get('Magento\Store\Model\StoreManagerInterface');
+$currentStore = $storeManager->getStore();
+$mediaUrl = $currentStore->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+
+?>
+
+<div class="guideBottom">
+<div class="bt-col2"><a href="/">
+ <span class="bt-icons "><img src="<?php echo $mediaUrl;?>wysiwyg/footer-icon5.webp" width="24" height="26" alt="home"></span><span class="text-ft">الرئيسية</span> </a></div>
+<div class="bt-col2"><a class="action mobile-footer-customization" href="#">
+<span class="bt-icons "><img src="<?php echo $mediaUrl;?>wysiwyg/footer-icon4.webp" width="26" height="26" alt="categories"></span> <span class="text-ft">الفئات</span> </a></div>
+
+<div class="bt-col2"><a href="<?php echo $block->getBaseUrl(). 'alsannat-for-luggage-friday-alsannat-year-end-offers.html';?>" class="wishurl">
+<span class="bt-icons">
+<img src="<?php echo $mediaUrl;?>wysiwyg/footer-icon3.webp"  width="21" height="26"  alt="offers">
+</span> <span class="text-ft">عروض</span>
+ </a>
+ </div>
+
+<div class="bt-col2">
+    <?php if($customerSession->isLoggedIn()) { ?>
+        <a id="my_acc_footer" href="<?php echo $block->getBaseUrl().'customer/account/'; ?>">
+		<span class="bt-icons"><img src="<?php echo $mediaUrl;?>wysiwyg/footer-icon2.webp" width="26" height="26" alt="account"></span> <span class="text-ft">حسابي</span> </a>
+    <?php } else { ?>
+        <a id="my_acc_footer" href="<?php echo $block->getBaseUrl().'myaccount/'; ?>">
+		<span class="bt-icons "><img src="<?php echo $mediaUrl;?>wysiwyg/footer-icon2.webp" width="26" height="26"  alt="account"></span> <span class="text-ft">حسابي</span> </a>
+    <?php } ?>
+</div>
+<div class="bt-col2"><span data-bind="scope: 'minicart_content'"><a class="action showcart" href="/checkout/cart/">
+ <span class="bt-icons bag">
+<img src="<?php echo $mediaUrl;?>wysiwyg/footer-icon1.webp"  width="31" height="26"  alt="cart">
+<em class="counter qty" data-bind="css: { empty: !!getCartParam('summary_count') == false }, blockLoader: isLoading"> <span class="counter-number"><!-- ko text: getCartParam('summary_count') --><!-- /ko --></span> <span class="counter-label"> <!-- ko if: getCartParam('summary_count') --> <!-- ko text: getCartParam('summary_count') --><!-- /ko --> <!-- ko i18n: 'items' --><!-- /ko --> <!-- /ko --></span></em></span> <span class="text-ft">سلة التسوق</span></a></span></div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" >
+    require([
+        'jquery'
+    ], function($){
+
+
+            $('.mobile-footer-customization').click(function (e) {
+                $('body,html').toggleClass("category-menu-open");
+            });
+
+            $('.close-nav-footer-cat').click(function (e) {
+                $('body,html').removeClass('category-menu-open');
+            });
+
+            $('html').click(function(e) {
+                   $("body,html").removeClass('category-menu-open');
+            });
+            $(".mobile-footer-customization,.custom-category-footer-menu").click(function(event) {
+                event.stopPropagation();
+            });
+    });
+</script>

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <remove src="MGS_Popup::css/mgs_popup.css"/>
+		<remove src="MGS_Popup::js/mgs_popup.js"/>
+		<remove src="MGS_Mpanel::js/timer.js"/>
+		<remove src="MGS_QuickView::js/mgs_quickview.js"/>
+		<remove src="MGS_Mpanel::js/jquery.magnific-popup.min.js"/>
+		<remove src="MGS_Mpanel::/js/slick.min.js"/>
+		<remove src="MGS_Mpanel::js/jquery.zoom.min"/>
+		<remove src="MGS_Guestwishlist::js/add-to-wishlist.js"/>	
+    </head>
+	<body>
+		<referenceBlock name="mgs.popup" remove="true"/>
+	</body>
+</page>

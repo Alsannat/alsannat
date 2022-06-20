@@ -1,0 +1,65 @@
+<?php
+/**
+ * @var \Magento\Backend\Block\Template $block
+ * @var \Magento\Catalog\Helper\Output $helper
+ * @var \Magento\Quote\Model\Quote $quote
+ * @var \Magento\Catalog\Helper\Image $imageHelper
+ * @var \Amasty\Acart\ViewModel\Email\ProductViewModel $viewModel
+ * @var \Magento\Framework\Escaper $escaper
+ */
+// @codingStandardsIgnoreLine
+$helper = $this->helper(\Magento\Catalog\Helper\Output::class);
+$item = $block->getData('item');
+$quote = $block->getData('quote');
+$viewModel = $block->getData('viewModel');
+$product = $viewModel->getProduct($item, $block->getData('showConfigurableImage'));
+?>
+<table class="row" style="width:140px;max-width:140px;" width="140" cellspacing="0" cellpadding="0" border="0" align="left">
+    <tbody>
+        <tr>
+        <td align="center">
+            <!-- content -->
+            <table width="140" style="width:140px;max-width:140px;" cellspacing="0" cellpadding="0" border="0" align="center">
+                <tbody>
+                    <?php if ($block->getData('showImage')): ?>
+                    <?php $viewModel->initProductImageHelper($quote, $product, 'amasty_acart_items_list'); ?>
+                    <?php $imageHelper = $viewModel->getProductImageHelper(); ?>
+                        <?php if ($imageHelper->getUrl() !== $imageHelper->getDefaultPlaceholderUrl()): ?>    
+                            <tr>
+                                <td align="center">
+                                    <img width="140" style="display:block;width:100%;max-width:140px;" 
+                                         alt="<?= $escaper->escapeHtmlAttr($imageHelper->getLabel()) ?>" 
+                                         src="<?= $escaper->escapeHtmlAttr($viewModel->prepareProductImageUrl($imageHelper->getUrl())) ?>"/>
+                                </td>
+                            </tr>
+                        <?php endif; ?>    
+                    <?php endif; ?>
+                    <tr>
+                        <td height="23">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td align="center" style="font-family:'Josefin Sans', Arial, Helvetica, sans-serif;font-size: 18px;color: #282828;">
+                            <?= /* @noEscape */ $helper->productAttribute($product, $product->getName(), 'name') ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="line-height: 5px;height: 5px;font-size: 0px;">&nbsp;</td>
+                    </tr>
+                    <?php if ($block->getData('showPrice')): ?>
+                    <tr>
+                        <td align="center" style="font-family:'Open Sans', Arial, Helvetica, sans-serif;font-size: 18px;color: #282828;">
+                            <?= /* @noEscape */ $viewModel->getPrice($quote, $product, $block->getData('showPriceIncTax')); ?>
+                        </td>
+                    </tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </td>
+        </tr>
+    </tbody>
+</table>
+<table class="row" style="width:30px;max-width:30px;" width="30" cellspacing="0" cellpadding="0" border="0" align="left">
+    <tbody>
+        <tr><td height="30"></td></tr>
+    </tbody>
+</table>

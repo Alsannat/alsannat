@@ -1,0 +1,91 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php
+/**
+ * Temlate for \Magento\Customer\Block\Address\Book block
+ * @var $block \Magento\Customer\Block\Address\Book
+ */
+?>
+
+	<div class="block block-addresses-default col-sm-6 col-xs-12">
+		<div class="block-content">
+			<?php if ($_pAddsses = $block->getDefaultBilling()): ?>
+				<div class="box box-address-billing">
+					<div class="block-title--myac">
+						<h3>
+							<?php /* @escapeNotVerified */ echo __('Default Billing Address') ?>
+						</h3>
+					</div>
+					<div class="box-content">
+						<address>
+							<?php echo $block->getAddressHtml($block->getAddressById($_pAddsses)) ?>
+						</address>
+						<div>
+							<a class="action btn btn-xs btn-secondary edit" href="<?php /* @escapeNotVerified */ echo $block->getAddressEditUrl($_pAddsses) ?>">
+								<span><?php /* @escapeNotVerified */ echo __('Edit') ?></span>
+							</a>
+						</div>
+					</div>
+				</div>
+			<?php else: ?>
+				<div class="box box-billing-address">
+					<div class="block-title--myac">
+						<h3>
+							<?php /* @escapeNotVerified */ echo __('Default Billing Address') ?>
+						</h3>
+					</div>
+					<div class="box-content">
+						<p><?php /* @escapeNotVerified */ echo __('You have no default billing address in your address book.') ?></p>
+					</div>
+				</div>
+			<?php endif ?>
+
+			<?php if ($_pAddsses = $block->getDefaultShipping()): ?>
+				<div class="box box-address-shipping" style="margin-top: 30px;">
+					<div class="block-title--myac">
+						<h3>
+							<?php /* @escapeNotVerified */ echo __('Default Shipping Address') ?>
+						</h3>
+					</div>
+					<div class="box-content">
+						<address>
+							<?php echo $block->getAddressHtml($block->getAddressById($_pAddsses)) ?>
+						</address>
+						<a class="action btn btn-secondary btn-xs edit" href="<?php /* @escapeNotVerified */ echo $block->getAddressEditUrl($_pAddsses) ?>">
+							<span><?php /* @escapeNotVerified */ echo __('Edit') ?></span>
+						</a>
+					</div>
+				</div>
+			<?php else: ?>
+				<div class="box box-shipping-address" style="margin-top: 30px;">
+					<div class="block-title--myac">
+						<h3>
+							<?php /* @escapeNotVerified */ echo __('Default Shipping Address') ?>
+						</h3>
+					</div>
+					<div class="box-content">
+						<p><?php /* @escapeNotVerified */ echo __('You have no default shipping address in your address book.') ?></p>
+					</div>
+				</div>
+			<?php endif ?>
+		</div>
+	</div>
+<script type="text/x-magento-init">
+    {
+        ".page-main": {
+            "address": {
+                "deleteAddress": "li.item a[role='delete-address']",
+                "deleteUrlPrefix": "<?php /* @escapeNotVerified */ echo $block->getDeleteUrl() ?>id/",
+                "addAddress": "button[role='add-address']",
+                "addAddressLocation": "<?php /* @escapeNotVerified */ echo $block->getAddAddressUrl() ?>"
+            }
+        }
+    }
+</script>

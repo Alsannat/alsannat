@@ -1,0 +1,114 @@
+<?php
+
+$helperData = $block->getWkMapHelper();
+if ($helperData->getModuleStatus()) {
+    if ($helperData->getApiKey()) {
+?>
+<style>
+  #opc-new-shipping-address .form.form-shipping-address .fieldset > .field:last-child, .fieldset > .fields > .field:last-child { margin-top: 44%; }
+  .modal-popup._inner-scroll .modal-inner-wrap .modal-content #opc-new-shipping-address .form.form-shipping-address .fieldset > .field:last-child, .fieldset > .fields > .field:last-child {
+  margin-top: 1vh; }
+  .payment-method._active .payment-method-billing-address .checkout-billing-address .fieldset .billing-address-form .fieldset > .choice.field { margin-top: 282px; }
+</style>
+
+
+<button class="map-show action primary black-btn"><span><?= $block->escapeHtml(__('Select the address from the map')) ?><i class="fa fa-map-o"></i></span></button> 
+<div class="mapContainer" style="display:none">
+  <input 
+      id="pac-input"
+      class="controls"
+      type="text"
+      placeholder="Search Box"
+    />
+  <div id="map"></div>
+  <button class="map-hide red-btn"><span><?= $block->escapeHtml(__('confirmation')) ?></span></button>
+</div>
+
+<div class="mapContainerBilling">
+  <div id="mapbilling"></div>
+</div>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=<?= /* @noEscape */ $helperData->getApiKey();?>&language=ar&libraries=places" async defer></script>      
+<?php 
+  } 
+  } 
+?>
+<script type="text/javascript" >
+    require([
+        'jquery'
+    ], function($)
+    {   
+
+        $(window).resize(function() {
+          var scrWidth = screen.width;
+          if(scrWidth <= 1023)
+          {
+            $(document).find("#checkout-step-shipping").css("margin-top","0px");
+          }
+          else
+          {
+            $(document).find("#checkout-step-shipping").css("margin-top","315px");  
+          }
+        });
+        $('.map-show').click(function (e) {
+            
+            $('.mapContainer').show(); 
+            $('.map-hide').css("display","block");
+
+            $('#checkout-step-shipping').css("display","none");
+            
+            $('.checkout-shipping-address .step-title').css("display","none");
+            
+            $(document).find(".checkout-index-index .opc-progress-bar").css("display","none");
+            
+            var isMobileView = window.matchMedia("only screen and (max-width: 1023px)").matches;
+            if(!isMobileView)
+            {
+              $(document).find(".map-hide").detach().insertAfter(".mapContainer");
+              $(document).find("#checkout-step-shipping").css("margin-top","315px");
+              $('.opc-summary-wrapper').css("display","none");
+              $('#opc-shipping_method').css("display","none");
+              $('.checkout-index-index .opc-wrapper').css("float","none");
+              $('.checkout-index-index .opc-wrapper').css("margin","0 auto");
+            }
+            else
+            {
+              $(document).find(".map-hide").detach().insertAfter("#checkout-step-shipping");
+              $(document).find(".top-header-content").css("display","none");
+              $(document).find(".middle-header-content").css("display","none");
+              $(document).find(".page-title-wrapper + .page-main").css("margin-top","0px");
+              $(document).find(".map-show.black-btn").css("margin-top","10px");
+              $(document).find(".checkout-shipping-method").css("display","none");
+              $('header.header.header1').css("display","none");
+              $('.footer.footer1').css("display","none");
+            }
+        });
+
+        $('.map-hide').click(function (e) {
+            $('.mapContainer').hide();
+            $('.map-hide').hide();  
+            $(document).find("#checkout-step-shipping").css("margin-top","0px");
+            $('#checkout-step-shipping').css("display","block");
+            $('.opc-summary-wrapper').css("display","block");
+            $(document).find(".checkout-index-index .opc-progress-bar").css("display","flex");
+            $('.checkout-shipping-address .step-title').css("display","block");
+            $('#opc-shipping_method').css("display","block");
+            $('.checkout-index-index .opc-wrapper').css("float","right");
+
+
+            var isMobileView = window.matchMedia("only screen and (max-width: 1023px)").matches;
+            if(isMobileView)
+            {
+              $(document).find(".top-header-content").show();
+              $(document).find(".middle-header-content").show();
+              $(document).find(".map-show.black-btn").css("margin-top","0");
+              $(document).find(".page-title-wrapper + .page-main").css("margin-top","40px");
+              $(document).find(".checkout-shipping-method").css("display","block");
+              $(document).find(".checkout-shipping-address .step-title").css("display","block");
+              $('.footer.footer1').css("display","block");
+              $('header.header.header1').css("display","block");
+            }
+            
+        });
+    });
+</script>

@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Wyomind_ElasticsearchAutocomplete::css/autocomplete.css"/>
+        <link src="Wyomind_ElasticsearchCore::css/jquery.jsonview.min.css"/>
+    </head>
+    <body>
+        <referenceBlock name="top.search">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Wyomind_ElasticsearchAutocomplete::form.mini.phtml</argument>
+            </action>
+            <!-- AUTOCOMPLETE DIV -->
+            <block class="Magento\Framework\View\Element\Template" name="elasticsearchautocomplete.autocomplete" template="Wyomind_ElasticsearchAutocomplete::autocomplete.phtml"/>
+        </referenceBlock>
+        <referenceContainer name="before.body.end">
+
+            <!-- DEBUG BLOCK -->
+            <block ifconfig="wyomind_elasticsearchautocomplete/settings/enable_debug_mode" class="Magento\Framework\View\Element\Template" name="elasticsearchautocomplete.debug" template="Wyomind_ElasticsearchAutocomplete::debug.phtml"/>
+
+            <!-- CUSTOM CSS BLOCK -->
+            <block  class="Magento\Framework\View\Element\Template" name="elasticsearchautocomplete.css" template="Wyomind_ElasticsearchAutocomplete::css.phtml"/>
+            <block class="Magento\Framework\View\Element\Template" name="elasticsearchautocomplete.core.css" template="Wyomind_ElasticsearchCore::css.phtml"/>
+
+
+            <!-- UNDERSCORE JS TEMPLATES -->
+            <!-- overlay -->
+            <block class="Magento\Framework\View\Element\Template" name="elasticsearchautocomplete.overlay" template="Wyomind_ElasticsearchAutocomplete::overlay.phtml"/>
+
+            <!-- suggestions -->
+            <block  class="Magento\Framework\View\Element\Template" name="elasticsearchautocomplete.autocomplete.suggests" template="Wyomind_ElasticsearchAutocomplete::autocomplete/suggests.phtml"/>
+            <!-- categories -->
+            <block  class="Magento\Framework\View\Element\Template" name="elasticsearchautocomplete.autocomplete.categories" template="Wyomind_ElasticsearchAutocomplete::autocomplete/categories.phtml"/>
+            <!-- cms -->
+            <block  class="Magento\Framework\View\Element\Template" name="elasticsearchautocomplete.autocomplete.cms" template="Wyomind_ElasticsearchAutocomplete::autocomplete/cms.phtml"/>
+            <!-- products -->
+            <block  class="Magento\Framework\View\Element\Template" name="elasticsearchautocomplete.autocomplete.products" template="Wyomind_ElasticsearchAutocomplete::autocomplete/products.phtml"/>
+            <!-- all-results -->
+            <block  class="Magento\Framework\View\Element\Template" name="elasticsearchautocomplete.autocomplete.all-results" template="Wyomind_ElasticsearchAutocomplete::autocomplete/all-results.phtml"/>
+
+        </referenceContainer>
+    </body>
+</page>

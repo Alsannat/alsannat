@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd" label="Email Related Items List" design_abstraction="custom">
+	<body>
+		<referenceBlock name="amasty.acart.items.card">
+    		<action method="setTemplate">
+        		<argument name="template" xsi:type="string">Amasty_Acart::email/product_card_table.phtml</argument>
+    		</action>
+		</referenceBlock>
+	</body>
+</page>

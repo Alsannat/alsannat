@@ -1,0 +1,39 @@
+
+<?php
+echo $this->getLayout()
+->createBlock('Magento\Cms\Block\Block')
+->setBlockId('static-homepage-slider')
+->toHtml();
+?>
+
+<script type="text/javascript" >
+    require([
+        'jquery',
+        'mgs/owlcarousel'
+    ], function($){
+        $(document).ready(function() {
+            $('.owl-carousel.test').owlCarousel({
+                loop:true,
+                margin:20,
+                nav:true,
+                navText: [
+                    "<i class='fa fa-caret-left'></i>",
+                    "<i class='fa fa-caret-right'></i>"
+                  ],
+                  autoplay: true,
+                  autoplayHoverPause: true,
+                responsive:{
+                    0:{
+                        items:4
+                    },
+                    600:{
+                        items:4
+                    },
+                    1000:{
+                        items:6
+                    }
+                }
+            })
+        });
+    });
+</script>

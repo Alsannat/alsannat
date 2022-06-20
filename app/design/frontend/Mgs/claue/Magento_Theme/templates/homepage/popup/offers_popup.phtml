@@ -1,0 +1,41 @@
+<?php $html = $this->getLayout()
+          ->createBlock('Magento\Cms\Block\Block')
+          ->setBlockId('offer_popup')
+          ->toHtml(); ?>
+<?php if($html!=""): ?>           
+<div id="popup-modal">
+   <?php echo $html; ?>
+</div>
+<style type="text/css">
+    .modal-inner-wrap[data-role="focusable-scope"] {max-width: 600px !important;}
+    .modal-inner-wrap[data-role="focusable-scope"] .action-close:before {top: 32px;    right: 15px;}
+    .modal-footer {display: none;}
+</style>
+<script>
+    require(
+        [
+            'jquery',
+            'Magento_Ui/js/modal/modal'
+        ],
+        function(
+            $,
+            modal
+        ) {
+
+        	$(document).ready(function()
+        	{
+        		
+        		var options = {
+                type: 'popup',
+                responsive: true,
+                innerScroll: true,
+            };
+
+            var popup = modal(options, $('#popup-modal'));
+            $('#popup-modal').modal('openModal');
+        	});
+            
+        }
+    );
+</script>
+<?php endif; ?>

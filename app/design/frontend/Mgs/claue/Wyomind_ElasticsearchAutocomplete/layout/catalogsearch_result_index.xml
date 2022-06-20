@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Wyomind. All rights reserved.
+ * https://www.wyomind.com
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="columns.top">
+            <block ifconfig="wyomind_elasticsearchautocomplete/settings/enable" class="Wyomind\ElasticsearchAutocomplete\Block\Search\DidYouMean" name="wyo.elasticsearchautocomplete.result.didyoumean" after="page.main.title" template="Wyomind_ElasticsearchAutocomplete::result/didyoumean.phtml"/>
+        </referenceContainer>
+        <referenceContainer name="sidebar.additional">
+            <block ifconfig="wyomind_elasticsearchautocomplete/settings/cms/enable_search" class="Wyomind\ElasticsearchAutocomplete\Block\Search\Cms" name="wyo.elasticsearchautocomplete.result.cms" before="-" template="Wyomind_ElasticsearchAutocomplete::result/cms.phtml"/>
+            <block ifconfig="wyomind_elasticsearchautocomplete/settings/category/enable_search" class="Wyomind\ElasticsearchAutocomplete\Block\Search\Category" name="wyo.elasticsearchautocomplete.result.category" before="-" template="Wyomind_ElasticsearchAutocomplete::result/category.phtml"/>
+        </referenceContainer>
+        <referenceBlock name="page.main.title" remove="true" />
+    </body>
+</page>
