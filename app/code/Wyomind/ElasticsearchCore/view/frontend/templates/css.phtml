@@ -1,0 +1,93 @@
+<?php
+
+$designHelper = $this->helper('Wyomind\ElasticsearchCore\Helper\Design');
+$dataHelper = $this->helper('Wyomind\ElasticsearchCore\Helper\Data');
+$storeId = $dataHelper->getCurrentStoreId();
+
+$primaryColor = $designHelper->getPrimaryColor($storeId);
+$secondaryColor = $designHelper->getSecondaryColor($storeId);
+$backgroundPrimaryColor = $designHelper->getBackgroundPrimaryColor($storeId);
+$backgroundSecondColor = $designHelper->getBackgroundSecondaryColor($storeId);
+
+?>
+
+<style>
+
+    /* Primary color text */
+    .wyomind-primary-color,
+    .wyomind-primary-color:after,
+    .wyomind-primary-color:before {
+        color: <?= $primaryColor ?> !important;
+    }
+
+    .wyomind-primary-color-hover:hover * {
+        color: <?= $primaryColor ?> !important;
+    }
+
+    /* Primary color background */
+    .wyomind-primary-bgcolor {
+        background-color: <?= $primaryColor ?> !important;
+        color: white !important;
+    }
+
+    /* Primary color border */
+    .wyomind-primary-border {
+        border: 1px solid <?= $primaryColor ?> !important;
+    }
+
+    /* secondary color */
+    .wyomind-secondary-bgcolor {
+        background-color: <?= $secondaryColor ?>;
+    }
+
+    /* Buttons */
+    .wyomind-btn-primary {
+        background-color: <?= $primaryColor ?> !important;
+        border-color: <?= $primaryColor ?> !important;
+        color: white !important;
+    }
+
+    .wyomind-btn-primary:hover {
+        background-color: <?= $designHelper->adjustBrightness($primaryColor,-50) ?> !important;
+        border-color: <?= $designHelper->adjustBrightness($primaryColor,-50) ?> !important;
+    }
+
+    .wyomind-btn-primary:before {
+        color: white !important;
+    }
+
+    .wyomind-btn-primary-inverted {
+        border-color: <?= $primaryColor ?> !important;
+        color: <?= $primaryColor ?> !important;
+        background-color: white !important;
+    }
+
+    .wyomind-btn-primary-inverted:before {
+        color: <?= $primaryColor ?> !important;
+    }
+
+    .wyomind-btn-primary-inverted {
+        border-color: <?= $primaryColor ?> !important;
+        color: <?= $primaryColor ?> !important;
+        background-color: white !important;
+    }
+
+    /* First background (products listing) */
+    .wyomind-bg-primary {
+        background-color: <?= $backgroundPrimaryColor ?>;
+    }
+
+    /* Second background (layer/categories/cms) */
+    .wyomind-bg-secondary {
+        background-color: <?= $backgroundSecondColor ?>;
+    }
+
+    /* autocompletes top arrow */
+    #search_autocomplete:before {
+        border-bottom-color: <?= $backgroundSecondColor ?>;
+    }
+
+    .top-arrow-primary:before {
+        border-bottom-color: <?= $primaryColor ?>;
+    }
+</style>

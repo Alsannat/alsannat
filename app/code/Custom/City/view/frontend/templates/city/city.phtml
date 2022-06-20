@@ -1,0 +1,39 @@
+<?php /**Check if extension is enable  */
+if($block->isEnabled()):
+    $is_state_available = $block->isStateAvailable();
+    $cityUrl = $block->getUrl('city/index/listcities');
+    $zip_url = $block->getUrl('city/index/zips');
+    $city_title = __('City not in list');
+    $city_link = $block->getConfigValue('city/general/citynotinlist');
+    if($block->getConfigValue('city/general/citynotinlist_title')!=""){
+        $city_title = __($block->getConfigValue('city/general/citynotinlist_title'));
+    }
+    $zip_title = __('Zip not in list');
+    $zip_link = $block->getConfigValue('city/general/zipnotinlist');
+    if($block->getConfigValue('city/general/zipnotinlist_title')!=""){
+        $zip_title = __($block->getConfigValue('city/general/zipnotinlist_title'));
+    }
+    ?>
+    <?php
+    $curl = $block->getUrl('*/*/*', ['_current' => true, '_use_rewrite' => true]);
+    if(strpos($curl,'checkout')!==false || strpos($curl,'onepage')!==false){
+        $page = 'checkout';
+    }else{
+        $page = 'edit';
+    }?>
+    <script type="text/javascript">
+        var data_city_link="<?php echo $city_link;?>";
+        var data_city_title="<?php echo $city_title;?>";
+        var data_zip_link="<?php echo $zip_link;?>";
+        var data_zip_title="<?php echo $zip_title;?>";
+        var data_city_url="<?php echo $cityUrl;?>";
+        var data_zip_url="<?php echo $zip_url;?>";
+        var loading_url = "<?php echo $this->getViewFileUrl('Custom_City::images/loader-1.gif');?>";
+        var current_page = "<?php echo $page;?>";
+        var is_state_available = "<?php echo (int)$is_state_available;?>";
+    </script>
+<?php endif; ?>
+<script type="text/javascript">
+    var is_city_enabled = "<?php echo (int)$block->isEnabled();?>";
+</script>
+

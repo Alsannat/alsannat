@@ -1,0 +1,231 @@
+<?php
+
+function getWebengageData($key)
+{
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance(); // Instance of object manager
+    $resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
+    $readConnection = $resource->getConnection();
+
+    $checkData = 'SELECT * FROM `webengage_configuration` WHERE `wekey` = "'.$key.'"limit 1';
+
+    $getData = $readConnection->fetchAll($checkData);
+    if (!empty($getData)) {
+        return $getData[0];
+    }
+}
+
+$currentUrl = $this->getUrl('*/*/*', ['_current' => true, '_use_rewrite' => true]);
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$FormKey = $objectManager->get('Magento\Framework\Data\Form\FormKey');
+$resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
+$connection = $resource->getConnection();
+$tableName = 'webengage_configuration';
+$message = '';
+$msgType = 0;
+
+   $getLicenceCode = getWebengageData('we_licence_code');
+   $getApiKey = getWebengageData('we_api_key');
+   $getDebugFlag = getWebengageData('we_debug');
+   $getRegion = getWebengageData('we_region');
+   $licenceCode = '';
+   $apiKey = '';
+   $wedebug = '';
+   $region = '';
+
+   if (!empty($getApiKey)) {
+       $apiKey = $getApiKey['wevalue'];
+   }
+
+   if (!empty($getLicenceCode)) {
+       $licenceCode = $getLicenceCode['wevalue'];
+   }
+
+   if (!empty($getDebugFlag)) {
+       $wedebug = $getDebugFlag['wevalue'];
+   }
+
+   if (!empty($getRegion)) {
+       $region = $getRegion['wevalue'];
+   }
+
+   if (isset($_POST) && !empty($_POST) && trim($_POST['licence_code']) != '' && trim($_POST['api_key']) != '') {
+       $CURLOPT_URL = $_POST['region'] == 'india' ? 'https://api.in.webengage.com/v1/accounts/' : 'https://api.webengage.com/v1/accounts/';
+       $curl = curl_init();
+       curl_setopt_array($curl, array(
+         CURLOPT_URL => $CURLOPT_URL.trim($_POST['licence_code']),
+         CURLOPT_RETURNTRANSFER => true,
+         CURLOPT_ENCODING => '',
+         CURLOPT_MAXREDIRS => 10,
+         CURLOPT_TIMEOUT => 30,
+         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+         CURLOPT_CUSTOMREQUEST => 'GET',
+         CURLOPT_POSTFIELDS => '',
+         CURLOPT_HTTPHEADER => array(
+         'Authorization: Bearer '.$_POST['api_key'],
+         ),
+      ));
+
+       $response = curl_exec($curl);
+       $err = curl_error($curl);
+       if ($response && !empty($response)) {
+           $response = json_decode($response);
+           if (isset($response->response) && $response->response->status != 'error' && $response->response->data->licenseCode == $_POST['licence_code']) {
+               if (empty($licenceCode) && empty($getApiKey)) {
+                   $licence_code = "INSERT INTO $tableName (wekey, wevalue) VALUES ('we_licence_code', ?)";
+                   $connection->query($licence_code, [0 => $_POST['licence_code']]);
+
+                   $api_key = "INSERT INTO $tableName (wekey, wevalue) VALUES ('we_api_key', ?)";
+                   $connection->query($api_key, [0 => $_POST['api_key']]);
+
+                   if (isset($_POST['wedebug'])) {
+                       $we_debug = "INSERT INTO $tableName (wekey, wevalue) VALUES ('we_debug', ?)";
+                       $connection->query($we_debug, [0 => $_POST['wedebug']]);
+                   } else {
+                       $we_debug = "INSERT INTO $tableName (wekey, wevalue) VALUES ('we_debug', 'no')";
+                       $connection->query($we_debug);
+                   }
+
+                   if (isset($_POST['region'])) {
+                       $we_region = "INSERT INTO $tableName (wekey, wevalue) VALUES ('we_region', ?)";
+                       $connection->query($we_region, [0 => $_POST['region']]);
+                   } else {
+                       $we_region = "INSERT INTO $tableName (wekey, wevalue) Values ('we_region', 'us')";
+                       $connection->query($we_region);
+                   }
+               } else {
+                   $licence_code = "UPDATE $tableName SET wevalue = ? WHERE wekey = 'we_licence_code'";
+                   $connection->query($licence_code, [0 => $_POST['licence_code']]);
+
+                   $api_key = "UPDATE $tableName SET wevalue = ? WHERE wekey = 'we_api_key' ";
+                   $connection->query($api_key, [0 => $_POST['api_key']]);
+
+                   if (isset($_POST['wedebug'])) {
+                       $we_debug = "UPDATE $tableName SET wevalue = ? WHERE wekey = 'we_debug'";
+                       $connection->query($we_debug, [0 => $_POST['wedebug']]);
+                   } else {
+                       $we_debug = "UPDATE $tableName SET wevalue = 'no' WHERE wekey = 'we_debug'";
+                       $connection->query($we_debug);
+                   }
+
+                   if (isset($_POST['region'])) {
+                       $we_region = "UPDATE $tableName SET wevalue = ? WHERE wekey = 'we_region'";
+                       $connection->query($we_region, [0 => $_POST['region']]);
+                   } else {
+                       $we_region = "UPDATE $tableName SET wevalue = 'us' WHERE wekey = 'we_region' ";
+                       $connection->query($we_region);
+                   }
+               }
+
+               $msgType = 1;
+           } else {
+               $msgType = 0;
+           }
+       }
+
+       $redirect = $objectManager->get('\Magento\Framework\App\Response\Http');
+       $redirect->setRedirect(strtok($currentUrl, '?')."?msgType=$msgType");
+   }
+
+   if (isset($_REQUEST['msgType']) && trim($_REQUEST['msgType']) != '') {
+       $msgType = $_REQUEST['msgType'];
+       if ($msgType == 1) {
+           $message = 'Data Saved Successfully';
+       } else {
+           $message = 'There might be the problem with the Licence code or API Key Please check again.';
+       }
+   }
+?>
+
+<main id="anchor-content" class="page-content">
+   <div class="page-main-actions">
+      <div class="page-actions-placeholder"></div>
+      <form method="post" action="<?php echo $currentUrl; ?>">
+         <div class="page-actions" data-ui-id="page-actions-toolbar-content-header">
+            <div class="page-actions-inner" data-title="New Page">
+               <div class="page-actions-buttons">
+                  <button id="save" title="Save Page" type="submit" 
+                  class="action- scalable save primary ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+                  data-form-role="save" data-ui-id="save-button" role="button" aria-disabled="false"><span class="ui-button-text">
+                  <span>Save Data</span>
+                  </span></button>
+               </div>
+            </div>
+         </div>
+         <div id="page:main-container" class="page-columns">
+            <div class="admin__old">
+               <div id="container" class="main-col">
+                  <input name="form_key" type="hidden" value="<?php echo $FormKey->getFormKey(); ?>">
+               <div>
+               <div data-bind="scope: 'cms_page_form.cms_page_form'" class="entry-edit form-inline">
+                  <div class="fieldset-wrapper"  data-index="general">
+                     <div class="admin__fieldset-wrapper-content _hide">
+                     <?php echo trim($message) != '' ? '<h3>'.$message.'</h3>' : ''; ?> 
+                        <fieldset class="admin__fieldset">
+                           <div class="admin__field">
+                              <div class="admin__field-control">
+                                 <div class="admin__field _required" data-index="title">
+                                    <label class="admin__field-label"  for="W83M51U">
+                                       <span>Enter WebEngage License Code</span>
+                                    </label>
+                                    <div class="admin__field-control" >
+                                       <input class="admin__control-text" type="text" name="licence_code" id="W83M51U" maxlength="255" value="<?php echo $licenceCode; ?>">
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="admin__field">
+                              <div class="admin__field-control">
+                                 <div class="admin__field _required" data-index="title">
+                                    <label class="admin__field-label"  for="apikey">
+                                       <span>Enter WebEngage API KEY</span>
+                                    </label>
+                                    <div class="admin__field-control" >
+                                       <input class="admin__control-text" type="text" name="api_key" id="apikey" maxlength="255" value="<?php echo $apiKey; ?>">
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="admin__field">
+                              <div class="admin__field-control">
+                                 <div class="admin__field _required" data-index="title">
+                                    <label class="admin__field-label" for="region">
+                                       <span>Select Region</span>
+                                    </label>
+                                    <div class="admin__field-control" >
+                                       <select type="text" name="region" id="region" class="admin__control-select">
+                                       <?php
+                                       $regionList = array('US', 'India');
+                                       foreach ($regionList as $regiondata) {
+                                           ?>
+                                       <option <?php echo isset($region) && $region == strtolower($regiondata) ? 'selected' : null; ?> value="<?php echo strtolower($regiondata); ?>"><?php echo $regiondata; ?></option>
+                                       <?php
+                                       }
+                                       ?>
+                                       </select>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="admin__field">
+                              <div class="admin__field-control">
+                                 <div class="admin__field" data-index="wedebug">
+                                    <div class="admin__field-control">
+                                       <label for="wedebug"><input name="wedebug" id="wedebug" type="checkbox" value="yes" <?php if (isset($wedebug) && ($wedebug === 'yes')) {
+                                           echo 'checked';
+                                       } ?>> Enable debug mode</label><br/>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </fieldset>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </form>
+   </div>
+   <p><b>Note:</b> View the WebEngage <a href="https://docs.webengage.com/docs/magento" target="_blank">documentation</a> for more details</p>
+   <div class="col-m-6"><small>WebEngage Plugin v7.0.4</small></div>
+</main>

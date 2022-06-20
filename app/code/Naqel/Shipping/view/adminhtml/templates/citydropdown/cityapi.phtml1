@@ -1,0 +1,56 @@
+<?php 
+//admin
+?>
+
+	<div id="popup-modal"></div>
+	<script>
+		require(
+	    [
+	        'jquery',
+	        'Magento_Ui/js/modal/modal'
+	    ],
+	    function($, modal) {
+	    	jQuery(document).ready(function(){
+	    		test();
+	    		jQuery(document).on('change','select[name="country_id"]',function()
+	    		{
+	    			
+	    			test();
+
+	    		})
+	    	});
+	    }
+	);
+
+	function test()
+	{
+		var country_id= jQuery('select[name="country_id"]').val();
+		var city = jQuery("#city").val();   
+		jQuery.ajax({
+	          type: "POST",
+	          url: '<?php echo $block->getBaseUrl().'naqel/index/getCity'; ?>',
+	          data:{country_id:country_id,city:city},
+	          //dataType: "json",
+	          showLoader: false,
+	          success: function(response) {				         
+	          	console.log(response);
+	          	if(response !=0)
+	          	{
+	          		
+	          		jQuery('#city').after('<div id="appendCity"></div>');
+                    jQuery('#city').removeAttr('name');
+                    //jQuery('#city').removeClass('required-entry');
+                    jQuery('#city').hide();
+                    jQuery('#appendCity').html(response);
+                    jQuery("#appendCity select").addClass('admin__control-select');
+	          	}else
+	          	{
+	          		jQuery('#appendCity').remove();
+                    jQuery('#city').attr('name','city');
+                    jQuery('#city').addClass('required-entry');
+                    jQuery('#city').show();
+	          	}
+	        }
+	 	});
+	}	
+</script>

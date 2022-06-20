@@ -1,0 +1,35 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Amasty\CashOnDelivery\Api\Data\PaymentFeeInterface" type="Amasty\CashOnDelivery\Model\PaymentFee" />
+    <preference for="Amasty\CashOnDelivery\Api\PaymentFeeRepositoryInterface" type="Amasty\CashOnDelivery\Model\Repository\PaymentFeeRepository" />
+    <preference for="Amasty\CashOnDelivery\Api\PaymentManagementInterface" type="Amasty\CashOnDelivery\Model\PaymentManagement" />
+
+    <!--set payment method to quote from extension attributes (magento set payment method while place order)-->
+    <type name="Magento\Checkout\Model\TotalsInformationManagement">
+        <plugin name="Amasty_CashOnDelivery::Model_TotalsInformationManagement" type="Amasty\CashOnDelivery\Plugin\Model\TotalsInformationManagementPlugin" />
+    </type>
+
+    <!--needed to disable js functions with disable our module in config-->
+    <type name="Magento\Framework\View\Page\Config\Renderer">
+        <plugin name="Amasty_CashOnDelivery::View_Page_Config_Renderer" type="Amasty\CashOnDelivery\Plugin\View\Page\Config\RendererPlugin" />
+    </type>
+
+    <!--compatibility with magento 2.2.3 (temando shipping)-->
+    <type name="Temando\Shipping\Observer\SaveCheckoutFieldsObserver">
+        <plugin name="Amasty_CashOnDelivery::Temando_Shipping_Observer_SaveCheckoutFieldsObserver" type="Amasty\CashOnDelivery\Plugin\Shipping\Observer\SaveCheckoutFieldsObserverPlugin" />
+    </type>
+
+    <!--compatibility with magento less then 2.2.4 version-->
+    <type name="Magento\Quote\Model\Cart\CartTotalRepository">
+        <plugin name="Amasty_CashOnDelivery::Cart_Total_Repository" type="Amasty\CashOnDelivery\Plugin\Cart\CartTotalRepositoryPlugin" />
+    </type>
+
+    <!--compatibility with magento less then 2.2.4 version-->
+    <type name="Magento\Framework\Api\DataObjectHelper">
+        <plugin name="Amasty_CashOnDelivery::Api_DataObjectHelper" type="Amasty\CashOnDelivery\Plugin\Framework\Api\DataObjectHelperPlugin"/>
+    </type>
+
+    <!--add statuses to order comment field in admin-->
+    <type name="Magento\Sales\Block\Adminhtml\Order\View\History">
+        <plugin name="Amasty_CashOnDelivery::Block_Adminhtml_Order_View_History" type="Amasty\CashOnDelivery\Plugin\Block\Adminhtml\Order\View\HistoryPlugin"/>
+    </type>
+</config>

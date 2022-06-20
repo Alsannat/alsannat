@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+
+    <head>
+        <css src="Magenest_GiftCard::css/giftcard.css"/>
+    </head>
+    <body>
+        <referenceContainer name="js">
+            <block class="Magenest\GiftCard\Block\Adminhtml\Catalog\Product\Edit\Js" name="price_scheme_edit_js" template="Magenest_GiftCard::catalog/product/edit/js.phtml"/>
+        </referenceContainer>
+
+    </body>
+</page>

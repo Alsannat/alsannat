@@ -1,0 +1,39 @@
+Index: Model/CouponForHistoryFactory.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Model/CouponForHistoryFactory.php b/Model/CouponForHistoryFactory.php
+--- a/Model/CouponForHistoryFactory.php	(revision 3fd85e7bfb3ecec69c7acb4daefe57c7e77954fe)
++++ b/Model/CouponForHistoryFactory.php	(date 1648818966207)
+@@ -86,6 +86,21 @@
+         $store = $this->storeManager->getStore($ruleQuote->getStoreId());
+         /** @var \Magento\SalesRule\Model\Rule $salesRule */
+         $salesRule = $this->salesRuleFactory->create();
++        $this->couponGenerator->setData(
++            [
++                'rule_id' => $salesRule->getId(),
++                'qty' => 1,
++                'length' => $this->scopeConfig->getValue('amasty_acart/general/coupon_length'),
++                'format' => 'alphanum',
++                'prefix' => '',
++                'suffix' => '',
++                'dash' => '0',
++                'uses_per_coupon' => $rule->getUsesPerCoupon(),
++                'usage_per_customer' => $rule->getUsesPerCustomer(),
++                'to_date' => '',
++            ]
++        );
++
+         $salesRule->setData(
+             [
+                 'name' => 'Amasty: Abandoned Cart Coupon #' . $ruleQuote->getCustomerEmail(),
+@@ -94,7 +109,7 @@
+                     $store->getWebsiteId()
+                 ],
+                 'customer_group_ids' => $rule->getCustomerGroupIds() ?: $this->getAllCustomerGroupIds(),
+-                'coupon_code' => strtoupper(uniqid()),
++                'coupon_code' => $this->couponGenerator->generateCode(),
+                 'uses_per_coupon' => 1,
+                 'coupon_type' => \Magento\SalesRule\Model\Rule::COUPON_TYPE_SPECIFIC,
+                 'from_date' => '',

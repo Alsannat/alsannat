@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="order_totals">
+            <block class="Magenest\GiftCard\Block\Sales\Order\Totals" name="giftcard_order_totals">
+                <action method="setBeforeCondition">
+                    <argument name="condition" xsi:type="string">giftcard</argument>
+                </action>
+            </block>
+        </referenceBlock>
+
+       <!-- <referenceBlock name="order_items">
+            <arguments>
+                <argument name="columns" xsi:type="array">
+                    <item name="giftcard" xsi:type="string" translate="true">Giftcard</item>
+                </argument>
+            </arguments>
+            <block class="Magenest\GiftCard\Block\Adminhtml\Items\Renderer" name="giftcard" template="items/giftcard.phtml" group="column"/>
+
+        </referenceBlock>-->
+        <referenceBlock name="order_item_extra_info">
+            <block class="Magenest\GiftCard\Block\Adminhtml\Items\Info" name="giftcard.info" template="items/giftcard.phtml" />
+
+        </referenceBlock>
+    </body>
+</page>

@@ -1,0 +1,101 @@
+<?php
+		$_product = $block->getProduct();
+		
+		$image1Text = $_product->getCustomAttribute('image1_text');
+		$image2Text = $_product->getCustomAttribute('image2_text');
+		$image1 = $_product->getCustomAttribute('image1');
+		$image2 = $_product->getCustomAttribute('image2');
+		$imageHelper = $this->helper('Evincemage\ProductAttributes\Helper\Data');
+		if(!is_null($image1))
+		{
+			$image1Name = $image1->getValue();
+			$image1Url = $imageHelper->getProductImageUrl($image1Name);
+		}
+		else
+		{
+			$image1Url = false;
+		}
+
+		if(!is_null($image2))
+		{
+			$image2Name = $image2->getValue();
+			$image2Url = $imageHelper->getProductImageUrl($image2Name);
+
+		}
+		else
+		{
+			$image2Url = false;
+		}
+
+		if(!is_null($image1Text))
+		{
+			$image1TextContent = $this->helper('Magento\Catalog\Helper\Output')->productAttribute($_product, $_product->getCustomAttribute('image1_text')->getValue(), 'image1_text');		
+		}
+		else
+		{
+			$image1TextContent = false;	
+		}
+
+		if(!is_null($image2Text))
+		{
+			$image2TextContent = $this->helper('Magento\Catalog\Helper\Output')->productAttribute($_product, $_product->getCustomAttribute('image2_text')->getValue(), 'image2_text');
+		}
+		else
+		{
+			$image2TextContent = false;
+		}
+
+		$showBlock = true;
+		if($image1Url==false&&$image2Url==false&&$image1TextContent==false&&$image2TextContent==false)
+		{
+			$showBlock = false;
+		}
+		
+?>
+<?php if($showBlock): ?>
+<div class="content-images-wrapper">
+	<div class="icon--arrow">
+		
+	</div>
+	<div class="main-content-wrapper" id="details_main_content" style="display: block;">
+		<div class="row-odd row-odd-one">
+			
+			<?php if($image1Url!=false): ?>
+				<div class="image-wrapper">
+					<img src="<?= $image1Url ?>">
+				</div>
+			<?php endif; ?>
+			<?php if($image1TextContent!=false): ?>
+				<div class="image-text-wrapper">
+					<?= $image1TextContent ?>
+				</div>
+			<?php endif; ?>
+		</div>
+		<div class="row-odd">
+			
+			<?php if($image2TextContent!=false): ?>
+			<div class="image-text-wrapper">
+				<?= $image2TextContent ?>
+			</div>
+			<?php endif; ?>
+			<?php if($image2Url!=false): ?>
+				<div class="image-wrapper">
+					<img src="<?= $image2Url ?>">
+				</div>
+			<?php endif; ?>	
+		</div>
+	</div>	
+</div>
+<script type="text/javascript">
+	require(['jquery'], function($)
+	{ 
+    	$(document).ready(function(){
+    		$("#collapsible_button").on("click", function(e){
+    			$(this).toggleClass("open-nav");
+    			$("#details_main_content").toggle();
+    		});
+    	})  
+ 	});		
+</script>
+<?php endif; ?>
+ 

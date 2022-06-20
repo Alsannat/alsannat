@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="cities" translate="label" sortOrder="1">
+            <label>City Manager</label>
+        </tab>
+        <section id="cscity" translate="label" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>General Settings</label>
+            <tab>cities</tab>
+            <resource>Ced_City::system_config</resource>
+            <group id="general" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Settings</label>
+                <field id="import" translate="label"  type="Ced\City\Block\Adminhtml\System\Config\Import" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Import</label>
+                    <backend_model>Ced\City\Model\System\Config\City</backend_model>
+                </field>
+            </group>
+        </section>
+        <section id="carriers" translate="label" type="text" sortOrder="320" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="flatrate" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="sallowspecificcity" translate="label" type="select" sortOrder="92" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Ship to Applicable City</label>
+                    <frontend_class>shipping-applicable-city</frontend_class>
+                    <source_model>Ced\City\Model\Config\Source\Allspecificcity</source_model>
+                </field>
+                <field id="specificcity" translate="label" type="multiselect" sortOrder="92" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Ship to Specific city</label>
+                    <source_model>Ced\City\Model\Config\Source\City</source_model>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+            </group>
+            <group id="flatrate1" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="sallowspecificcity" translate="label" type="select" sortOrder="21" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Ship to Applicable City</label>
+                    <frontend_class>shipping-applicable-city</frontend_class>
+                    <source_model>Ced\City\Model\Config\Source\Allspecificcity</source_model>
+                </field>
+                <field id="specificcity" translate="label" type="multiselect" sortOrder="22" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Ship to Specific city</label>
+                    <source_model>Ced\City\Model\Config\Source\City</source_model>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+            </group>
+            <group id="flatrate2" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="sallowspecificcity" translate="label" type="select" sortOrder="21" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Ship to Applicable City</label>
+                    <frontend_class>shipping-applicable-city</frontend_class>
+                    <source_model>Ced\City\Model\Config\Source\Allspecificcity</source_model>
+                </field>
+                <field id="specificcity" translate="label" type="multiselect" sortOrder="22" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Ship to Specific city</label>
+                    <source_model>Ced\City\Model\Config\Source\City</source_model>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

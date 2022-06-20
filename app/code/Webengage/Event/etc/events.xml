@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+
+   <event name="checkout_cart_product_add_after">
+       <observer name="webengage_event_observer_checkoutcartproductaddafterwe" instance="Webengage\Event\Observer\Checkoutcartproductaddafterwe" />
+   </event>
+
+   <event name="sales_quote_remove_item">
+       <observer name="webengage_event_observer_salesquoteremoveitemwe" instance="Webengage\Event\Observer\Salesquoteremoveitemwe" />
+   </event>
+
+   <event name="catalog_controller_product_view">
+       <observer name="webengage_event_observer_catalogcontrollerproductviewwe" instance="Webengage\Event\Observer\Catalogcontrollerproductviewwe" />
+   </event>
+
+   <event name="wishlist_add_product">
+       <observer name="webengage_event_observer_wishlistaddproductwe" instance="Webengage\Event\Observer\Wishlistaddproductwe" />
+   </event>
+
+   <event name="catalog_product_compare_add_product">
+       <observer name="webengage_event_observer_catalogproductcompareaddproductwe" instance="Webengage\Event\Observer\Catalogproductcompareaddproductwe" />
+   </event>
+
+   <event name="customer_register_success">
+       <observer name="webengage_event_observer_customerregistersuccesswe" instance="Webengage\Event\Observer\Customerregistersuccesswe" />
+   </event>
+
+   <event name="layout_render_before">
+       <observer name="webengage_event_observer_layoutrenderbeforewe" instance="Webengage\Event\Observer\Layoutrenderbeforewe" />
+   </event>
+
+   <event name="checkout_onepage_controller_success_action">
+       <observer name="webengage_event_observer_guestcheckoutsuccess" instance="Webengage\Event\Observer\Guestcheckoutsuccess" />
+   </event>
+
+    <event name="customer_login">
+       <observer name="webengage_event_observer_customerloginwe" instance="Webengage\Event\Observer\Customerloginwe" />
+   </event>
+
+    <event name="customer_address_save_after">
+        <observer name="webengage_event_observer_customersaveaddresswe" instance="Webengage\Event\Observer\Customersaveaddresswe" />
+    </event>
+
+   <event name="customer_logout">
+       <observer name="webengage_event_observer_customerlogoutwe" instance="Webengage\Event\Observer\Customerlogoutwe" />
+   </event>
+
+   <event name="sales_order_place_after">
+       <observer name="webengage_event_observer_salesorderplaceafterwe" instance="Webengage\Event\Observer\Salesorderplaceafterwe" />
+   </event>
+
+    <event name="controller_action_predispatch_checkout_cart_couponPost">
+        <observer name="webengage_event_observer_applycouponcode" instance="Webengage\Event\Observer\Applycouponcode" />
+    </event>
+
+
+</config>

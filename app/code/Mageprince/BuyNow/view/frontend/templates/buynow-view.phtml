@@ -1,0 +1,116 @@
+<?php
+/**
+ * MagePrince
+ * Copyright (C) 2020 Mageprince <info@mageprince.com>
+ *
+ * @package Mageprince_BuyNow
+ * @copyright Copyright (c) 2020 Mageprince (http://www.mageprince.com/)
+ * @license http://opensource.org/licenses/gpl-3.0.html GNU General Public License,version 3 (GPL-3.0)
+ * @author MagePrince <info@mageprince.com>
+ */
+?>
+<?php /** @var \Magento\Catalog\Block\Product\View $block */ ?>
+<?php $helper = $this->helper(\Mageprince\BuyNow\Helper\Data::class); ?>
+<?php $formId = $helper->getAddToCartFormId(); ?>
+<?php $buttonTitle = $helper->getButtonTitle() ?>
+<div class="buynow-button">
+    <button type="submit"
+            title="<?= $block->escapeHtml(__($buttonTitle)) ?>"
+            id="buy-now"
+            class="action primary buy-now-btn action primary buy-now-btn apple-pay-button action primary checkout ap-cart "
+            data-mage-init='
+            {
+                "Mageprince_BuyNow/js/buy-now": {
+                    "form": "#<?= $block->escapeHtml($formId); ?>"
+                }
+            }
+            '>
+    </button>
+</div>
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+
+$cart = $objectManager->get('\Magento\Checkout\Model\Cart');
+$cart_id=$cart->getQuote()->getId();
+if($cart_id != ""){
+  $values = $block->getLayout()->createBlock('Magento\Checkout\Block\Onepage')->getCheckoutConfig();
+}else{
+  $quote = $objectManager->get('\Magento\Checkout\Model\Cart');
+  $quote->save();
+  //$cartObject->saveQuote();
+  //  print_r($values = $block->getLayout()->createBlock('Magento\Checkout\Block\Onepage')->getCheckoutConfig());
+    $values = $block->getLayout()->createBlock('Magento\Checkout\Block\Onepage')->getCheckoutConfig();
+  }
+?>
+<script type="text/javascript">
+    window.checkoutConfig = <?php echo \Zend_Json::encode($values); ?>;
+    <?php if(empty($values)): ?>
+      var method = "checkoutcom_magento2";
+      window.checkoutConfig.payment = [];
+      window.checkoutConfig.payment["checkoutcom_magento2"] = '';
+      //window.checkoutConfig.payment.push(method);
+      console.log(window.checkoutConfig.payment["checkoutcom_magento2"]);
+      window.checkoutConfig.payment["checkoutcom_magento2"].checkoutcom_configuration = [];;
+      window.checkoutConfig.totalsData = '';
+      window.checkoutConfig.totalsData['grand_total'] = 10;
+
+    <?php endif; ?>
+</script>
+<script>
+require([
+    "jquery"
+], function (
+    $
+) {
+    $(function () {
+
+            var buttonBuynow = "#buy-now";
+            //console.log("test " + window.ApplePaySession);
+            if (typeof window.ApplePaySession === "undefined") {
+                $(buttonBuynow).css("display", "none");
+                //$(buttonBuynow).removeClass("safari");
+            }else{
+               $(buttonBuynow).parents(".actions").addClass('safari');
+            }
+
+
+    });
+});
+
+</script>
+<style>
+.actions.safari #buy-now { display: none; height: 60px !important; border-radius: 6px; border-color: #1a1a1a; color: #fff; background-color: #1a1a1a;float: none; }
+.actions.safari .buynow-button {margin-top: 10px; }
+.actions.safari .buynow-button {overflow: hidden; }
+.actions.safari div p{text-align: center;
+    color: #33313b;
+    font-size: 15px;
+    padding: 10px 0 0;
+    margin: 0;}
+@media (max-width: 767px){
+
+	.actions.safari #buy-now {
+    height: 40px !important;
+    width: 100% !important;
+    max-width: 100%;
+    min-width: 100%;
+
+}
+.actions.safari .buynow-button {
+    width: 44%;    vertical-align: middle;
+    display: inline-block;
+ margin-top: 0px;
+}
+
+.actions.safari #product-addtocart-button {
+    width: 48%;    vertical-align: middle;
+}
+  .actions.safari {
+    padding-left: 40px !important;
+  }
+}
+#ckoApplePayButton{
+  display: none !important;
+}
+
+</style>

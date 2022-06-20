@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="custom_cities" translate="label" sortOrder="800">
+            <label>City and Region Manager</label>
+        </tab>
+        <section id="city" translate="label" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>General Settings</label>
+            <tab>custom_cities</tab>
+            <resource>Custom_City::system_config</resource>
+            <group id="general" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Settings</label>
+                <field id="enabled" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable in frontend</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="citynotinlist" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>City not in list link</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Show or hide city not in list link below city dropdown, if user's desired city is not available in city dropdown list then he can add value in text field by clicking on this link.</comment>
+                </field>
+                <field id="citynotinlist_title" translate="label comment" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>City not in list link title</label>
+                    <comment>Title of city not in list link.</comment>
+                </field>
+                <field id="zipnotinlist" translate="label" type="select" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Zip not in list link</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Show or hide zip not in list link below zip dropdown, if user's desired zip is not available in zip dropdown list then he can add value in text field by clicking on this link.</comment>
+                </field>
+                <field id="zipnotinlist_title" translate="label comment" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Zip not in list link title</label>
+                    <comment>Title of zip not in list link.</comment>
+                </field>
+                <field id="is_state_available" translate="label" type="select" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Is State Available/Exist On Website</label>
+                    <comment>Select "Yes" if state is exist or available on your website checkout frontend, if it is not available then select "No" option</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

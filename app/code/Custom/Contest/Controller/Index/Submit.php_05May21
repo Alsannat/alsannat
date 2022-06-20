@@ -1,0 +1,84 @@
+<?php
+ 
+namespace Custom\Contest\Controller\Index;
+ 
+use Magento\Framework\App\Action\Context;
+use Magento\Framework\View\Result\PageFactory;
+use Custom\Contest\Model\ContestFactory;
+use Magento\Framework\Controller\ResultFactory;
+use Webengage\Event\Helper\Data;
+ 
+class Submit extends \Magento\Framework\App\Action\Action
+{
+    protected $resultPageFactory;
+    protected $contestfactory;
+ 
+    public function __construct(
+        Context $context,
+        PageFactory $resultPageFactory,
+        ContestFactory $contestfactory
+    )
+    {
+        $this->resultPageFactory = $resultPageFactory;
+        $this->contestfactory = $contestfactory;
+        parent::__construct($context);
+    }
+ 
+    public function execute()
+    {
+        try {
+            $data = (array)$this->getRequest()->getPost();
+            $email=$this->getRequest()->getPost('email');
+            $mobile=$this->getRequest()->getPost('phone_no');
+            $model = $this->contestfactory->create();
+            $check_email=$model->getCollection()
+            ->addFieldToFilter('email', $email);
+            $check_mobile=$model->getCollection()
+            ->addFieldToFilter('phone_no', $mobile);
+            if(count($check_email) || count($check_mobile)){
+                $this->messageManager->addErrorMessage(__("your email id or mobile number is already exist."));
+                $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
+                $resultRedirect->setUrl($this->_redirect->getRefererUrl());
+                  return $resultRedirect;
+            }
+          
+            if ($data) {
+                $model = $this->contestfactory->create();
+                $model->setData($data)->save();
+                $this->messageManager->addSuccessMessage(__("You have participated Successfully!"));
+
+                /*$prepareJson = array(
+                        'event_name' => 'Contest Form',
+                        'event_data' => array(
+                            'we_first_name' => isset($data['first_name']) ? $data['first_name'] : "",
+                            'fatherName' => isset($data['father_name']) ? $data['father_name'] : "",
+                            'we_last_name' => isset($data['last_name']) ? $data['last_name'] : "",
+                            'we_phone' => isset($data['phone_no']) ? (int)$data['phone_no'] : "",
+                            'we_email' => isset($data['email']) ? $data['email'] : "",
+                            'gender' => isset($data['gender']) ? $data['gender'] : "",
+                            'city' => isset($data['city']) ? $data['city'] : "",
+                            'nationality' => isset($data['nationality']) ? $data['nationality'] : "",
+                            'aboutUs' => isset($data['about_us']) ? $data['about_us'] : "",
+                            'ageGroup' => isset($data['age_group']) ? $data['age_group'] : ""
+                    )
+                );*/
+                /*$prepareJson = array(
+                        'event_name' => 'Contest Form',
+                        'event_data' => array(
+                            'we_email' => 'john@doe.com'
+                    )
+                );*/
+
+                /*Calling WE API*/
+                //$this->helper->apiCallToWebengage($prepareJson);
+                /*Calling WE API*/
+            }
+        } catch (\Exception $e) {
+            $this->messageManager->addErrorMessage($e, __("We can\'t submit your request, Please try again."));
+        }
+        $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
+        $resultRedirect->setUrl('/contest-success');
+        return $resultRedirect;
+ 
+    }
+}

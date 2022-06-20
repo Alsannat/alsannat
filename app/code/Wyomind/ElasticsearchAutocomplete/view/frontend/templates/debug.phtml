@@ -1,0 +1,56 @@
+<?php
+$themeHelper = $this->helper('Wyomind\ElasticsearchCore\Helper\Theme');
+$configHelper = $this->helper('Wyomind\ElasticsearchCore\Helper\Config');
+$dataHelper = $this->helper('Wyomind\ElasticsearchCore\Helper\Data');
+$storeId = $dataHelper->getCurrentStoreId();
+if ($configHelper->canUseElasticsearchAutocomplete($storeId)) :
+?>
+
+<script>
+    require(['jquery'], function ($) {
+        $(document).on('click', '.ea-debug h3.title', function () {
+            $('.ea-debug').toggleClass('visible');
+        })
+    });
+</script>
+
+<div class="ea-debug <?php echo $themeHelper->getThemeModel() == "Infortis/ultimo" ? "ultimo" : "" ?>">
+    <h3 class="title">Elasticsearch Autocomplete</h3>
+    <div id="ea-debug">
+        <span><span class="ea-debug-label">Cache?</span></span><br/>
+        <span><span class="ea-debug-label">Elasticsearch?</span></span><br/>
+        <span><span class="ea-debug-label">PHP time:</span><span></span></span><br/>
+        <span><span class="ea-debug-label">Request time:</span><span></span></span><br/>
+        <span><span class="ea-debug-label">Rendering time:</span><span></span></span><br/>
+        <span><span class="ea-debug-label">Total time:</span><span></span></span>
+        <br/>
+        <span id="ea-debug-enable-template-hints"><a href="#" class="ea-debug-label">Enable Template Hints</a></span>
+        <br/>
+        <span id="ea-debug-show-last-request-data"><a href="#" class="ea-debug-label">Show Last Request Data</a></span>
+    </div>
+</div>
+<div id="ea-debug-show-last-request-data-modal"></div>
+
+<script>
+    require(['jquery', 'jquery-ui-modules/widget', 'Magento_Ui/js/modal/modal', "elasticsearchcore_jsonview"], function ($) { // force load of jsonview and modal for later use
+        $(".ea-debug").draggable();
+    });
+</script>
+
+<script id="ea-debug-template" type="text/x-magento-template">
+    <span><span class="ea-debug-label">Cache?</span><% if (fromCache) { %><span class="ea-debug-yes">Yes</span><% } else { %><span class="ea-debug-no">No</span><% } %></span><br/>
+    <span><span class="ea-debug-label">Elasticsearch?</span><% if (!fromCache) { %><span class="ea-debug-yes">Yes</span><% } else { %><span class="ea-debug-no">No</span><% } %></span><br/>
+    <% if (fromCache) { %>
+    <span><span class="ea-debug-label">Cache Id:</span><span><%= cacheHash %></span></span><br/>
+    <% } %>
+    <span><span class="ea-debug-label">PHP time:</span><span><%= phpTime %> ms</span></span><br/>
+    <span><span class="ea-debug-label">Request time:</span><span><%= requestTime %> ms</span></span><br/>
+    <span><span class="ea-debug-label">Rendering time:</span><span><%= renderingTime %> ms</span></span><br/>
+    <span><span class="ea-debug-label">Total time:</span><span><%= totalTime %> ms</span></span>
+    <br/>
+    <span id="ea-debug-enable-template-hints" <% if (templateHintsEnabled) { %>style="display:none"<% } %>><a href="#" class="ea-debug-label">Enable Template Hints</a></span>
+    <span id="ea-debug-disable-template-hints" <% if (!templateHintsEnabled) { %>style="display:none"<% } %>><a href="#" class="ea-debug-label">Disable Template Hints</a></span>
+    <br/>
+    <span id="ea-debug-show-last-request-data"><a href="#" class="ea-debug-label">Show Last Request Data</a></span>
+</script>
+<?php endif;

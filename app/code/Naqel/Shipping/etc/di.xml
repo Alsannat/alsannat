@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<virtualType name="NaqelShippingGridFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+		<arguments>
+			<argument name="appliers" xsi:type="array">
+				<item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+				<item name="fulltext" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter</item>
+			</argument>
+		</arguments>
+	</virtualType>
+	<virtualType name="NaqelShippingGridDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+		<arguments>
+			<argument name="collection" xsi:type="object" shared="false">Naqel\Shipping\Model\ResourceModel\Shipping\Collection</argument>
+			<argument name="filterPool" xsi:type="object" shared="false">NaqelShippingGridFilterPool</argument>
+		</arguments>
+	</virtualType>
+	<virtualType name="Naqel\Shipping\Model\ResourceModel\Shipping\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">naqel_shipping_naqel_city</argument>
+			<argument name="resourceModel" xsi:type="string">Naqel\Shipping\Model\ResourceModel\Shipping</argument>
+		</arguments>
+	</virtualType>
+	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+		<arguments>
+			<argument name="collections" xsi:type="array">
+				<item name="naqel_shipping_index_listing_data_source" xsi:type="string">Naqel\Shipping\Model\ResourceModel\Shipping\Grid\Collection</item>
+			</argument>
+		</arguments>
+	</type>
+    
+    <type name="Naqel\Shipping\Logger\Handler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="Naqel\Shipping\Logger\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">naqelLogger</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">Naqel\Shipping\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+      <type name="Magento\Framework\View\Element\UiComponent\DataProvider\Reporting">
+        <plugin name="sales_grid_collection" type="\Naqel\Shipping\Model\Plugin\Sales\Order\Grid"/>
+    </type>
+    
+    <!--<type name="Magento\Framework\View\Element\UiComponent\DataProvider\Reporting">
+        <plugin name="sales_grid_collection" type="\Naqel\Shipping\Model\Plugin\Sales\Order\Grid"/>
+    </type>
+     <virtualType name="Magento\Sales\Model\ResourceModel\Order\Grid" type="Magento\Sales\Model\ResourceModel\Grid">
+        <arguments>
+            <argument name="columns" xsi:type="array">
+                <item name="custom_column" xsi:type="string">sales_order.waybill_no</item>
+            </argument>
+        </arguments>
+    </virtualType>-->
+</config>

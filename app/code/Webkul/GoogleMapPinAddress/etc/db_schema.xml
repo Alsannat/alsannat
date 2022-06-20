@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_GoogleMapPinAddress
+ * @author    Webkul Software Private Limited
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+  <table name="quote_address" resource="default">
+    <column xsi:type="decimal" name="latitude" scale="4" precision="10" unsigned="false" nullable="true" comment="latitude of address"/>
+    <column xsi:type="decimal" name="longitude" scale="4" precision="10" unsigned="false" nullable="true" comment="longitude of address"/>
+  </table>
+  <table name="sales_order_address" resource="default">
+    <column xsi:type="decimal" name="latitude" scale="4" precision="10" unsigned="false" nullable="true" comment="latitude of address"/>
+    <column xsi:type="decimal" name="longitude" scale="4" precision="10" unsigned="false" nullable="true" comment="longitude of address"/>
+  </table>
+</schema>

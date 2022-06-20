@@ -1,0 +1,38 @@
+<div class="vpb-im-container" visible="getCurrentMediaElm()" afterRender="bindScrollEvent.bind($data)" data-bind="attr: {id: getFieldId()}">
+	<div class="vpb-im-mask"></div>
+	<div class="animated zoomIn vpb-im-box">
+		<div class="vpb-im-header">
+			<h3 class="vpb-im-title" data-bind="text: $t('Change Image')"></h3>
+			<div class="vpb-im-menu">
+				<ul>
+					<li class="first" data-bind="click: setMyImageTab.bind($data), css: isMyImageTab()?'active':''"><span data-bind="text: $t('My Images')"></span></li>
+					<li data-bind="click: setWebUrlTab.bind($data), css: isWebUrlTab()?'active':''"><span data-bind="text: $t('Web Address (URL)')"></span></li>
+				</ul>
+			</div>
+			<div class="vpb-im-close" data-bind="click: close.bind($data)"><i class="fa fa-close"></i></div>
+			<div class="file-uploader vpb-im-uploader" css="_loading: isLoading">
+				<div class="file-uploader-area">
+	                <input type="file" afterRender="onElementRender" attr="id: uid, multiple: isMultipleFiles" name="pagebuilder_image" disable="disabled" />
+	                <label class="file-uploader-button action-default" attr="for: uid" translate="'Upload'"/>
+	
+	                <span class="file-uploader-spinner"/>
+	                <render args="fallbackResetTpl" if="$data.showFallbackReset && $data.isDifferedFromDefault"/>
+	            </div>
+			</div>
+		</div>
+		<div class="vpb-im-content">
+			<div class="vpb-im-drop-zone" css="_loading: isLoading" visible="isMyImageTab()">
+				<each args="data: getImages(), as: '$file'" render="$parent.getPreviewTmpl($file)"/>
+			</div>
+
+			
+			<!-- ko if: isWebUrlTab() -->
+				You are viewing weburl tab
+			<!-- /ko -->
+			
+		</div>
+		<div class="vpb-im-footer">
+			<button class="scalable apply primary" click="applySelectedImage.bind($data)"><span data-bind="text: $t('Apply')"></span></button>
+		</div>
+	</div>
+</div>

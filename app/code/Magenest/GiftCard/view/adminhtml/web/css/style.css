@@ -1,0 +1,27 @@
+#template_saved_images_main img {
+    width:100px;
+    height:100px;
+    margin:5px;
+    border:solid 2px lightblue;
+}
+
+#template_saved_images_main img.selected {
+    border:dashed 2px red !important;
+}
+#template_saved_images_background img {
+    width:100px;
+    height:100px;
+    margin:5px;
+    border:solid 2px lightblue;
+}
+
+#template_saved_images_background img.selected {
+    border:dashed 2px red !important;
+}
+
+.resolution {
+    padding-left: 20px;
+}
+.price-giftcard-selector {
+    margin: 10px;
+}

@@ -1,0 +1,29 @@
+<div class="vpb-component-container" data-bind="
+	visible: isActive,
+	css:editable?(isMouseOver()?'vpb-component-editable hover':'vpb-component-editable'):''
+">
+    <table class="pdf-totals-tbl">
+        <tbody>
+            <tr>
+                <td class="pdf-totals-label" data-bind="i18n: 'Subtotal'"></td>
+                <td class="pdf-totals-value 11">$9,175.94</td>
+            </tr>
+            <tr>
+                <td class="pdf-totals-label" data-bind="i18n: 'Tax'"></td>
+                <td class="pdf-totals-value 11">$242.00</td>
+            </tr>
+            <tr>
+                <td class="pdf-totals-label" data-bind="i18n: 'Shipping &amp; Handling'"></td>
+                <td class="pdf-totals-value 11">$10.00</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td class="pdf-totals-label" data-bind="i18n: 'Grand Total:'"></td>
+                <td class="pdf-totals-value 11">$9,427.94</td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div class="vpb-component-info" data-bind="text: id+':'+label"></div>
+</div>

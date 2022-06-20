@@ -1,0 +1,18 @@
+<table class="pdf-totals-tbl 456">
+	<tbody>
+		{{foreach creditmemo.totals.body as total}}
+		<tr>
+			<td class="pdf-totals-label 111">{{var total.label}}</td>
+			<td class="pdf-totals-value">{{var total.value}}</td>
+		</tr>
+		{{/foreach}}
+	</tbody>
+	<tfoot>
+		{{foreach creditmemo.totals.footer as total}}
+		<tr>
+			<td class="pdf-totals-label 222">{{var total.label}}</td>
+			<td class="pdf-totals-value">{{var total.value}}</td>
+		</tr>
+		{{/foreach}}
+	</tfoot>
+</table>

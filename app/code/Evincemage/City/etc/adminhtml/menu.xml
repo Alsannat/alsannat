@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Evincemage_City::manager" title="Courier Manager" module="Evincemage_City" sortOrder="10" resource="Evincemage_City::manager" />
+        <add id="Evincemage_City::add_row" title="City Manager" module="Evincemage_City" sortOrder="20" parent="Evincemage_City::manager" action="grid/grid" resource="Evincemage_City::add_row"/>
+        <add id="Evincemage_City::add_district" title="District Manager" module="Evincemage_City" sortOrder="21" parent="Evincemage_City::manager" action="grid/grid" resource="Evincemage_City::add_district"/>
+    </menu>
+</config>

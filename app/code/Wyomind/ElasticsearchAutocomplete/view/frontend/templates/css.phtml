@@ -1,0 +1,58 @@
+<?php
+$designHelper = $this->helper('Wyomind\ElasticsearchCore\Helper\Design');
+$dataHelper = $this->helper('Wyomind\ElasticsearchCore\Helper\Data');
+$storeId = $dataHelper->getCurrentStoreId();
+
+$overlayEnabled = $designHelper->getOverlayEnabled($storeId);
+$transitionEnabled = $designHelper->getTransitionEnabled($storeId);
+$delay = $designHelper->getTransitionDuration($storeId) . "s";
+
+$blurEnabled = $designHelper->getBlurEnabled($storeId);
+
+?>
+
+<style>
+    <?php if ($transitionEnabled): ?>
+
+    body div.ea-overlay {
+        transition: opacity <?= /* @noEscape */ $delay ?> ease, height 0s ease;
+        transition-delay: 0s,<?= /* @noEscape */ $delay ?>;
+    }
+
+    body div.ea-search-autocomplete {
+        transition: opacity <?= /* @noEscape */ $delay ?> ease;
+        transition-delay: 0s;
+    }
+
+    body.ea-autocomplete div.ea-overlay,
+    body.ea-autocomplete div.ea-search-autocomplete {
+        transition: height 0s ease, opacity <?= /* @noEscape */ $delay ?> ease;
+        transition-delay: 0s, 0s;
+    }
+
+    <?php endif; ?>
+
+    <?php if ($overlayEnabled): ?>
+
+    body.ea-autocomplete div.ea-overlay {
+        opacity: 1;
+        overflow: inherit;
+        height: 100%;
+    }
+
+    body.ea-autocomplete {
+        overflow: hidden;
+    }
+
+    <?php endif; ?>
+
+    <?php if ($blurEnabled): ?>
+    body.ea-autocomplete .nav-sections,
+    body.ea-autocomplete .breadcrumbs,
+    body.ea-autocomplete #maincontent {
+        filter: blur(2px);
+    }
+
+    <?php endif; ?>
+
+</style>

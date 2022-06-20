@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Backend/etc/menu.xsd">
+    <menu>
+        <add id="naqel_shipping::core" title="Naqel Shipping" module="Naqel_Shipping" sortOrder="70" resource="Naqel_Shipping::sample"/>
+        <add id="naqel_shipping::addcity" title="Add City" module="Naqel_Shipping" sortOrder="10" parent="naqel_shipping::core" action="naqel_shipping/items/" resource="Naqel_Shipping::add_city"/>
+        <add id="naqel_shipping::bulkcity" title="Upload Bulk City" module="Naqel_Shipping" sortOrder="20" parent="naqel_shipping::core" action="naqel_shipping/bulkcity/index" resource="Naqel_Shipping::bulk_upload_city"/>
+    </menu>
+</config>

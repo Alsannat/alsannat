@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="MGS_Popup::css/mgs_popup.css" media="all"/>
+		<script src="MGS_Popup::js/mgs_popup.js"/>
+    </head>
+	<body>
+		<referenceContainer name="before.body.end">
+			<block class="MGS\Popup\Block\Popup" name="mgs.popup" template="MGS_Popup::mgs_popup.phtml"/>
+		</referenceContainer>
+	</body>
+</page>

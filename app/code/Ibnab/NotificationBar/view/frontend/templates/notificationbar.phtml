@@ -1,0 +1,201 @@
+<?php $dataHelper = $block->getHelper(); ?>
+<?php if ($this->getAllowGlobal()): ?>
+    <div class="headertopfix" id="myHeadertopfix">
+        <div class="ourbarfix">
+            <p>
+                <?php echo $this->getContent(); ?> 
+            </p>
+            <?php if ($dataHelper->getAllowClosed() == 1): ?>
+                <span class="topfix-close">
+                    <a title="<?php echo __('dismiss this notification'); ?>">×</a>
+                </span>
+            <?php endif; ?>            
+        </div>
+    </div>
+    <?php if ($dataHelper->getDefaultStyling() == 1): ?>
+        <style>
+            /* Style the header */
+            .headertopfix {
+                padding: 10px 55px;
+                background: #555;
+                color: #f1f1f1;
+                text-align:center;
+                background-color: #000080;
+                position: relative;
+            }
+            .headertopfix .second{
+                color: #FF0000;
+            }
+            .headertopfix .first{
+                color: #FFFFFF;
+            }
+            .headertopfix .ourbarfix > p{
+                font-size: 10px;
+                font-family: 'LoewNext Bold';
+                margin-bottom: 0;
+                margin-bottom: 2px;
+                margin-top: 0px;
+            }
+            /* Page content */
+            .contenttopfix {
+                padding: 16px;
+
+            }
+            <?php if($dataHelper->getFixedNotificationBar()): ?>
+            /* The sticky class is added to the header with JS when it reaches its scroll position */
+            .stickytopfix {
+                position: fixed;
+                top: 0;
+                width: 100%;
+                z-index: 1000;
+            }
+ 
+            /* Add some top padding to the page content to prevent sudden quick movement (as the header gets a new position at the top of the page (position:fixed and top:0) */
+            .stickytopfix + .contenttopfix {
+                padding-top: 102px;
+            }
+            <?php endif; ?>
+            .headertopfix span.topfix-close { 
+                border: 2px solid #fff;
+                cursor: pointer;
+                display: block;
+                margin-right: 20px;
+                padding: 0;
+                height: 28px;
+                width: 28px;
+                line-height: 20px;
+                text-decoration: none; 
+                position: absolute;
+                top: 50%;
+                right: 0;
+                transform: translateY(-50%);
+                
+            }
+            .headertopfix .topfix-close a:after{
+                content: '';
+                height: 12px;
+                width: 12px;
+                display: block;
+                background: url(https://staging.alsannat.com/media/close-white.png) no-repeat center;
+            }
+            .headertopfix .topfix-close a { 
+                text-decoration: none; 
+                color: #fff; 
+                font-size: 0px;
+                display: -webkit-box;
+                display: -webkit-flex;
+                display: -ms-flexbox;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100%;
+            }
+            .headertopfix .topfix-close a:hover { 
+                text-decoration: none; 
+            }
+            @media screen and (min-color-index:0) and(-webkit-min-device-pixel-ratio:0)
+            { @media {
+               .headertopfix .ourbarfix > p{
+                    
+                    margin-bottom: 0px;
+                    margin-top: 2px;
+                }
+            }}
+            /*responsive*/
+            @media (max-width: 1199px){
+                
+                .headertopfix span.topfix-close{
+                    height: 26px;
+                    width: 26px;
+                    line-height: 19px;
+                }
+            }
+            @media (max-width: 991px){
+                .headertopfix{
+                    position: relative;
+                    padding: 10px 35px;
+                }
+                .headertopfix .first,
+                .headertopfix .second{
+                    display: block;
+                }
+                .headertopfix span.topfix-close{
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+                    margin-right: 0;
+                    transform: none;
+                }
+            }
+            @media (max-width: 767px){
+                
+                .headertopfix span.topfix-close{
+                    height: 20px;
+                    width: 20px;
+                    line-height: 12px;
+                }
+                .headertopfix .topfix-close a:after{
+                    height: 8px;
+                    width: 8px;
+                }
+
+            }
+        </style>
+    <?php endif; ?>
+    <script>
+
+        require([
+            'jquery',
+            'jquery/jquery.cookie'
+        ], function ($) {
+            window.onscroll = function () {
+                topfixFunction()
+            };
+
+    // Get the header
+            var header = document.getElementById("myHeadertopfix");
+    // Get the offset position of the navbar
+            var sticky = header.offsetTop;
+    <?php if ($dataHelper->getAllowClosed() == 1): ?>
+                $('.headertopfix .topfix-close').on("click", function () {
+                    //$.cookie("<?php echo $block::COOKIE_TNF; ?>", 1, {path: '/', expires: new Date((new Date()).getTime() + <?php echo $dataHelper->getAllowClosedSecond() ?> * 1000)});
+                    createCookie('<?php echo $block::COOKIE_TNF; ?>', 1,<?php echo $dataHelper->getAllowClosedSecond() ?>);
+                    $(".headertopfix").fadeOut(100, "linear");
+                });
+    <?php endif; ?>
+            /*
+            function readCookie(name) {
+                var nameEQ = name + '=';
+                var ca = document.cookie.split(';');
+                for (var i = 0; i < ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0) == ' ')
+                        c = c.substring(1, c.length);
+                    if (c.indexOf(nameEQ) == 0)
+                        return c.substring(nameEQ.length, c.length);
+                }
+                return null;
+            }*/
+            function createCookie(name, value, days) {
+                if (days) {
+                    var date = new Date();
+                    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                    var expires = ';expires=' + date.toGMTString();
+                }
+                else
+                    var expires = '';
+                document.cookie = name + '=' + value + expires + '; path=/';
+            }
+
+    // Add the sticky class to the header when you reach its scroll position. Remove "sticky" when you leave the scroll position
+            function topfixFunction() {
+                if (window.pageYOffset > sticky) {
+                    header.classList.add("stickytopfix");
+                } else {
+                    header.classList.remove("stickytopfix");
+                }
+            }
+        });
+
+    </script>
+<?php endif; ?>

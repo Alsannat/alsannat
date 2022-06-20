@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Magenest_GiftCard::css/giftcard.css"/>
+    </head>
+    <body>
+        <referenceBlock name="product_tabs">
+            <action method="addTab">
+                <argument name="name" xsi:type="string">giftcard</argument>
+                <argument name="block" xsi:type="string">Magenest\GiftCard\Block\Adminhtml\Catalog\Product\Edit\Tab\Giftcard</argument>
+            </action>
+        </referenceBlock>
+        <referenceContainer name="js">
+            <block class="Magenest\GiftCard\Block\Adminhtml\Catalog\Product\Edit\Js" name="price_scheme_edit_js" template="Magenest_GiftCard::catalog/product/edit/js.phtml"/>
+        </referenceContainer>
+
+       <!-- <referenceContainer name="js">
+            <block class="Magenest\Booking\Block\Adminhtml\Catalog\Product\Edit\Tab\Booking" name="product_js" template="app/code/Magenest/GiftCard/view/adminhtml/templates/catalog/product/edit/js.phtml:12" />
+        </referenceContainer>-->
+    </body>
+</page>

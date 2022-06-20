@@ -1,0 +1,29 @@
+<?php
+$dataHelper = $this->helper('Wyomind\ElasticsearchCore\Helper\Data');
+$configHelper = $this->helper('Wyomind\ElasticsearchAutocomplete\Helper\Config');
+$storeId = $dataHelper->getCurrentStoreId();
+$labels = $configHelper->getLabels($storeId);
+?>
+<script id="ea-cms-template" type="text/x-magento-template">
+    <% if (enabled && (displayEmpty === "1" || count > 0)) { %>
+    <span class="section wyomind-primary-bgcolor">
+        <span class="section-name"><%= title %></span>
+        <span aria-hidden="true" class="section-amount"><%= count %></span>
+    </span>
+    <div class="ea-cms-grid wyomind-bg-secondary <% if (count == 0) { %>no-result<% } %>">
+        <% _.each(cms, function(doc) { %>
+        <div class="ea-cms">
+            <a href="<%= _.getBaseUrl() + doc.identifier %>">
+                <div class="info">
+                    <span class="name"><%= doc.title %></span>
+                </div>
+            </a>
+        </div>
+        <% }) %>
+        <% if (count == 0) { %>
+        <?= /* @noEscape */ $labels['no_cms'] ?>
+        <% } %>
+    </div>
+    <% } %>
+
+</script>

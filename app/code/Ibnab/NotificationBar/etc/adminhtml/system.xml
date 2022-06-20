@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="ibnab_config" translate="label" sortOrder="200">
+            <label>Ibnab</label>
+        </tab>
+        <section id="ibnab_notificationbar_config" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Notification Bar</label>
+            <tab>ibnab_config</tab>
+            <resource>Ibnab_NotificationBar::ibnab_notificationbar_config</resource>  
+            <group id="general" translate="label"  sortOrder="91" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Top Bar</label>
+                <comment></comment>
+                <field id="enabledisable" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Notification Bar</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment></comment>
+                </field>
+                <field id="defaultstyling" translate="label" type="select" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Include Default Styling</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Disabling this allows you to more easily style the notification bar to match your theme</comment>
+                </field>
+                <field id="defaultcontent" translate="label" type="textarea" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Notification Content</label>
+                    <comment></comment>
+                </field>
+                <field id="allowclosed" translate="label" type="select" sortOrder="13" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Allow Notification to be Closed</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enabling this will allow the user to close the notification bar</comment>
+                </field>
+                <field id="allowclosedsecond" translate="label" type="text" sortOrder="14" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>How long is notification bar closed (days)</label>
+                    <comment>If "Allow Notification to be Closed". Set when notification will reappear. (default: 30 days)</comment>
+                </field>
+                <field id="fixednotificationbar" translate="label" type="select" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Fixed Notification Bar</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enabling this will fix the notification bar to the top of the browser, even when scrolling.</comment>
+                </field>
+            </group> 
+            <!--<group id="generalbottom" translate="label"  sortOrder="93" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Bottom Bar</label>
+                <comment></comment>
+                <field id="enabledisable" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Notification Bar</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment></comment>
+                </field>
+                <field id="defaultstyling" translate="label" type="select" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Include Default Styling</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Disabling this allows you to more easily style the notification bar to match your theme</comment>
+                </field>
+                <field id="defaultcontent" translate="label" type="textarea" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Notification Content</label>
+                    <comment></comment>
+                </field>
+                <field id="allowclosed" translate="label" type="select" sortOrder="13" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Allow Notification to be Closed</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enabling this will allow the user to close the notification bar</comment>
+                </field>
+                <field id="allowclosedsecond" translate="label" type="text" sortOrder="14" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>How long is notification bar closed (days)</label>
+                    <comment>If "Allow Notification to be Closed". Set when notification will reappear. (default: 30 days)</comment>
+                </field>
+                <field id="fixednotificationbar" translate="label" type="select" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Fixed Notification Bar</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enabling this will fix the notification bar to the top of the browser, even when scrolling.</comment>
+                </field>
+            </group> -->
+        </section>
+    </system>
+</config>

@@ -1,0 +1,28 @@
+<?php
+$dataHelper = $block->getDataHelper();
+$storeCode = $dataHelper->getCurrentStoreCode();
+//if ($block->isElasticsearch()) :
+    $_categories = $block->getCategoryCollection($storeCode);
+    ?>
+    <?php if ($_categories && count($_categories)): ?>
+        <div class="block block-compare result-list">
+            <div class="block-title">
+                <strong><?php echo __('Category Results') ?></strong>
+                <span class="counter"><?php echo __('%1', count($_categories)); ?></span>
+            </div>
+            <div class="block-content">
+                <ul>
+                    <?php foreach ($_categories as $_category): ?>
+                        <li>
+                            <a href="<?php echo $block->escapeUrl($_category['url']); ?>"
+                               title="<?php echo $block->escapeHtml($_category['name']); ?>">
+                                   <?php echo $_category['path'] ?>
+                            </a>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        </div>
+    <?php
+    endif;
+//endif;

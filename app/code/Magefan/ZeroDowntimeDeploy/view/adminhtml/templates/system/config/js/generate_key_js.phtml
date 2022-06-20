@@ -1,0 +1,17 @@
+<?php
+/**
+ * Copyright © Magefan (support@magefan.com). All rights reserved.
+ * Please visit Magefan.com for license details (https://magefan.com/end-user-license-agreement).
+ */
+?>
+<?php
+/**
+ * @var $block \Magefan\ZeroDowntimeDeploy\Block\Adminhtml\System\Config\Form\GenerateKeyJs
+ */
+?>
+<script>
+    require(['jquery', 'domReady!'], function($) {
+        $('#webhook_url span').text('Webhooks URL: ' + '<?= $block->getBaseUrl(); ?>' + 'mfzdd/deploy/schedule. ');
+        $('#webhook_command span').text('Command for executing cron: php7* -d memory_limit=-1 bin/magento magefan:zero-downtime:cron');
+    });
+</script>

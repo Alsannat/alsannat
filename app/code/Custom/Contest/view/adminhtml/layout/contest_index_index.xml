@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="Custom\Contest\Block\Adminhtml\Contest" name="admin.contest.grid"/>
+        </referenceContainer>
+        <referenceBlock name="adminhtml.contest.grid.container">
+        	<block class="Custom\Contest\Block\Adminhtml\Contest\Grid" name="adminhtml.contest.grid" as="grid">
+        		<block class="Magento\Backend\Block\Widget\Grid\Export" name="adminhtml.contest.grid.export" as="grid.export">
+        		</block>
+        		<block class="Magento\Backend\Block\Widget\Grid\ColumnSet" name="adminhtml.contest.grid.columnSet" as="grid.columnSet">
+        			<block class="Magento\Backend\Block\Widget\Grid\Column" as="contest_id">
+        				<arguments>
+		                    <argument name="header" xsi:type="string" translate="true">ID</argument>
+		                    <argument name="type" xsi:type="string">number</argument>
+		                    <argument name="index" xsi:type="string">contest_id</argument>
+		                    <argument name="id" xsi:type="string">contest_id</argument>
+		                </arguments>
+        			</block>
+        			<block class="Magento\Backend\Block\Widget\Grid\Column" as="first_name">
+        				<arguments>
+		                    <argument name="header" xsi:type="string" translate="true">First Name</argument>
+		                    <argument name="type" xsi:type="string">text</argument>
+		                    <argument name="index" xsi:type="string">first_name</argument>
+		                    <argument name="id" xsi:type="string">first_name</argument>
+		                </arguments>
+        			</block>
+        			<block class="Magento\Backend\Block\Widget\Grid\Column" as="father_name">
+        				<arguments>
+		                    <argument name="header" xsi:type="string" translate="true">Father Name</argument>
+		                    <argument name="type" xsi:type="string">text</argument>
+		                    <argument name="index" xsi:type="string">father_name</argument>
+		                    <argument name="id" xsi:type="string">father_name</argument>
+		                </arguments>
+        			</block>
+        			<block class="Magento\Backend\Block\Widget\Grid\Column" as="last_name">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Last Name</argument>
+                            <argument name="type" xsi:type="string">text</argument>
+                            <argument name="index" xsi:type="string">last_name</argument>
+                            <argument name="id" xsi:type="string">last_name</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="phone_no">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Phone Number</argument>
+                            <argument name="type" xsi:type="string">text</argument>
+                            <argument name="index" xsi:type="string">phone_no</argument>
+                            <argument name="id" xsi:type="string">phone_no</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="email">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Email</argument>
+                            <argument name="type" xsi:type="string">text</argument>
+                            <argument name="index" xsi:type="string">email</argument>
+                            <argument name="id" xsi:type="string">email</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="city">
+        				<arguments>
+		                    <argument name="header" xsi:type="string" translate="true">City</argument>
+		                    <argument name="type" xsi:type="string">text</argument>
+		                    <argument name="index" xsi:type="string">city</argument>
+		                    <argument name="id" xsi:type="string">city</argument>
+		                </arguments>
+        			</block>
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="gender">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Gender</argument>
+                            <argument name="type" xsi:type="string">text</argument>
+                            <argument name="index" xsi:type="string">gender</argument>
+                            <argument name="id" xsi:type="string">gender</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="nationality">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Nationality</argument>
+                            <argument name="type" xsi:type="string">text</argument>
+                            <argument name="index" xsi:type="string">nationality</argument>
+                            <argument name="id" xsi:type="string">nationality</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="age_group">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Age Group</argument>
+                            <argument name="type" xsi:type="string">text</argument>
+                            <argument name="index" xsi:type="string">age_group</argument>
+                            <argument name="id" xsi:type="string">age_group</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="about_us">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">How did you know about us ?</argument>
+                            <argument name="type" xsi:type="string">text</argument>
+                            <argument name="index" xsi:type="string">about_us</argument>
+                            <argument name="id" xsi:type="string">about_us</argument>
+                        </arguments>
+                    </block>
+        		</block>
+        	</block>
+        </referenceBlock>
+    </body>
+</page>

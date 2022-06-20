@@ -1,0 +1,22 @@
+{
+  "name": "vnecoms/module-pdfpro",
+  "description": "Easy PDF Invoice of VnEcoms",
+  "require": {
+    "php": "~5.5.0|~5.6.0|~7.0.0",
+    "mpdf/mpdf": "~7.1.4",
+    "aferrandini/phpqrcode": "1.0.1",
+    "codeitnowin/barcode": "latest",
+    "vnecoms/module-core": "2.*"
+  },
+  "type": "magento2-module",
+  "version": "2.2.0.2",
+  "license": "N/A",
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Vnecoms\\PdfPro\\": ""
+    }
+  }
+}

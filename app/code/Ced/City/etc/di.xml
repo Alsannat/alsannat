@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<preference for="Magento\OfflineShipping\Model\Carrier\Flatrate" type="Ced\City\Model\Carrier\Flatrate"/>
+	<preference for="Meetanshi\Flatshipping\Model\Carrier\Flatrate1" type="Ced\City\Model\Carrier\Flatrate1"/>
+	<preference for="Meetanshi\Flatshipping\Model\Carrier\Flatrate2" type="Ced\City\Model\Carrier\Flatrate2"/>
+</config>

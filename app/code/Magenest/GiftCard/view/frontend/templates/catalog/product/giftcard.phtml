@@ -1,0 +1,241 @@
+<?php
+/**
+ * Created by Magenest
+ * User: Luu Thanh Thuy
+ * Date: 22/01/2016
+ * Time: 16:46
+ */
+?>
+<?php
+/** @var $block \Magenest\GiftCard\Block\Product\GiftCard */
+/** @var  $helper \Magenest\GiftCard\Helper\Data */
+$helper = $this->helper('Magenest\GiftCard\Helper\Data');
+$designMode = (int)$helper->getDesignMode();
+
+$currencySymbol = $block->getCurrentCurrencySymbol();
+$giftCardOptionStep = 1;
+if ($designMode == 1) $giftCardOptionStep = 1;
+
+$editOptions = $block->getEditOption();
+?>
+<div class="magenest-giftcard-product-form-options" id="magenest-giftcard-product-form-options" tabindex="0"  >
+
+    <?php
+
+    if (!$block->isFixedPrice()) {
+        ?>
+        <fieldset class="fieldset">
+            <legend class="legend"><span class="magenest-giftcard-product-form-options__step-number"><?php echo $giftCardOptionStep; $giftCardOptionStep++ ?></span><span>
+                <?php  echo __("Choose an Amount") ?></span></legend>
+            <div class="field required magenest-giftcard-product-form-options__field-full-width">
+                <label class="label" for="giftcard_amount">
+                    <span><?php echo __("Card value") ?></span>
+                </label>
+
+                <?php
+                if ($block->isSelectedPriceScheme())  {
+
+                    $selectorPrices = $block->getSelectorPrice();
+                    if ($selectorPrices)  {
+
+                        ?>
+
+                        <div class="fieldset">
+                            <div class="field magenest-giftcard-product-form-options__amount-control" >
+                                <div class="control amount-options" >
+                                    <select name="giftcard[giftcard_amount]" class="required-entry magenest-giftcard-amount-entry" >
+                                        <option value=""><?php  echo __("Choose an Amount") ?>...</option>
+
+                                        <?php foreach($selectorPrices as $selectorPrice) {  ?>
+                                            <option <?php  if ($block->isSelectedGiftCardAmount($selectorPrice)) {  ?>  selected ="selected" <?php } ?> value="<?php echo $selectorPrice?>"><?php echo $selectorPrice . ' '. $currencySymbol ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    <?php } } ?>
+
+
+            </div>
+        </fieldset>
+
+    <?php }  ?>
+
+    <?php if ($block->isMixedPriceScheme()) {  ?>
+        <div class="fieldset">
+            <div class="field magenest-giftcard-product-form-options__amount-control">
+                <div class="control amount-custom">
+                    <input type="text" name="giftcard[giftcard_amount]" value="<?php echo $block->getEditedGiftCardAmount() ?>"
+                           class="required-entry  validate-number  input-text magenest-giftcard-amount-entry magenest-giftcard-min-amount magenest-giftcard-max-amount validate-number-range number-range-<?php  echo $block->getMinPrice()?>-<?php echo $block->getMaxPrice() ?>"
+                           data-rule-validate-number-range="<?php  echo $block->getMinPrice() ?>-<?php echo $block->getMaxPrice() ?>"   data-rule-required="true" placeholder="(<?php echo $block->getMinPrice().' '. $currencySymbol?> â€“ <?php echo $block->getMaxPrice() .' '. $currencySymbol ?>)">
+                </div>
+            </div>
+        </div>
+
+    <?php } ?>
+
+    <?php $templates = $block->getGiftCardTemplates() ?>
+    <?php if ( $templates->getSize()) {  ?>
+
+        <?php if ($designMode !=1 && $designMode != 3) { ?>
+            <fieldset class="fieldset">
+                <legend class="legend"><span class="magenest-giftcard-product-form-options__step-number"><?php echo $giftCardOptionStep; $giftCardOptionStep++ ?></span>
+                    <span><?php echo __("Select a design")  ?></span></legend>
+
+                <div class="field required magenest-giftcard-product-form-options__field-full-width" id="giftcardtemplate">
+                    <div class="control magenest-giftcard-product-form-options__template-options" >
+
+                        <?php foreach($templates as $template)  {  ?>
+                            <a href="#" class="magenest-giftcard-product-form-options__template-option" data-template="<?php echo   $template->getName() ?>" data-action="updateGiftCardTemplate" >
+                                <img class="magenest-giftcard-product-form-options__template-image <?php if ($block->isSelectedGiftCardTemplate($template)) {?> selected <?php } ?>" data-gctemplate="<?php echo $template->getName() ?>" src="<?php echo $block->getTemplateImage($template)  ?>" alt="">
+                            </a>
+                        <?php } ?>
+
+                    </div>
+
+                    <div class="control magenest-giftcard-product-form-options__template-value hidden">
+                        <input data-role="giftcard-template" type="hidden" id="giftcard_template" name="giftcard[giftcard_template]"  value="<?php echo $block->getEditedGiftCardTemplate() ?>" >
+                    </div>
+                </div>
+            </fieldset>
+        <?php } ?>
+        <!--end of pdf template section-->
+    <?php } ?>
+
+    <fieldset class="fieldset">
+        <legend class="legend"><span class="magenest-giftcard-product-form-options__step-number"><?php echo $giftCardOptionStep ?></span>
+            <span><?php  echo __("Compose your email") ?></span></legend>
+        <div>
+            <div class="email fromto">
+                <div class="fieldset">
+                    <div class="field required magenest-giftcard-product-form-options__fromto">
+                        <label class="label fromto" for="giftcard_recipient_name">
+                            <span><?php echo __("To") ?></span>
+                        </label>
+
+                        <div class="control fromto-name">
+                            <input type="text" name="giftcard[giftcard_recipient_name]" placeholder="<?php echo __("Recipient Name") ?>" class="required-entry input-text" value="<?php echo $block->getEditedGiftCardRecipient() ?>" >
+                        </div>
+
+                        <div class="control fromto-email magenest-giftcard-product-form-options__email">
+                            <input type="text" name="giftcard[giftcard_recipient_email]" placeholder="<?php echo __("Recipient Email") ?>" class="required-entry input-text validate-email" value="<?php echo $block->getEditedGiftCardRecipientEmail()  ?>" >
+                        </div>
+                    </div>
+
+                    <div class="field required magenest-giftcard-product-form-options__fromto" >
+                        <label class="label fromto" for="giftcard_recipient_name">
+                            <span><?php echo __("From") ?></span>
+                        </label>
+
+                        <div class="control fromto-name">
+                            <input type="text" name="giftcard[giftcard_sender_name]" placeholder="<?php echo __("Sender Name") ?>" class="required-entry input-text" value="<?php echo $block->getEditedGiftCardSender()  ?>" >
+                        </div>
+
+                        <div class="control fromto-email magenest-giftcard-product-form-options__email">
+                            <input type="text" name="giftcard[giftcard_sender_email]" placeholder="<?php echo __("Sender Email")  ?>" class="required-entry input-text validate-email" value="<?php echo $block->getEditedGiftCardSenderEmail()  ?>" >
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="email body magenest-giftcard-product-form-options__email-content">
+                <div class="fieldset">
+                    <div class="field magenest-giftcard-product-form-options__field-full-width">
+                        <label class="label" for="giftcard_headline">
+                            <span><?php echo __("Headline")  ?></span>
+                        </label>
+
+                        <div class="control headline">
+                            <input type="text" name="giftcard[giftcard_headline]" value="<?php echo $block->getEditedGiftCardHeadline() ?>" placeholder="<?php echo __("Enter your headline here") ?> (<?php echo __("optional")  ?>)" class="input-text">
+                        </div>
+                    </div>
+
+                    <div class="field magenest-giftcard-product-form-options__field-full-width">
+                        <label class="label" for="giftcard_message">
+                            <span><?php echo __("Message") ?></span>
+                        </label>
+
+                        <div class="control message">
+                            <textarea name="giftcard[giftcard_message]"  placeholder="<?php echo __("Enter your gift card message here") ?> (<?php echo __("optional")  ?>)" class="input-text" cols="5" rows="5" > <?php echo  $block->getEditedGiftCardMessage() ?></textarea>
+                        </div>
+
+                    </div>
+
+                    <div class="field">
+                        <label class="label" for="giftcard_schedule_send_time">
+                            <span><?php echo __("Scheduled send time") ?></span>
+                        </label>
+                        <div class="control scheduled-sendtime">
+                            <input type="text" class="validate-date-au" value="<?php echo $block->getEditedGiftCardSentDay() ?>" data-inputtype="calendar" name="giftcard[giftcard_schedule_send_time]" >
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </fieldset>
+    <?php
+    /** @var  \Magenest\GiftCard\Block\Product\GiftCard $block */
+    $priceScheme = $block->getPriceScheme();
+
+    ?>
+    <input type="hidden" name="giftcard_price_scheme" value="<?php echo $priceScheme ?>" />
+
+</div>
+
+<script type="text/javascript">
+
+    /* require([
+         "jquery",
+         "Magenest_GiftCard/js/product/giftcard",
+         "domReady!"
+     ], function($, giftcard){
+
+         var gitcard = new giftcard();
+
+     });
+     */
+
+    require([
+        "jquery",
+        "ko",
+        'mage/calendar',
+        'mage/translate',
+        "domReady!"
+    ], function($,ko, calendar, $t,domReady){
+
+        $('a[data-action="updateGiftCardTemplate"]').click(function() {
+            $('a[data-action="updateGiftCardTemplate"]').each(function() {
+                $(this).removeClass('chosenGiftCard');
+            }) ;
+
+            $(this). addClass('chosenGiftCard');
+            var template =   $(this).data('template');
+            $('input[data-role="giftcard-template"]').val(template);
+        })
+
+
+        $('input[data-inputtype="calendar"]').calendar({
+            dateFormat : 'dd/mm/yyyy'
+        });
+
+        //if it is selected product or ranged price product , then add the From label before price
+
+        <?php if ($block->isMixedPriceScheme() || $block->isSelectedPriceScheme())  { ?>
+        var fromLabel = $t('From ');
+        //var fromLabel ='From ';
+        var spanFrom =  $('<span />').addClass('price-from').html(fromLabel);
+        var priceElement = $('.product-info-price').find('span.price').first();
+        console.log(spanFrom);
+        spanFrom.insertBefore(priceElement);
+        <?php } ?>
+        //end
+
+    });
+
+
+</script>

@@ -1,0 +1,41 @@
+    <?php $url = $this->getUrl('cscity/index/cities');
+    $city_link = '';
+    ?>
+    <?php
+    $curl = $this->getUrl('*/*/*', ['_current' => true, '_use_rewrite' => true]);
+    if(strpos($curl,'checkout')!==false){
+        $page = 'checkout';
+    }else{
+        $page = 'edit';
+    }?>
+    <script type="text/javascript">
+        var data_url="<?php echo $url;?>";
+        var loading_url = "<?php echo $this->getViewFileUrl('Ced_City::images/loader-1.gif');?>";
+        <?php if($page=='checkout'){?>
+        require(["jquery","domReady!"], function($){
+            <?php if(strpos($curl,'cart')!==false){?>
+            if(jQuery('#shipping-zip-form').length==0){
+                setTimeout(function(){ shippingmainCityCart();}, 2000);
+            }
+            <?php }else{?>
+            setTimeout(function(){ shippingmainCityCall();}, 3000);
+            if(jQuery("input[type='submit']").length==0){
+                setTimeout(function(){ checkSubmitButtonLoad();}, 1000);
+            }
+            <?php }?>
+        });
+        function checkSubmitButtonLoad(){
+            if(jQuery('.button').length==0){
+                setTimeout(function(){ checkSubmitButtonLoad();}, 1000);
+            }
+            jQuery('.button').click(function(){
+               bilingmainCityCall();
+            });
+        }
+        <?php }else{?>
+        require(["jquery","domReady!"], function($){
+            setTimeout(function(){ addressPageCall();}, 2000);
+        });
+        <?php }?>
+    </script>
+

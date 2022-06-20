@@ -1,0 +1,26 @@
+<?php
+$dataHelper = $block->getDataHelper();
+$storeCode = $dataHelper->getCurrentStoreCode();
+$_pages = $block->getPageCollection($storeCode);
+?>
+<?php if ($_pages && count($_pages)): ?>
+    <div class="block block-compare result-list">
+        <div class="block-title">
+            <strong><?php echo __('Page Results') ?></strong>
+            <span class="counter"><?php echo __('%1', count($_pages)) ?></span>
+        </div>
+        <div class="block-content">
+            <ul>
+                <?php foreach ($_pages as $_page): /** @var \Magento\Cms\Model\Page $_page */ ?>
+                    <li>
+                        <a href="<?php echo $block->escapeUrl($block->getBaseUrl() . $_page['identifier']) ?>"
+                           title="<?php echo $block->escapeHtml($_page['title']) ?>">
+                            <?php echo $_page['title'] ?>
+                        </a>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    </div>
+<?php
+endif;

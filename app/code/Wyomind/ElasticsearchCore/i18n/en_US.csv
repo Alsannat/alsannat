@@ -1,0 +1,149 @@
+"Add an attribute","Add an attribute"
+"Filterable Attribute","Filterable Attribute"
+"Show results count","Show results count"
+Position,Position
+Disabled,Disabled
+Hidden,Hidden
+Ratings,Ratings
+Categories,Categories
+"Stock Status","Stock Status"
+Yes,Yes
+No,No
+"Check servers","Check servers"
+"Reindexes Wyomind ElasticsearchCore Data","Reindexes Wyomind ElasticsearchCore Data"
+"Space-separated list of index types or omit to apply to all indexes","Space-separated list of index types or omit to apply to all indexes"
+"Code of the storeview for which to re-index data","Code of the storeview for which to re-index data"
+"' index has been rebuilt successfully in ' .","' index has been rebuilt successfully in ' ."
+" indexer process unknown error:"," indexer process unknown error:"
+"Update the compatibility mode according to the ES server version","Update the compatibility mode according to the ES server version"
+"Wyomind > Elasticsearch Core > Browse Data","Wyomind > Elasticsearch Core > Browse Data"
+"The indexer ' . . ' has been flushed","The indexer ' . . ' has been flushed"
+"Wyomind > Elasticsearch Core > Indexes","Wyomind > Elasticsearch Core > Indexes"
+"The indexer ' . . ' has been reindexed","The indexer ' . . ' has been reindexed"
+"Could not find config file for scope ""%s""","Could not find config file for scope ""%s"""
+"Elasticsearch server version found: ","Elasticsearch server version found: "
+"Elasticsearch server version found not compatible: ","Elasticsearch server version found not compatible: "
+"Cannot find the Elasticsearch server version: ","Cannot find the Elasticsearch server version: "
+"Could not find config for autocomplete","Could not find config for autocomplete"
+" indexer enabled"," indexer enabled"
+" indexer disabled"," indexer disabled"
+"Indexing categories for store id: ","Indexing categories for store id: "
+" categories indexed"," categories indexed"
+"Enable Category Index","Enable Category Index"
+"If enabled, categories will be indexed in Elasticsearch.","If enabled, categories will be indexed in Elasticsearch."
+"Searchable Attributes","Searchable Attributes"
+"Define which attributes are searchable.","Define which attributes are searchable."
+Category,Category
+Edit,Edit
+"Indexing cms pages for store id: ","Indexing cms pages for store id: "
+" cms pages indexed"," cms pages indexed"
+"Enable CMS Index","Enable CMS Index"
+"If enabled, CMS pages will be indexed in Elasticsearch.","If enabled, CMS pages will be indexed in Elasticsearch."
+"Excluded Pages","Excluded Pages"
+"Selected CMS pages will be excluded from search.","Selected CMS pages will be excluded from search."
+"Indexing products for store id: ","Indexing products for store id: "
+" products indexed"," products indexed"
+"Enable Product Index","Enable Product Index"
+"If enabled, products will be indexed in Elasticsearch.","If enabled, products will be indexed in Elasticsearch."
+"Image Size","Image Size"
+"Image size in px, default is 50px.","Image size in px, default is 50px."
+Product,Product
+AUTO,AUTO
+OR,OR
+AND,AND
+"The PHP client for Elasticsearch Server is not installed. <br/> Please run composer require elasticsearch/elasticsearch.","The PHP client for Elasticsearch Server is not installed. <br/> Please run composer require elasticsearch/elasticsearch."
+"Please check your configuration and the log file var/log/Wyomind_ElasticsearchCore_Server_Status.log.","Please check your configuration and the log file var/log/Wyomind_ElasticsearchCore_Server_Status.log."
+"Raw data","Raw data"
+Flush,Flush
+"Are you sure you want to flush the index <b>%1</b> now?","Are you sure you want to flush the index <b>%1</b> now?"
+Run,Run
+"Are you sure you want to run the index <b>%1</b> now?","Are you sure you want to run the index <b>%1</b> now?"
+"On Save","On Save"
+"By Schedule","By Schedule"
+"More information","More information"
+"Less information","Less information"
+"Not indexed","Not indexed"
+"<span class='wyomind-logo'>Wyomind</span>","<span class='wyomind-logo'>Wyomind</span>"
+Core,Core
+Configuration,Configuration
+"Elasticsearch Server version","Elasticsearch Server version"
+"Save the configuration to refresh this value","Save the configuration to refresh this value"
+Servers,Servers
+"host:port separated by comma. Follow this pattern for full available parameters: <a href=""http://php.net/manual/en/function.parse-url.php"" target=""_blank"">http://php.net/manual/en/function.parse-url.php</a>","host:port separated by comma. Follow this pattern for full available parameters: <a href=""http://php.net/manual/en/function.parse-url.php"" target=""_blank"">http://php.net/manual/en/function.parse-url.php</a>"
+"Verify Host","Verify Host"
+"Only used for https connection. Select No here if you don't have a valid SSL certificate.","Only used for https connection. Select No here if you don't have a valid SSL certificate."
+"Connect Timeout","Connect Timeout"
+"Connection timeout in seconds.","Connection timeout in seconds."
+"Index Prefix","Index Prefix"
+"Used to prefix index names to avoid potential collisions.","Used to prefix index names to avoid potential collisions."
+"Index Settings","Index Settings"
+"Having more shards enhances the indexing performance and allows to distribute a big index across machines.<br>The number of replicas each shard has. Having more replicas enhances the search performance and improves the cluster availability.<br /><strong><span style=""color: red;"">Be careful</span></strong> when modifying this parameter. Write consistency (one, quorum or all) must be considered in order to avoid timeout write action. More info here: <a href=""https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-bulk.html#bulk-consistency"" target=""_blank"">https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-bulk.html#bulk-consistency</a> and here <a href=""https://github.com/elasticsearch/elasticsearch/issues/444"" target=""_blank"">https://github.com/elasticsearch/elasticsearch/issues/444</a>","Having more shards enhances the indexing performance and allows to distribute a big index across machines.<br>The number of replicas each shard has. Having more replicas enhances the search performance and improves the cluster availability.<br /><strong><span style=""color: red;"">Be careful</span></strong> when modifying this parameter. Write consistency (one, quorum or all) must be considered in order to avoid timeout write action. More info here: <a href=""https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-bulk.html#bulk-consistency"" target=""_blank"">https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-bulk.html#bulk-consistency</a> and here <a href=""https://github.com/elasticsearch/elasticsearch/issues/444"" target=""_blank"">https://github.com/elasticsearch/elasticsearch/issues/444</a>"
+"Safe Reindex","Safe Reindex"
+"Reindex in a temporary index and switch to it once finished. Especially useful for large product catalogs.","Reindex in a temporary index and switch to it once finished. Especially useful for large product catalogs."
+"Query Operator","Query Operator"
+"For example, with the OR operator, the query ""digital camera"" is translated to ""digital OR camera"", with the AND operator, the same query is translated to ""digital AND camera"". The default value is AND.","For example, with the OR operator, the query ""digital camera"" is translated to ""digital OR camera"", with the AND operator, the same query is translated to ""digital AND camera"". The default value is AND."
+"Enable Fuzzy Query","Enable Fuzzy Query"
+"Enables approximate search.","Enables approximate search."
+"Fuzzy Query Mode","Fuzzy Query Mode"
+"- <b>0</b>, <b>1</b>, <b>2</b>: the maximum allowed Levenshtein Edit Distance (or number of edits)<br/>
+- <b>AUTO</b>: generates an edit distance based on the length of the term. For lengths:<br/>
+&nbsp;&nbsp;- 0..2: must match exactly<br/>
+&nbsp;&nbsp;- 3..5: one edit allowed<br/>
+&nbsp;&nbsp;- &gt;5: two edits allowed</br/>
+<br/>
+<b>AUTO</b> should generally be the preferred value<br/><br/>
+More information: <a href=""https://www.elastic.co/guide/en/elasticsearch/reference/current/common-options.html#fuzziness"">https://www.elastic.co/guide/en/elasticsearch/reference/current/common-options.html#fuzziness</a>","- <b>0</b>, <b>1</b>, <b>2</b>: the maximum allowed Levenshtein Edit Distance (or number of edits)<br/>
+- <b>AUTO</b>: generates an edit distance based on the length of the term. For lengths:<br/>
+&nbsp;&nbsp;- 0..2: must match exactly<br/>
+&nbsp;&nbsp;- 3..5: one edit allowed<br/>
+&nbsp;&nbsp;- &gt;5: two edits allowed</br/>
+<br/>
+<b>AUTO</b> should generally be the preferred value<br/><br/>
+More information: <a href=""https://www.elastic.co/guide/en/elasticsearch/reference/current/common-options.html#fuzziness"">https://www.elastic.co/guide/en/elasticsearch/reference/current/common-options.html#fuzziness</a>"
+"Enable Product Weight","Enable Product Weight"
+"Enables product weight modifier (only available for search results).","Enables product weight modifier (only available for search results)."
+"Add the 'pub' folder to the images url","Add the 'pub' folder to the images url"
+"The Wyomind ElasticsearchCore index must be run after changing this option","The Wyomind ElasticsearchCore index must be run after changing this option"
+"Log / Debug","Log / Debug"
+"Enable request log","Enable request log"
+"Creates a log file for the frontend requests.<br/>Filename var/log/Wyomind_ElasticsearchCore_Frontend_Requests.log","Creates a log file for the frontend requests.<br/>Filename var/log/Wyomind_ElasticsearchCore_Frontend_Requests.log"
+"Enable indexation log","Enable indexation log"
+"Creates a log file for the reindexation process.<br/>Filename var/log/Wyomind_ElasticsearchCore_Indexation.log","Creates a log file for the reindexation process.<br/>Filename var/log/Wyomind_ElasticsearchCore_Indexation.log"
+"Enable Elasticsearch Server status log","Enable Elasticsearch Server status log"
+"Creates a log file for the Elasticsearch Server status.<br/>Filename var/log/Wyomind_ElasticsearchCore_Server_Status.log","Creates a log file for the Elasticsearch Server status.<br/>Filename var/log/Wyomind_ElasticsearchCore_Server_Status.log"
+"Receive a backend notification when the server fails","Receive a backend notification when the server fails"
+"Backend notification settings","Backend notification settings"
+"Notification subject","Notification subject"
+"Notification content","Notification content"
+"List of variables that can be used to build the content of the message:<br/>
+                        - {{store_id}} : store ID<br/>
+                        - {{code}} : Store code<br/>
+                        - {{name}} : Store name<br/>
+                        - {{server_version}} : Elasticsearch Server version<br/>
+                        - {{servers}} : Servers<br/>","List of variables that can be used to build the content of the message:<br/>
+                        - {{store_id}} : store ID<br/>
+                        - {{code}} : Store code<br/>
+                        - {{name}} : Store name<br/>
+                        - {{server_version}} : Elasticsearch Server version<br/>
+                        - {{servers}} : Servers<br/>"
+"Receive a mail notification when the server fails","Receive a mail notification when the server fails"
+"Mail notification settings","Mail notification settings"
+"Sender Email","Sender Email"
+"Sender Name","Sender Name"
+"Send the notification to","Send the notification to"
+"Emails must be separated with a comma (,).","Emails must be separated with a comma (,)."
+"Email subject","Email subject"
+"Email content","Email content"
+"List of variables that can be used to build the content of the message:<br/>
+                        - {{store_id}} : Store ID<br/>
+                        - {{message}} : Returned message<br/>
+                        - {{server_status}} : Elasticsearch Server status<br/>
+                        - {{server_version}} : Elasticsearch Server version","List of variables that can be used to build the content of the message:<br/>
+                        - {{store_id}} : Store ID<br/>
+                        - {{message}} : Returned message<br/>
+                        - {{server_status}} : Elasticsearch Server status<br/>
+                        - {{server_version}} : Elasticsearch Server version"
+ID,ID
+Indexer,Indexer
+Description,Description
+"Last Update","Last Update"

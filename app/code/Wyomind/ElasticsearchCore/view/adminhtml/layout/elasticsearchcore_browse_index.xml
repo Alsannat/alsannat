@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+  Copyright © 2018 Wyomind. All rights reserved.
+  See LICENSE.txt for license details.
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <link src="Wyomind_ElasticsearchCore::css/jquery.jsonview.min.css"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Wyomind\ElasticsearchCore\Block\Adminhtml\Browse\Indexes"
+                   name="elasticsearchcore.browse.indexes"
+                   template="Wyomind_ElasticsearchCore::listing/browse/indexes.phtml"/>
+            <block template="Wyomind_ElasticsearchCore::listing/browse/raw.phtml" class="Magento\Backend\Block\Template"
+                   name="elasticsearchcore_browse_raw"/>
+            <uiComponent name="elasticsearchcore_browse"/>
+        </referenceContainer>
+    </body>
+</page>

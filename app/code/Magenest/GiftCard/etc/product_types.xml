@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Magenest. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Magento/Catalog/etc/product_types.xsd">
+    <type name="giftcard" label="Gift Card" modelInstance="Magenest\GiftCard\Model\Product\Type\GiftCard" composite="false" isQty="true" canUseQtyDecimals="false" sortOrder="80">
+        <priceModel instance="Magenest\GiftCard\Model\Product\Type\Price"/>
+        <customAttributes>
+            <attribute name="refundable" value="true"/>
+            <attribute name="is_real_product" value="false"/>
+        </customAttributes>
+    </type>
+</config>

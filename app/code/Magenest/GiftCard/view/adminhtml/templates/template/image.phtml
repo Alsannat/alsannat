@@ -1,0 +1,57 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: qhauict13
+ * Date: 03/02/2016
+ * Time: 16:11
+ */
+/** @var  \Magenest\GiftCard\Block\Adminhtml\Template\Edit\Tab\Image $block */
+$images = $block->getSavedMainImage();
+$selectedImg = $block->getSelectedImage();
+?>
+
+<fieldset class="fieldset admin__fieldset " id="images_fieldset">
+    <legend class="legend">
+        <span>Main Image Upload Manager</span>
+    </legend>
+    <div class="note">Recommended resolution:<br>
+        <span class="resolution"><em>- Center Style: 220x880 pixels</em></span><br>
+        <span class="resolution"><em>- Left & Right Style: 360x500 pixels</em></span><br>
+    </div>
+
+    <div class="loading-mask" data-role="loader" data-role="loader-mask" style="display: none">
+        <div class="loader">
+            <img alt="<?php echo __('Loading') ?>" src="<?php echo $block->getViewFileUrl('Magenest_GiftCard::images/spinner.gif')?>">
+            <p><?php echo __('Loading')  ?></p>
+            </div>
+    </div>
+    <button id="add-image" type="button" title="Add more Image" onclick="addUploadFile()">Add Image</button><br><br>
+
+    <div id="image-upload-container"></div>
+
+    <br><br><br><br>
+
+    <legend class="legend">
+        <span>Uploaded Images</span>
+    </legend>
+
+    <span id="error_message_uploader_img" class="error_message_uploader"> </span>
+
+    <input id="template_delete_images_count" name="template[delete_images_count]" style="display: none" value=""/>
+    <input  id="template_saved_image_selected" name="template[saved_image_selected]" style="display: none" value="<?php echo $selectedImg ?>"/>
+
+    <div id="template_saved_images_main">
+        <span data-role="img_main_cnt"> </span>
+        <?php foreach($images as $key=>$item){
+            $cnt = $key + 1;
+            ?>
+            <div class="saved_images_container_main" style="float: left" align="center">
+                <input type="hidden" name="main_img[<?php echo $cnt ?>][name]" value="<?php echo $item['name'] ?>" >
+                <input type="hidden" name="main_img[<?php echo $cnt ?>][file]" value="<?php echo $item['file'] ?>" >
+                <img class="saved_image_main <?php if (isset($item['selected'])) { echo "selected"; } ?>" onclick="addBorder(event)" src="<?php echo $block->getMediaUrl().'giftcard/template/main'.$item['file']?>"><br>
+                <button style="" onclick="deleteImage(event)">Delete</button>
+
+            </div>
+        <?php } ?>
+    </div>
+</fieldset>

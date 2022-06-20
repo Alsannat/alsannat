@@ -1,0 +1,6 @@
+<!-- ko if: ($row().reindexed == "1") -->
+<span class='grid-severity-notice'><!-- ko i18n: 'READY' --><!-- /ko --></span>
+<!--/ko-->
+<!-- ko ifnot: ($row().reindexed == "1") -->
+<span class='grid-severity-critical'><!-- ko i18n: 'REINDEX REQUIRED' --><!-- /ko --></span>
+<!--/ko-->

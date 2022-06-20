@@ -1,0 +1,13 @@
+<?php
+/** @var $block \Magenest\GiftCard\Pricing\Render\FinalPriceBox */
+?>
+
+<?php
+$block->getPrice();
+$product = $block->getSaleableItem();
+
+
+$price = $this->helper('Magento\Framework\Pricing\Helper\Data')->currency(number_format($product->getPrice(),2),true,false);
+?>
+<span class="price"><?php echo $price ?> </span>
+

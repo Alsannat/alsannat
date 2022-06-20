@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="Magenest\GiftCard\Model\ResourceModel\Template\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">magenest_giftcard_template</argument>
+            <argument name="resourceModel" xsi:type="string">Magenest\GiftCard\Model\ResourceModel\Template</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="giftcard_template_listing_data_source" xsi:type="string">Magenest\GiftCard\Model\ResourceModel\Template\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Magenest\GiftCard\Model\ResourceModel\GiftCard\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">magenest_giftcard</argument>
+            <argument name="resourceModel" xsi:type="string">Magenest\GiftCard\Model\ResourceModel\GiftCard</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="giftcard_giftcard_listing_data_source" xsi:type="string">Magenest\GiftCard\Model\ResourceModel\GiftCard\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magenest\GiftCard\Model\GiftCard">
+        <arguments>
+            <argument name="checkoutSession" xsi:type="object">Magento\Checkout\Model\Session</argument>
+        </arguments>
+    </type>
+
+
+<!--
+    <preference for="Magento\Sales\Block\Adminhtml\Order\Invoice\Totals" type="\Magenest\GiftCard\Model\Preference\Invoice\Totals" />
+-->
+    <type name="Magento\Checkout\Controller\Cart\Add">
+        <plugin name="giftcard_validator" type="Magenest\GiftCard\Controller\Checkout\Plugin" sortOrder="60" />
+    </type>
+    <type name="Magento\Checkout\Controller\Cart\UpdatePost">
+        <plugin name="giftcard_validator" type="Magenest\GiftCard\Controller\Checkout\Plugin" sortOrder="60" />
+    </type>
+    <type name="Magento\Checkout\Controller\Index\Index">
+        <plugin name="giftcard_validator" type="Magenest\GiftCard\Controller\Checkout\Plugin" sortOrder="60" />
+    </type>
+    <type name="Magenest\GiftCard\Logger\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">GiftCardLogger</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">Magenest\GiftCard\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

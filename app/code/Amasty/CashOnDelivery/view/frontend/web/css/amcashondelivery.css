@@ -1,0 +1,59 @@
+.amcashdel-input-wrapper {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.amcashdel-input-wrapper .amcashdel-input {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    font-size: 12px;
+}
+
+.amcashdel-btn {
+    margin-left: 15px
+}
+
+.amcashdel-success {
+    margin: 0 0 10px;
+    padding: 12px 20px;
+    background: #e5efe5;
+    color: #006400;
+}
+
+.amcashdel-error {
+    margin: 0 0 10px;
+    padding: 12px 20px;
+    background: #fae5e5;
+    color: #e02b27;
+}
+
+@media only screen and (min-width: 768px) {
+    .amcashdel-input-wrapper {
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -webkit-box-align: start;
+        -ms-flex-align: start;
+        align-items: flex-start;
+    }
+
+    .amcashdel-btn {
+        margin: 10px 0 0;
+    }
+}
+
+@media only screen and (min-width: 1024px) {
+    .amcashdel-input-wrapper {
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+        flex-direction: row;
+    }
+
+    .amcashdel-btn {
+        margin: 0 0 0 15px;
+    }
+}

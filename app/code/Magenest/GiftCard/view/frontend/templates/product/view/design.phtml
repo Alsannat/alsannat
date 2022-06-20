@@ -1,0 +1,40 @@
+<?php
+/** @var  $helper \Magenest\GiftCard\Helper\Data */
+$helper = $this->helper('Magenest\GiftCard\Helper\Data');
+$designMode = (int)$helper->getDesignMode();
+if ($designMode == 1) {
+    ?>
+    <div class="actions">
+        <button type="button" title="<?php echo  __('Design Gift Card')  ?>" data-action="design-giftcard-step2" class="giftcard-design-btn action primary " id="product-design-button">
+            <span><?php echo  __('Design Gift Card')  ?></span>
+        </button>
+    </div>
+    <script type="text/x-magento-init">
+    {
+        "#product_addtocart_form": {
+            "catalogAddToCart": {
+                "bindSubmit": false
+            }
+        }
+    }
+</script>
+    <script type="text/javascript">
+        require([
+            "jquery",
+            "ko",
+            'mage/calendar',
+            'mage/validation',
+            "domReady!"
+        ], function($,ko, calendar, validate,domReady){
+
+            $('button[data-action="design-giftcard-step2"]').on('click',function() {
+                var productForm = $('#product_addtocart_form').attr('action' ,'<?php echo $block->getUrl("giftcard/design/index") ?>');
+                console.log('clikc desgin button');
+                productForm.submit();
+            }) ;
+
+        });
+
+    </script>
+    <?php
+}

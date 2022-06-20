@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Ced_City::city" title="City Manager"
+            module="Ced_City" sortOrder="20"
+            resource="Ced_City::city" />
+        <add id="Ced_City::configuration" title="Configurations"
+            module="Ced_City" sortOrder="3" parent="Ced_City::city" 
+            action="adminhtml/system_config/edit/section/cscity"
+            resource="Ced_City::configuration" />
+    </menu>
+</config>

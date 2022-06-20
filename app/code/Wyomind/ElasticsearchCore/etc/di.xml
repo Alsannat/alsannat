@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<!--
+  Copyright © 2018 Wyomind. All rights reserved.
+  See LICENSE.txt for license details.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <preference for="Wyomind\ElasticsearchCore\Helper\ConfigInterface" type="Wyomind\ElasticsearchCore\Helper\Config"/>
+    <preference for="Magento\Search\Api\SynonymGroupRepositoryInterface" type="Wyomind\ElasticsearchCore\Model\SynonymGroupRepository" />
+
+    <type name="Wyomind\ElasticsearchCore\Model\SynonymGroupRepository">
+        <arguments>
+            <argument name="storeManager" xsi:type="object">Magento\Store\Model\StoreManagerInterface\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Wyomind\ElasticsearchCore\Console\Command\UpdateConfig">
+        <arguments>
+            <argument name="storeManager" xsi:type="object">Magento\Store\Model\StoreManagerInterface\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Wyomind\ElasticsearchCore\Console\Command\UpdateServerVersion">
+        <arguments>
+            <argument name="storeManager" xsi:type="object">Magento\Store\Model\StoreManagerInterface\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Wyomind\ElasticsearchCore\Console\Command\UpdateSynonyms">
+        <arguments>
+            <argument name="storeManager" xsi:type="object">Magento\Store\Model\StoreManagerInterface\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Wyomind\ElasticsearchCore\Cron\CheckElasticsearchServerStatus">
+        <arguments>
+            <argument name="storeManager" xsi:type="object">Magento\Store\Model\StoreManagerInterface\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Wyomind\ElasticsearchCore\Plugin\Model\Config">
+        <arguments>
+            <argument name="storeManager" xsi:type="object">Magento\Store\Model\StoreManagerInterface\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Wyomind\ElasticsearchCore\Model\System\Message\Notification">
+        <arguments>
+            <argument name="storeManager" xsi:type="object">Magento\Store\Model\StoreManagerInterface\Proxy</argument>
+        </arguments>
+    </type>
+
+    <!--COMMAND LINE-->
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="wyomind_elasticsearchcore_update_server_version" xsi:type="object">Wyomind\ElasticsearchCore\Console\Command\UpdateServerVersion</item>
+                <item name="wyomind_elasticsearchcore_indexer_reindex" xsi:type="object">Wyomind\ElasticsearchCore\Console\Command\IndexerReindex</item>
+                <item name="wyomind_elasticsearchcore_update_config" xsi:type="object">Wyomind\ElasticsearchCore\Console\Command\UpdateConfig</item>
+                <item name="wyomind_elasticsearchcore_update_synonyms" xsi:type="object">Wyomind\ElasticsearchCore\Console\Command\UpdateSynonyms</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- LOGGER -->
+        <!-- Reindex -->
+    <type name="Wyomind\ElasticsearchCore\Logger\HandlerReindex">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="Wyomind\ElasticsearchCore\Logger\LoggerReindex">
+        <arguments>
+            <argument name="name" xsi:type="string">Wyomind ElasticsearchCore Reindex</argument>
+            <argument name="handlers" xsi:type="array">
+                <item name="wyomind_elasticsearchcore_logger_reindex" xsi:type="object">Wyomind\ElasticsearchCore\Logger\HandlerReindex</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- Server -->
+    <type name="Wyomind\ElasticsearchCore\Logger\HandlerServer">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="Wyomind\ElasticsearchCore\Logger\LoggerServer">
+        <arguments>
+            <argument name="name" xsi:type="string">Wyomind ElasticsearchCore Server</argument>
+            <argument name="handlers" xsi:type="array">
+                <item name="wyomind_elasticsearchcore_logger_server" xsi:type="object">Wyomind\ElasticsearchCore\Logger\HandlerServer</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

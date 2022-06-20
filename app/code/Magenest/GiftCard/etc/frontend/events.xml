@@ -1,0 +1,8 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../lib/internal/Magento/Framework/Event/etc/events.xsd">
+    <event name="catalog_product_load_after">
+        <observer name="giftcard_observer_product_option" instance="Magenest\GiftCard\Observer\Product\Option"/>
+    </event>
+    <event name="sales_quote_item_save_after">
+        <observer name="giftcard_observer_sales_quote_add_item" instance="Magenest\GiftCard\Observer\Quote\Item" />
+    </event>
+</config>

@@ -1,0 +1,31 @@
+<!--
+/**
+ * Copyright © 2016 Magenest. All rights reserved.
+ */
+-->
+<!--@subject You get an gift card from {{var store.getFrontendName()}} @-->
+
+
+{{template config_path="design/email/header_template"}}
+
+<table>
+    <tr class="email-intro">
+        <td>
+            <p class="greeting">{{trans "%recipient_name," recipient_name=$giftcard.getRecipientName()}}</p>
+
+            <p class="content">
+             <span>    {{trans "Your friend  %sender_name," sender_name=$giftcard.getSenderName()}} </span>
+                {{trans "Send you a gift card which has balance %giftcard_balance" giftcard_balance=$giftcard.getBalanceWithCurrencyCode()}}
+            </p>
+            <div class="message">
+                <p class="headline">{{trans "%headline," headline=$giftcard.getHeadline()}} </p>
+                <p class="message">{{trans "%message," message=$giftcard.getMessage()}} </p>
+            </div>
+
+
+        </td>
+    </tr>
+
+</table>
+
+{{template config_path="design/email/footer_template"}}

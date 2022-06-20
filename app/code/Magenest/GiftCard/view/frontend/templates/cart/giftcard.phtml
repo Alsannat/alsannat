@@ -1,0 +1,66 @@
+<?php
+/**
+ * Created by Magenest
+ * User: Luu Thanh Thuy
+ * Date: 23/01/2016
+ * Time: 06:19
+ */
+?>
+<?php
+/** @var $block Magenest\GiftCard\Block\Cart\Giftcard */
+$giftCards=$block->getGiftCard();
+?>
+
+<?php if (empty($giftCards)) {  ?>
+<div class="block giftcard cart-discount" id="block-giftcard"  role="tablist">
+    <div class="title" data-role="title" aria-expanded="true" >
+        <strong  class ="block-giftcard-heading" id="block-giftcard-heading" role="heading" aria-level="2"><?php echo __('Apply GiftCard') ?></strong>
+    </div>
+    <div class="content" data-role="content" aria-labelledby="block-giftcard-heading" role="tabpanel" aria-hidden="true" style="max-width:500px;width:100%;">
+        <form id="giftcard-form" action="<?php echo $block->getUrl('giftcard/cart/addredirect') ?>" method="post">
+            <div class="fieldset giftcard">
+                <input type="hidden" name="remove" id="remove-giftcard" value="0">
+                <div class="field">
+                    <label for="giftcard_code" class="label"><span><?php echo __('Enter giftcard code') ?></span></label>
+                    <div class="control">
+                        <input type="text" class="input-text" id="giftcard_code" name="giftcard_code" value="" placeholder="Enter giftcard code">
+                    </div>
+                </div>
+                <div class="actions-toolbar">
+                    <div class="primary">
+                        <input style="height:32px;" type="submit" class="action apply primary" value="<?php echo __('Apply') ?>" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+<?php  } ?>
+
+<?php
+if ($giftCards) {
+    ?>
+    <div id="block-giftcard" class="block giftcard giftcard-remove-panel cart-discount">
+        <div class="title"  aria-expanded="true" data-role="title" class="giftcard-remove-header">
+            <strong aria-level="2" role="heading" id="block-giftcard-heading">Applied gift card</strong>
+
+            <div class="cart  table-wrapper" style="max-width:500px;width:100%;">
+                <?php foreach ($giftCards as $giftCard) { ?>
+
+                    <div class="actions-toolbar " style="width:auto;display:block">
+                        <span><?php echo $giftCard['code'] ?></span>
+                        <a href="<?php echo $block->getUrl('giftcard/cart/removeredirect', ['giftcard_code' => $giftCard['code']]) ?>"
+                           title="Remove" class="action action-delete">
+			      <span>
+			          <?php echo __('Remove') ?>
+                  </span>
+                        </a>
+                    </div>
+                <?php } ?>
+
+
+            </div>
+        </div>
+    </div>
+<?php } ?>

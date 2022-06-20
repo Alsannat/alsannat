@@ -1,0 +1,22 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+           <ibnab_notificationbar_config>
+                <general>
+                    <enabledisable>1</enabledisable>
+                    <defaultstyling>1</defaultstyling>
+                    <defaultcontent>Notification Content</defaultcontent>
+                    <allowclosed>1</allowclosed>
+                    <allowclosedsecond>30</allowclosedsecond>
+                    <fixednotificationbar>1</fixednotificationbar>
+                </general>
+                <generalbottom>
+                    <enabledisable>1</enabledisable>
+                    <defaultstyling>1</defaultstyling>
+                    <defaultcontent>Notification Content</defaultcontent>
+                    <allowclosed>1</allowclosed>
+                    <allowclosedsecond>30</allowclosedsecond>
+                    <fixednotificationbar>1</fixednotificationbar>
+                </generalbottom>
+           </ibnab_notificationbar_config>
+    </default>
+</config>

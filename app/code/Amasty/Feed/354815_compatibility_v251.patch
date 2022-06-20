@@ -1,0 +1,73 @@
+Index: Model/Export/RowCustomizer/Effectivedate.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Model/Export/RowCustomizer/Effectivedate.php b/Model/Export/RowCustomizer/Effectivedate.php
+--- a/Model/Export/RowCustomizer/Effectivedate.php	(revision e72f6070e8d93baba31b773031a291c85706870b)
++++ b/Model/Export/RowCustomizer/Effectivedate.php	(date 1648645277213)
+@@ -33,6 +33,11 @@
+      */
+     private $timezone;
+ 
++    /**
++     * @var \Magento\CatalogRule\Model\ResourceModel\Rule
++     */
++    private $ruleResource;
++
+     /**
+      * @var array
+      */
+@@ -41,11 +46,13 @@
+     public function __construct(
+         \Magento\Store\Model\StoreManagerInterface $storeManager,
+         \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
+-        \Magento\Framework\Stdlib\DateTime\TimezoneInterface $timezone
++        \Magento\Framework\Stdlib\DateTime\TimezoneInterface $timezone,
++        \Magento\CatalogRule\Model\ResourceModel\Rule $ruleResource
+     ) {
+         $this->storeManager = $storeManager;
+         $this->timezone = $timezone;
+         $this->productRepository = $productRepository;
++        $this->ruleResource = $ruleResource;
+     }
+ 
+     /**
+@@ -56,15 +63,33 @@
+     public function prepareData($collection, $productIds)
+     {
+         foreach ($collection as &$item) {
++            $specialFromDate = false;
++            $specialToDate = false;
++
+             if ($item->getSpecialPrice()) {
+                 $product = $this->productRepository->get($item->getSku());
+                 $specialFromDate = $product->getSpecialFromDate();
+                 $specialToDate = $product->getSpecialToDate();
++            } else {
++                $currentDate = (new \DateTime('now'))->getTimestamp();
++                $websiteId = $this->storeManager->getStore($collection->getStoreId())->getWebsiteId();
++                $rulesData = $this->ruleResource->getRulesFromProduct(
++                    $currentDate,
++                    $websiteId,
++                    \Magento\Customer\Model\GroupManagement::NOT_LOGGED_IN_ID,
++                    $item->getId()
++                );
++
++                if ($rulesData) {
++                    $rule = current($rulesData);
++                    $specialFromDate = $rule['from_time'] ? date('Y-m-d H:i:s', $rule['from_time']) : null;
++                    $specialToDate = $rule['to_time'] ? date('Y-m-d H:i:s', $rule['to_time']) : null;
++                }
++            }
+ 
+-                if ($specialFromDate || $specialToDate) {
+-                    $id = $product->getId();
+-                    $this->effectiveDates[$id] = $this->getSpecialEffectiveDate($specialFromDate, $specialToDate);
+-                }
++            if ($specialFromDate || $specialToDate) {
++                $id = $item->getId();
++                $this->effectiveDates[$id] = $this->getSpecialEffectiveDate($specialFromDate, $specialToDate);
+             }
+         }
+     }

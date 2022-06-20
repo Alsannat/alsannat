@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Custom_Contest::contest" title="Contest" module="Custom_Contest" sortOrder="30" resource="Custom_Contest::contest"/>
+        <add id="Custom_Contest::contest_manage" title="List of Participants" module="Custom_Contest" sortOrder="10" parent="Custom_Contest::contest" action="contest/index/" resource="Custom_Contest::manage"/>
+    </menu>
+</config>

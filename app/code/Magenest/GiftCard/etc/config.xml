@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 mAGENEST. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <system>
+            <giftcard>
+                <general>
+                    <invoice_status_to_active>1</invoice_status_to_active>
+                    <pattern>[A4][N5]</pattern>
+                </general>
+            </giftcard>
+        </system>
+    </default>
+</config>

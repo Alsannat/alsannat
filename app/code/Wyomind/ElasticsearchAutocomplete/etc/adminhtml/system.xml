@@ -1,0 +1,271 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2018 Wyomind. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="wyomind" translate="label" sortOrder="1000000" class='wyomind-logo'>
+            <label>Wyomind</label>
+        </tab>
+        <section id="wyomind_elasticsearchautocomplete" translate="label" sortOrder="200" showInDefault="1" showInWebsite="1"
+                 showInStore="1">
+            <class>separator-top</class>
+            <label><![CDATA[Elasticsearch Autocomplete]]></label>
+            <tab>wyomind</tab>
+            <resource>Wyomind_ElasticsearchAutocomplete::configuration</resource>
+
+            <group id="license" translate="label" sortOrder="100" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>License</label>
+                <field id="extension_version" translate="label" type="label" sortOrder="1" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>Extension version</label>
+                </field>
+                <field id="activation_key" translate="label comment" type="label" sortOrder="110" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>Activation key</label>
+                    <frontend_model>Wyomind\Core\Block\Adminhtml\System\Config\Form\Field\ActivationKey</frontend_model>
+                </field>
+                <field id="license_status" translate="label comment" type="label" sortOrder="110" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>License Status</label>
+                    <frontend_model>Wyomind\Core\Block\Adminhtml\System\Config\Form\Field\LicenseStatus</frontend_model>
+                </field>
+
+            </group>
+
+            <!-- Elasticsearch Autocomplete Settings -->
+            <group id="settings" translate="label" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Elasticsearch Autocomplete Settings</label>
+
+                <field id="enable" translate="label comment" type="select" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Enable Elasticsearch Autocomplete</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="enable_debug_mode" translate="label comment" type="select" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Enable Debug Mode</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[If enabled, a tool box will be displayed on the frontend.]]></comment>
+                </field>
+
+                <group id="general" translate="label" sortOrder="30" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Autocomplete</label>
+
+                    <field id="enable_highlight" translate="label comment" type="select" sortOrder="10"
+                           showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Enable search terms highlight</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment>
+                            <![CDATA[If enabled, search terms will be highlighted in the search results data.]]></comment>
+                        <tooltip><![CDATA[<div class="system-config highlight-colors"></div>]]></tooltip>
+                    </field>
+
+                    <field id="enable_all_results" translate="label comment" type="select" sortOrder="20"
+                           showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Enable "All Results" link</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <tooltip><![CDATA[<div class="system-config label-all-results"></div>]]></tooltip>
+                    </field>
+
+                    <group id="labels" translate="label" sortOrder="200" showInDefault="1" showInWebsite="1"
+                           showInStore="1">
+                        <label>Labels</label>
+
+
+                        <field id="all_results" translate="label comment" type="text" sortOrder="210" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>"All Results" link</label>
+                            <depends>
+                                <field id="wyomind_elasticsearchautocomplete/settings/general/enable_all_results">1</field>
+                            </depends>
+                            <comment>
+                                <![CDATA[{{term}} can be used to be replaced by the search term in the label]]></comment>
+                            <tooltip><![CDATA[<div class="system-config label-all-results"></div>]]></tooltip>
+                        </field>
+
+                        <field id="didyoumean" translate="label comment" type="text" sortOrder="300" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>"Did you mean?" section</label>
+                            <tooltip><![CDATA[<div class="system-config label-didyoumean"></div>]]></tooltip>
+                        </field>
+                        <field id="products" translate="label comment" type="text" sortOrder="400" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>"Products" section</label>
+                            <tooltip><![CDATA[<div class="system-config label-product"></div>]]></tooltip>
+                        </field>
+                        <field id="no_product" translate="label comment" type="text" sortOrder="410" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>"No product found"</label>
+                            <tooltip><![CDATA[<div class="system-config label-no-product"></div>]]></tooltip>
+                        </field>
+
+                        <field id="categories" translate="label comment" type="text" sortOrder="500" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>"Categories" section</label>
+                            <tooltip><![CDATA[<div class="system-config label-category"></div>]]></tooltip>
+                        </field>
+                        <field id="no_category" translate="label comment" type="text" sortOrder="510" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>"No category found"</label>
+                            <tooltip><![CDATA[<div class="system-config label-no-category"></div>]]></tooltip>
+                        </field>
+
+                        <field id="cms" translate="label comment" type="text" sortOrder="600" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>"Pages" section</label>
+                            <tooltip><![CDATA[<div class="system-config label-cms"></div>]]></tooltip>
+                        </field>
+                        <field id="no_cms" translate="label comment" type="text" sortOrder="610" showInDefault="1"
+                               showInWebsite="1" showInStore="1">
+                            <label>"No page found"</label>
+                            <tooltip><![CDATA[<div class="system-config label-no-cms"></div>]]></tooltip>
+                        </field>
+
+                    </group>
+
+                </group>
+
+                <group id="didyoumean" translate="label" sortOrder="40" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Did you mean?</label>
+                    <field id="enable_search" translate="label comment" type="select" sortOrder="10" showInDefault="1"
+                           showInWebsite="1" showInStore="1">
+                        <label>Enable in Search Results</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment><![CDATA[If enabled, suggestions will be added to the search results page.]]></comment>
+                    </field>
+                    <field id="enable_autocomplete" translate="label comment" type="select" sortOrder="20"
+                           showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Enable in Autocomplete</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment>
+                            <![CDATA[If enabled, suggestions will also be added to the autocomplete box.]]></comment>
+                    </field>
+                    <field id="autocomplete_limit" translate="label comment" type="text" sortOrder="40"
+                           showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Autocomplete Limit</label>
+                        <comment><![CDATA[Limit the number of suggestions in autocompletion.]]></comment>
+                        <validate>required-entry validate-greater-than-zero validate-digits</validate>
+                        <depends>
+                            <field id="enable_autocomplete">1</field>
+                        </depends>
+                    </field>
+                </group>
+                <group id="product" translate="label" sortOrder="50" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Product</label>
+                    <field id="enable_autocomplete" translate="label comment" type="select" sortOrder="20"
+                           showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Enable in Autocomplete</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment>
+                            <![CDATA[If enabled, products will also be searchable in the autocomplete box.]]></comment>
+                    </field>
+                    <field id="autocomplete_limit" translate="label comment" type="text" sortOrder="40"
+                           showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Autocomplete Limit</label>
+                        <comment><![CDATA[Limit the number of results in autocompletion.]]></comment>
+                        <validate>required-entry validate-greater-than-zero validate-digits</validate>
+                        <depends>
+                            <field id="enable_autocomplete">1</field>
+                        </depends>
+                    </field>
+                </group>
+                <group id="category" translate="label" sortOrder="60" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Category</label>
+                    <field id="enable_search" translate="label comment" type="select" sortOrder="20" showInDefault="1"
+                           showInWebsite="1" showInStore="1">
+                        <label>Enable in Search Results</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment>
+                            <![CDATA[If enabled, categories will also be displayed in left column of search results page.]]></comment>
+                    </field>
+                    <field id="search_limit" translate="label comment" type="text" sortOrder="25" showInDefault="1"
+                           showInWebsite="1" showInStore="1">
+                        <label>Search Results Limit</label>
+                        <comment><![CDATA[Limit number of results.]]></comment>
+                        <validate>validate-greater-than-zero validate-digits</validate>
+                        <depends>
+                            <field id="enable_search">1</field>
+                        </depends>
+                    </field>
+                    <field id="enable_autocomplete" translate="label comment" type="select" sortOrder="30"
+                           showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Enable in Autocomplete</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment>
+                            <![CDATA[If enabled, categories will also be searchable in the autocomplete box.]]></comment>
+                    </field>
+                    <field id="autocomplete_limit" translate="label comment" type="text" sortOrder="35"
+                           showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Autocomplete Limit</label>
+                        <comment><![CDATA[Limit the number of results in autocompletion.]]></comment>
+                        <validate>required-entry validate-greater-than-zero validate-digits</validate>
+                        <depends>
+                            <field id="enable_autocomplete">1</field>
+                        </depends>
+                    </field>
+                    <field id="display_empty_autocomplete" translate="label comment" type="select" sortOrder="40"
+                           showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Display the section when there is no result</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <depends>
+                            <field id="enable_autocomplete">1</field>
+                        </depends>
+                    </field>
+                </group>
+                <group id="cms" translate="label" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>CMS</label>
+                    <field id="enable_search" translate="label comment" type="select" sortOrder="20" showInDefault="1"
+                           showInWebsite="1" showInStore="1">
+                        <label>Enable in Search Results</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment>
+                            <![CDATA[If enabled, CMS pages will also be displayed in left column of search results page.]]></comment>
+                    </field>
+                    <field id="search_limit" translate="label comment" type="text" sortOrder="30" showInDefault="1"
+                           showInWebsite="1" showInStore="1">
+                        <label>Search Results Limit</label>
+                        <comment><![CDATA[Limit number of results.]]></comment>
+                        <validate>validate-greater-than-zero validate-digits</validate>
+                        <depends>
+                            <field id="enable_search">1</field>
+                        </depends>
+                    </field>
+                    <field id="enable_autocomplete" translate="label comment" type="select" sortOrder="40"
+                           showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Enable in Autocomplete</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment>
+                            <![CDATA[If enabled, CMS pages will also be searchable in the autocomplete box.]]></comment>
+                    </field>
+                    <field id="autocomplete_limit" translate="label comment" type="text" sortOrder="50"
+                           showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Autocomplete Limit</label>
+                        <comment><![CDATA[Limit the number of results in autocompletion.]]></comment>
+                        <validate>required-entry validate-greater-than-zero validate-digits</validate>
+                        <depends>
+                            <field id="enable_autocomplete">1</field>
+                        </depends>
+                    </field>
+                    <field id="display_empty_autocomplete" translate="label comment" type="select" sortOrder="60"
+                           showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Display the section when there is no result</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <depends>
+                            <field id="enable_autocomplete">1</field>
+                        </depends>
+                    </field>
+                </group>
+
+            </group>
+        </section>
+    </system>
+</config>
