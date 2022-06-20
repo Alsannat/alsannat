@@ -1,0 +1,39 @@
+#!/usr/bin/env node
+
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/**
+ * Note: This file should remain ES5 only, and should not use any
+ * node APIs not found in 0.x releases. Lots of Magento users
+ * are not regular users of node, and might have extremely old versions
+ * of node installed. Keeping this file to ES5 and old APIs means
+ * the user will see our helpful error below, instead of something cryptic
+ */
+
+var version = process.version.split('v')[1];
+var parts = version.split('.').map(Number);
+var major = parts[0];
+var minor = parts[1];
+
+// Note: This 10.12 version number should be kept in sync with
+// the "engines" key in package.json. Not reading that value
+// here to avoid the extra disk hit during startup
+if (major < 10 || (major === 10 && minor < 12)) {
+    console.error(
+        'baler requires a version of node.js ' +
+        ">= 10.12.0. You're currently using " +
+        process.version
+    );
+    process.exit(1);
+}
+
+// Enable source-map support to ensure stack traces provided in bug reports
+// reference the TypeScript src, not compiled JS
+require('source-map-support/register');
+
+global.BALER_CLI_MODE = true;
+
+require('../dist/cli/initializeCLI').initializeCLI(process.argv, process.cwd());
