@@ -1,4 +1,7 @@
 <?php
+
+/** custom comment */
+
 namespace Custom\City\Block;
 class City extends \Magento\Framework\View\Element\Template
 {
