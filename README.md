@@ -1,1 +1,0 @@
-# alsannat-replica
