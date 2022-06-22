@@ -1,0 +1,23 @@
+<script id="ea-suggests-template" type="text/x-magento-template">
+    <% if (count != 0 && enabled) { %>
+        <span class="section wyomind-primary-bgcolor">
+                <span class="section-name"><%= title %></span>
+        </span>
+        <div class="ea-suggests-grid wyomind-bg-secondary">
+            <% _.each(suggests, function(doc) { %>
+            <div class="ea-suggest">
+                <a href="<%= _.getSearchUrl() + '?q=' + doc.text %>">
+                    <div class="info">
+                          <span class="name"><%= doc.text %>
+                          <% if (doc.count > 0) { %>
+                            <span class='count'><%= doc.count %></span>
+                          <% } %>
+                          </span>
+                    </div>
+                    <div class="clearer"></div>
+                </a>
+            </div>
+            <% }) %>
+        </div>
+    <% } %>
+</script>

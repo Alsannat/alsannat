@@ -1,0 +1,491 @@
+<?php
+/**
+ * Copyright � 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php $_product = $block->getProduct(); ?>
+<?php $themeHelper = $this->helper('MGS\Mpanel\Helper\Data'); ?>
+<?php $templateLayout = $themeHelper->getStoreConfig('mpanel/product_details/product_ct_template'); ?>
+<?php 
+	
+   $productCategoryText = "";
+   $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+   $this->productCategory = $objectManager->get('Magento\Catalog\Model\ProductCategoryList');
+   $categoryIds = $this->productCategory->getCategoryIds($_product->getId());
+   $category = [];
+   $categoryNames = [];
+   if ($categoryIds)
+   {
+        $category = array_unique($categoryIds);
+   }
+
+   if(count($category)>0)
+   {
+   	$iterator = 1;
+   	foreach ($category as $categoryId)
+   	{
+   		if(count($category)==$iterator)
+   		{
+   			$cat = $objectManager->create('Magento\Catalog\Model\Category')->load($categoryId);
+   			$categoryNames[] = $cat->getName();
+   		}
+
+   		$iterator++;
+
+
+   	}
+   }
+
+   if(count($categoryNames)>0)
+   {
+        $productCategoryText = $categoryNames[0];
+   }
+   
+?>
+
+<?php $helper = $this->helper('MGS\Protabs\Helper\Data') ?>
+<?php $tabCollection = $helper->getTabsCollection() ?>
+<div class="product-detail-wrapper">
+<?php if($_product->getDescription()) { ?>
+<div class="desc product-detail-inner">
+	<h5 class="accordion-heading"><span class="plusminus">+</span><?= __('About Product') ?></h5>
+	<div class="toggle_text description" style="display: none">
+		<?php echo $_product->getDescription();?>	    
+	</div>
+</div>
+<?php } ?>
+
+<div class="spec product-detail-inner">
+	<h5 class="sp-accordion-heading"><span class="sp_plusminus">+</span><?= __('Specification') ?></h5>
+
+	<div class="sp_toggle_text" style="display: none">
+		<?php
+		$brand = $_product->getResource()->getAttribute('brands');
+ 		$brand = $brand->getFrontend()->getValue($_product);
+ 		//echo 'Brand  : '.$brand.'<br>';
+
+ 		$dimension = $_product->getResource()->getAttribute('warranty');
+ 		$dm_value = $dimension->getFrontend()->getValue($_product);
+ 		//echo 'Warranty  : '.$dm_value.'<br>';
+ 		?>
+ 		<div class="specification-row odd">
+ 			<div class="lable-value-wrapper">
+ 				<div class="attribute-label"><?= __('SKU').' :' ?></div>
+ 				<div class="attribute-value sku"><?= $_product->getSku(); ?></div>
+ 			</div>
+ 		</div>
+ 		<div class="specification-row even">
+ 			<div class="lable-value-wrapper">
+ 				<div class="attribute-label"><?= __('size').' :' ?></div>
+ 				<div class="attribute-value size"><?= $_product->getAttributeText('size_new'); ?></div>
+ 			</div>
+ 		</div>
+<div class="specification-row odd" style="display:none;">
+ 			<div class="lable-value-wrapper">
+ 				<div class="attribute-label"><?= __('Dimension').' :' ?></div>
+ 				<div class="attribute-value dimensions"><?= $_product->getDimensions(); ?></div>
+ 			</div>
+ 		</div>
+<div class="specification-row odd">
+ 			<div class="lable-value-wrapper">
+ 				<div class="attribute-label"><?= __('Dimension').' :' ?></div>
+ 				<?php $html="<p><strong>"."H: ".$_product->getData('dimension_height_1')." cm <br/> D: ".$_product->getData('dimension_length_1')." cm <br/> W: ".$_product->getData('dimension_width_1')." cm</strong></p>"; ?>
+ 				<div class="attribute-value dimensions_new"><?= $html ?></div>
+ 			</div>
+ 		</div>
+<div class="specification-row even">
+ 			<div class="lable-value-wrapper">
+ 				<div class="attribute-label"><?= __('Material').' :' ?></div>
+ 				<div class="attribute-value material"><?= $_product->getAttributeText('material'); ?></div>
+ 			</div>
+ 		</div>
+<div class="specification-row odd" style="display:none;">
+ 			<div class="lable-value-wrapper">
+ 				<div class="attribute-label"><?= __('Weight').' :' ?></div>
+ 				<div class="attribute-value weight"><?= $_product->getBagWeight(); ?></div>
+ 			</div>
+ 		</div>
+<div class="specification-row odd">
+ 			<div class="lable-value-wrapper">
+ 				<div class="attribute-label"><?= __('Weight').__('(lbs)').' :' ?></div>
+ 				<div class="attribute-value weight_lbs"><?= number_format((float)$_product->getWeightKg()*2.205, 3, '.', ''); ?></div>
+ 			</div>
+ 		</div> 		
+<div class="specification-row even">
+ 			<div class="lable-value-wrapper">
+ 				<div class="attribute-label"><?= __('Weight').__('(kg)').' :' ?></div>
+ 				<div class="attribute-value weight_kg"><?= $_product->getWeightKg(); ?></div>
+ 			</div>
+ 		</div>
+<div class="specification-row odd" style="display:none;">
+ 			<div class="lable-value-wrapper">
+ 				<div class="attribute-label"><?= __('Volumetric Weight').' :' ?></div>
+ 				<?php
+ 						$metricWeight1 = ((float)$_product->getData('dimension_height_1')*
+                                      (float)$_product->getData('dimension_width_1')*
+                                      (float)$_product->getData('dimension_length_1')
+                                    )/5000; 
+ 				?>
+ 				<div class="attribute-value weight_metric"><?= number_format((float)$metricWeight1, 3, '.', ''); ?><?= __('Kg') ?></div>
+ 			</div>
+ 		</div> 		
+<div class="specification-row odd">
+ 			<div class="lable-value-wrapper">
+ 				<div class="attribute-label"><?= __('Laptop Pocket Size').' :' ?></div>
+ 				<div class="attribute-value pocket_size"><?= $_product->getAttributeText('laptop_pocket_size'); ?></div>
+ 			</div>
+ 		</div>
+<div class="specification-row even">
+ 			<div class="lable-value-wrapper">
+ 				<div class="attribute-label"><?= __('Product Type').' :' ?></div>
+ 				<div class="attribute-value category_type"><?= $productCategoryText; ?></div>
+ 			</div>
+ 		</div> 				
+	</div>
+</div>
+<?php 
+	
+	$warrantyText = $_product->getCustomAttribute('warranty_tab');
+	$showWarrantyTab = false;
+	if(!is_null($warrantyText))
+	{
+		
+		$warrantyTextContent = $this->helper('Magento\Catalog\Helper\Output')->productAttribute($_product, $_product->getCustomAttribute('warranty_tab')->getValue(), 'warranty_tab');		
+	}
+?>
+<?php $dynamicHeading=""; ?>
+	<?php if(!is_null($_product->getAttributeText('warranty'))&&!empty($_product->getAttributeText('warranty'))): ?>
+		<?php $showWarrantyTab=true; ?>
+		<?php $dynamicHeading = $_product->getAttributeText('warranty')." ".__('Years'); ?>
+	<?php endif;?>	
+<?php if($showWarrantyTab): ?>
+<div class="desc product-detail-inner">
+	<h5 class="accordion-heading"><span class="plusminus">+</span><?= __('Warranty') ?><?= " (".$dynamicHeading.")" ?></h5>
+	<div class="toggle_text" style="display: none">
+		<p><?php echo __('Alsannat for luggage products are warranted to be free from defects in materials and workmanship for %1 years from original date of purchase when used under normal conditions and for the purpose intended.', $_product->getAttributeText('warranty'));
+		?></p>
+		
+		<a href="<?= $this->getUrl('baggage-policy') ?>" target="_blank" style="color:red;"><strong><?=__('view more information') ?></strong></a>	    
+	</div>
+</div>
+<?php endif; ?>
+
+</div>
+<?php if(count($tabCollection)): ?>
+	<?php if($helper->getStoreConfig('protabs/general/type')): ?>
+		<div class="product-detail-infomation margin-top65">
+	<?php endif ?>
+	<div class="product info detailed <?php if(!$helper->getStoreConfig('protabs/general/type') && !$helper->getStoreConfig('protabs/general/position')): ?>after-content<?php endif ?>" style="display: none;">
+		<?php $layout = $block->getLayout(); ?>
+		<div class="product data items" data-mage-init='{"tabs":{"openedState":"active"}}'>
+			<?php if($templateLayout!=5): ?>
+			<div class="product-data-items-menu">
+				<?php foreach($tabCollection as $_tab): ?>
+					<?php if(($_tab->getTabType() == 'attribute') || ($_tab->getTabType() == 'static')): ?>
+						<?php if(trim($_tab->getValue()) !=''): ?>
+							<?php if($_tab->getTabType() == 'attribute'): ?>
+								<?php 
+									$html = $this->getLayout()->createBlock('Magento\Catalog\Block\Product\View\Description')
+									->setAtCall($helper->convertAttributeToCallName($_tab->getValue()))
+									->setAtCode($_tab->getValue())
+									->setCssClass('description')
+									->setAtLabel('none')
+									->setAtType($helper->getAttributeType($_tab->getValue()))
+									->setTitle($_tab->getTitle())
+									->setTemplate('MGS_Protabs::product/view/attribute.phtml')
+									->toHtml() 
+								?>
+							<?php else: ?>
+								<?php $html = $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId($_tab->getValue())->toHtml() ?>
+							<?php endif ?>
+							
+							<?php 
+								if (!trim($html)) {
+									continue;
+								}
+								$alias = $_tab->getTabType().$_tab->getValue();
+								$label = $_tab->getTitle();
+							?>
+							
+							<div class="data item title"
+								 aria-labeledby="tab-label-<?php echo $alias;?>-title"
+								 data-role="collapsible" data-itemactive=".accordion-<?php echo $alias;?>" id="tab-label-<?php echo $alias;?>">
+								<a class="data switch"
+								   tabindex="-1"
+								   data-toggle="switch"
+								   href="#<?php echo $alias; ?>"
+								   id="tab-label-<?php echo $alias;?>-title">
+									<?php echo $label; ?>
+								</a>
+							</div>
+							
+						<?php endif ?>
+					<?php else: ?>
+						<?php 
+							$html = $layout->renderElement($_tab->getTabType());
+							if (!trim($html)) {
+								continue;
+							}
+							$alias = $layout->getElementAlias($_tab->getTabType());
+							
+							$label = $_tab->getTitle();
+							
+							
+							if($alias == 'reviews'){
+								$oldLabel = $block->getChildData($alias, 'title');
+								if(is_object($oldLabel)){
+									$labelObject = (array)$oldLabel;
+									$countArray = end($labelObject);
+									if(isset($countArray[0])){
+										$label = $label.' '.$countArray[0].'';
+									}
+								}
+							}
+						?>
+						<div class="data item title"
+							 aria-labeledby="tab-label-<?php /* @escapeNotVerified */ echo $alias;?>-title"
+							 data-role="collapsible" data-itemactive=".accordion-<?php echo $alias;?>" id="tab-label-<?php /* @escapeNotVerified */ echo $alias;?>">
+							<a class="data switch"
+							   tabindex="-1"
+							   data-toggle="switch"
+							   href="#<?php /* @escapeNotVerified */ echo $alias; ?>"
+							   id="tab-label-<?php /* @escapeNotVerified */ echo $alias;?>-title">
+								<?php /* @escapeNotVerified */ echo $label; ?>
+							</a>
+						</div>
+					<?php endif ?>
+				<?php endforeach ?>
+			</div>
+			<div class="product-data-items-content">
+				<?php $dn = 0; foreach($tabCollection as $_tab): $dn++;?>
+					<?php if(($_tab->getTabType() == 'attribute') || ($_tab->getTabType() == 'static')):  ?>
+						<?php if(trim($_tab->getValue()) !=''):?>
+							<?php if($_tab->getTabType() == 'attribute'): ?>
+								<?php 
+									$html = $this->getLayout()->createBlock('Magento\Catalog\Block\Product\View\Description')
+									->setAtCall($helper->convertAttributeToCallName($_tab->getValue()))
+									->setAtCode($_tab->getValue())
+									->setCssClass('description')
+									->setAtLabel('none')
+									->setAtType($helper->getAttributeType($_tab->getValue()))
+									->setTitle($_tab->getTitle())
+									->setTemplate('MGS_Protabs::product/view/attribute.phtml')
+									->toHtml() 
+								?>
+							<?php else: ?>
+								<?php $html = $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId($_tab->getValue())->toHtml() ?>
+							<?php endif ?>
+							
+							<?php 
+								if (!trim($html)) {
+									continue;
+								}
+								$alias = $_tab->getTabType().$_tab->getValue();
+								$label = $_tab->getTitle();
+							?>
+							<div class="title-accordion<?php if($dn == 1): ?> active <?php endif; ?> accordion-<?php echo $alias;?>" data-toggle="#<?php /* @escapeNotVerified */ echo $alias; ?>"><?php /* @escapeNotVerified */ echo $label; ?></div>
+							<div class="data item content" id="<?php /* @escapeNotVerified */ echo $alias; ?>" data-role="content">
+								<?php /* @escapeNotVerified */ echo $html; ?>
+							</div>
+							
+						<?php endif ?>
+					<?php else: ?>
+						<?php 
+							$html = $layout->renderElement($_tab->getTabType());
+							if (!trim($html)) {
+								continue;
+							}
+							$alias = $layout->getElementAlias($_tab->getTabType());
+							
+							$label = $_tab->getTitle();
+							
+							
+							if($alias == 'reviews'){
+								$oldLabel = $block->getChildData($alias, 'title');
+								if(is_object($oldLabel)){
+									$labelObject = (array)$oldLabel;
+									$countArray = end($labelObject);
+									if(isset($countArray[0])){
+										$label = $label.' '.$countArray[0].'';
+									}
+								}
+							}
+						?>
+						<div class="title-accordion<?php if($dn == 1): ?> active <?php endif ?> accordion-<?php echo $alias;?>" data-toggle="#<?php echo $alias; ?>"><?php echo $label; ?></div>
+						<div class="data item content" id="<?php echo $alias; ?>" data-role="content"><?php echo $html; ?></div>
+					<?php endif ?>
+				<?php endforeach ?>
+			</div>
+		<?php else:?>
+			<div class="product-data-items-content">
+				<?php $dn = 0; foreach($tabCollection as $_tab): $dn++; ?>
+					<?php if(($_tab->getTabType() == 'attribute') || ($_tab->getTabType() == 'static')): ?>
+						<?php if(trim($_tab->getValue()) !=''): ?>
+							<?php if($_tab->getTabType() == 'attribute'): ?>
+								<?php 
+									$html = $this->getLayout()->createBlock('Magento\Catalog\Block\Product\View\Description')
+									->setAtCall($helper->convertAttributeToCallName($_tab->getValue()))
+									->setAtCode($_tab->getValue())
+									->setCssClass('description')
+									->setAtLabel('none')
+									->setAtType($helper->getAttributeType($_tab->getValue()))
+									->setTitle($_tab->getTitle())
+									->setTemplate('MGS_Protabs::product/view/attribute.phtml')
+									->toHtml() 
+								?>
+							<?php else: ?>
+								<?php $html = $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId($_tab->getValue())->toHtml() ?>
+							<?php endif ?>
+							
+							<?php 
+								if (!trim($html)) {
+									continue;
+								}
+								$alias = $_tab->getTabType().$_tab->getValue();
+								$label = $_tab->getTitle();
+							?>
+							<div class="content-heading"><h3 class="title text-uppercase"><?php echo $label; ?></h3></div>
+							<div class="data item content" id="<?php /* @escapeNotVerified */ echo $alias; ?>">
+								<?php /* @escapeNotVerified */ echo $html; ?>
+							</div>
+							
+						<?php endif ?>
+					<?php else: ?>
+						<?php 
+							$html = $layout->renderElement($_tab->getTabType());
+							if (!trim($html)) {
+								continue;
+							}
+							$alias = $layout->getElementAlias($_tab->getTabType());
+							
+							$label = $_tab->getTitle();
+							
+							
+							if($alias == 'reviews'){
+								$oldLabel = $block->getChildData($alias, 'title');
+								if(is_object($oldLabel)){
+									$labelObject = (array)$oldLabel;
+									$countArray = end($labelObject);
+									if(isset($countArray[0])){
+										$label = $label.' '.$countArray[0].'';
+									}
+								}
+							}
+						?>
+						<div class="content-heading"><h3 class="title text-uppercase"><?php echo $label; ?></h3></div>
+						<div class="data item content" id="<?php echo $alias; ?>" data-role="content"><?php echo $html; ?></div>
+						<?php if($alias=="reviews"):?>
+							<div class="data item title active hidden" aria-labeledby="tab-label-reviews-title" data-role="collapsible" data-itemactive=".accordion-reviews" id="tab-label-reviews" role="tab" data-collapsible="true" aria-controls="reviews" aria-selected="true" aria-expanded="true" tabindex="0">
+								<a class="data switch" tabindex="-1" data-toggle="switch" href="#reviews">Reviews</a>
+							</div>
+							<script type="text/javascript">
+								require([
+									'jquery'
+								], function ($) {
+									 $(document).ready(function() {
+										$('.data.switch').click();
+									});
+								});
+							</script>
+						<?php endif;?>
+					<?php endif ?>
+				<?php endforeach ?>
+			</div>
+		<?php endif;?>
+		</div>
+	</div>
+	<?php if($templateLayout!=5): ?>
+		<script type="text/javascript">
+			require([
+				'jquery'
+			], function ($) {
+				$('.title-accordion').click(function(){
+	                if($(this).hasClass('accordion-reviews')){
+	                	if($(this).hasClass('active')){
+                			var itemShow = $(this).data('toggle');
+                			$(itemShow).slideUp();
+                			$(this).removeClass('active');
+	                	}else{
+	                		$('.product-data-items-content .title-accordion.active').removeClass('active');
+	                        $(".product-data-items-content .data.item.content").slideUp();
+	                		$('#tab-label-reviews a').click();
+	                		$(this).addClass('active');
+	                	}
+	                }else{
+	                    var itemShow = $(this).data('toggle');
+	                    if($(this).hasClass('active')){
+	                        $(itemShow).slideUp();
+	                        $(this).removeClass('active');
+	                    }else {
+	                        $('.product-data-items-content .title-accordion.active').removeClass('active');
+	                        $(".product-data-items-content .data.item.content").slideUp();
+	                        $(itemShow).slideDown();
+	                        $(this).addClass('active');
+	                    }
+	                }
+				});
+			});
+		</script>
+	<?php endif ?>
+	<?php if($helper->getStoreConfig('protabs/general/type')): ?>
+		</div>
+	<?php endif ?>
+<?php endif ?>
+<div class="lable">
+	<label>
+		<?php
+ 		$attribute = $_product->getResource()->getAttribute('products_more');
+ 		$value = $attribute->getFrontend()->getValue($_product);
+ 		echo $value;
+ 		?>	
+	</label> 	
+ </div>
+
+<script type="text/javascript">
+			require([
+				'jquery'
+			], function ($) {
+				$('.data.switch').click(function(e){
+				
+					e.preventDefault();
+					
+					// $('.product-data-items-menu').tab('show');
+					var scrollHeight = $(document).scrollTop();
+
+					$(this).tab('show');
+
+					setTimeout(function() {
+						$(window).scrollTop(scrollHeight );
+					}, 5);
+									
+
+				});
+
+				$(".accordion-heading").click(function(){
+		    		if($(".toggle_text").is(':visible')){
+		    			$(".toggle_text").slideUp(600);
+		    			$(".plusminus").text('+')
+		    		}
+		    		else{
+		    			$(this).next(".toggle_text").slideDown(600);
+		    			$(this).children(".plusminus").text('-');
+		    		}
+		    	});
+
+		    	$(".sp-accordion-heading").click(function(){
+		    		if($(".sp_toggle_text").is(':visible')){
+		    			$(".sp_toggle_text").slideUp(600);
+		    			$(".sp_plusminus").text('+')
+		    		}
+		    		else{
+		    			$(this).next(".sp_toggle_text").slideDown(600);
+		    			$(this).children(".sp_plusminus").text('-');
+		    		}
+		    	});
+
+			});
+		</script>

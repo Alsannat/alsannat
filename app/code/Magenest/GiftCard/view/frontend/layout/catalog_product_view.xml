@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright Â© 2015 Magenest. All rights reserved.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Magenest_GiftCard::css/style.css"/>
+    </head>
+    <body>
+       <!-- <referenceBlock name="product.info.options.wrapper">
+              <block class="Magenest\GiftCard\Block\Product\GiftCard" name="product.info.options.giftcard" as="giftcard_options" template="catalog/product/giftcard.phtml"/>
+        </referenceBlock>
+        <referenceContainer name="content">
+            <block class="Magenest\GiftCard\Block\Product\GiftCard" name="product.info.options.giftcard" as="giftcard_options" template="catalog/product/giftcard.phtml"/>
+        </referenceContainer>-->
+    </body>
+</page>

@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title><?php echo __('Design Gift Card')  ?></title>
+    <base href="/">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="<?php echo $this->getViewFileUrl('Magenest_GiftCard::js/angular/assets/css/bootstrap.min.css') ?>"  type="text/css" />
+    <link rel="stylesheet" href="<?php echo $this->getViewFileUrl('Magenest_GiftCard::js/angular/assets/css/font-awesome.min.css') ?>" type="text/css"  />
+    <link rel="stylesheet"  href="<?php echo $this->getViewFileUrl('Magenest_GiftCard::js/angular/assets/css/animate.css') ?>" >
+    <link rel="stylesheet"  href="<?php echo $this->getViewFileUrl('Magenest_GiftCard::js/angular/assets/css/style.css') ?>" type="text/css" />
+    <!--
+      <script src="assets/fabric/dist/fabric.js"></script>
+    -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js" > </script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fabric.js/1.4.8/fabric.min.js" > </script>
+
+    <!-- <script src="http://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+     <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>-->
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/ui-darkness/jquery-ui.css">
+    <link href=”https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+<script type="text/javascript">
+    window.buyUrl = "<?php echo $this->urlBuilder->getUrl('giftcard/design/mi') ?>";
+    window.saveImageUrl = "<?php echo $this->urlBuilder->getUrl('giftcard/design/save') ?>";
+    window.productId = "<?php echo $productId ?>";
+    window.customerId = "<?php echo $customerId ?>";
+
+    <?php if ($backgroundUrl) {
+        ?>
+      window.backgroundUrl = '<?php echo $backgroundUrl ?>';
+
+    <?php
+    } else {  ?>
+    window.backgroundUrl = '<?php echo $this->getViewFileUrl('Magenest_GiftCard::images/white2.png') ?>';
+    <?php } ?>
+
+    window.cartUrl = "<?php echo $this->urlBuilder->getUrl('checkout/cart/index') ?>";
+
+    <?php
+    //$art = [];
+/*    $art['art'][] = ['title' => "Goblin" , 'name' => 'A' , 'id' => '1',"src" => "http://127.0.0.1/ce/magento2-3/pub/static/version1494258843/frontend/Magento/luma/en_US/Magento_Catalog/images/product/placeholder/image.jpg"];
+    $art['art'][] = ['title' => "Flower"  ,'name' => 'B' , 'id' => '2',"src" => "http://127.0.0.1/ce/magento2-3/pub/static/version1494258843/frontend/Magento/luma/en_US/Magento_Catalog/images/product/placeholder/image.jpg"];*/
+
+    ?>
+    window.arts = <?php echo \Zend_Json::encode($art) ?>;
+    
+    window.params = <?php echo \Zend_Json::encode($params) ?>;
+
+</script>
+<app-root>Loading...</app-root>
+<div class="loading-mask" data-role="loader"  style="display: none">
+    <div class="loader">
+        <img alt="<?php echo __('Loading') ?>" src="<?php echo $this->getViewFileUrl('Magenest_GiftCard::images/spinner.gif')?>">
+        <p><?php echo __('Loading')  ?></p>
+    </div>
+</div>
+<script type="text/javascript" src= "<?php echo $this->getViewFileUrl('Magenest_GiftCard::js/angular/inline.bundle.js') ?> " ></script>
+<script type="text/javascript" src= "<?php echo $this->getViewFileUrl('Magenest_GiftCard::js/angular/polyfills.bundle.js') ?> " ></script>
+<script type="text/javascript" src= "<?php echo $this->getViewFileUrl('Magenest_GiftCard::js/angular/styles.bundle.js') ?> " ></script>
+<script type="text/javascript" src= "<?php echo $this->getViewFileUrl('Magenest_GiftCard::js/angular/vendor.bundle.js') ?> " ></script>
+<script type="text/javascript" src= "<?php echo $this->getViewFileUrl('Magenest_GiftCard::js/angular/main.bundle.js') ?> " ></script>
+</body>
+</html>

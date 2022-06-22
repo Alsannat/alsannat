@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Custom_City::city" title="Region Manager"
+             module="Custom_City" sortOrder="20"
+             resource="Custom_City::city" translate="title" />
+        <add id="Custom_City::manage_cities" title="Manage Cities"
+             module="Custom_City" sortOrder="2" parent="Custom_City::city"
+             action="city/city/index" resource="Custom_City::manage_cities" translate="title" />
+
+        <add id="Custom_City::manage_states" title="Manage States"
+             module="Custom_City" sortOrder="1" parent="Custom_City::city"
+             action="city/state/index" resource="Custom_City::manage_states" translate="title" />
+
+        <add id="Custom_City::manage_zips" title="Manage Neighborhoods"
+             module="Custom_City" sortOrder="3" parent="Custom_City::city"
+             action="city/zip/index" resource="Custom_City::manage_zips" translate="title" />
+
+        <add id="Custom_City::configuration" title="Configurations"
+             module="Custom_City" sortOrder="4" parent="Custom_City::city"
+             action="adminhtml/system_config/edit/section/city"
+             resource="Custom_City::configuration" translate="title" />
+
+        <!-- <add id="Custom_City::city_imports" title="Import Manager" translate="title"
+             module="Custom_City" sortOrder="22"
+             resource="Custom_City::city_imports" parent="Custom_City::city"  />
+
+        <add id="Custom_City::import_zip" title="Import Neighborhoods"
+             module="Custom_City" sortOrder="1" parent="Custom_City::city_imports"
+             action="city/zip/import"
+             resource="Custom_City::import_zip" translate="title" />
+
+        <add id="Custom_City::import_city" title="Import Cities"
+             module="Custom_City" sortOrder="1" parent="Custom_City::city_imports"
+             action="city/city/import"
+             resource="Custom_City::import_city" translate="title" />
+
+        <add id="Custom_City::import_state" title="Import States"
+             module="Custom_City" sortOrder="1" parent="Custom_City::city_imports"
+             action="city/state/import"
+             resource="Custom_City::import_state" translate="title" /> -->
+
+    </menu>
+</config>

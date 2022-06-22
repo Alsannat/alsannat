@@ -1,0 +1,209 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var \Magento\Customer\Block\Widget\Telephone $block */
+?>
+
+<div class="field telephone <?= $block->isRequired() ? 'required' : '' ?>">
+    <label for="telephone" class="label">
+        <span class="register_label">
+            <?= $block->escapeHtml(__('Mobile')) ?>
+        </span>
+    </label>
+    <div class="control">
+        <?php
+            $_validationClass = $block->escapeHtmlAttr(
+                $this->helper('Magento\Customer\Helper\Address')
+                     ->getAttributeValidationClass('fax')
+            );
+        ?>
+        <input type="text"
+               name="telephone"
+               id="telephone"
+               maxlength="13"
+               placeholder="+966XXXXXXXX"
+               value="<?= $block->escapeHtmlAttr($block->getTelephone()) ?>"
+               title="<?= $block->escapeHtmlAttr(__('Phone Number')) ?>"
+               class="input-text no-whitespace validate-length maximum-length-13 minimum-length-13 mobiletendigit register_input <?= $_validationClass ?: '' ?>"
+               data-validate="{required:true,'validate-length':true}"
+        >
+          <span class="telephone_span_error"></span>
+         <div role="alert" aria-live="assertive" class="error-container">
+              <small class="error error-invalid">
+                  Please enter a valid phone number. Example : +966XXXXXXXXX
+              </small>                        
+          </div>
+    </div>
+</div>
+<script type="text/javascript">
+    require([
+        'jquery', 'jquery/ui', 'jquery/validate', 'mage/translate', 'mage/mage'
+    ], function($){
+          $(document).ready(function(){
+          //  var telephone_custom = $('#telephone').val();
+          //   if (telephone_custom == '' ) {
+          //     $('#telephone').val($('#telephone').val() + '+966');
+          //   }
+        
+          // var min_chars = 13;
+          // var max_chars = 14;
+
+          //   $(document).on("keydown keyup change",'#telephone',function(e){
+          //     e = (e) ? e : window.event;
+          //     var charCode = (e.which) ? e.which : e.keyCode;
+          //     if (e.which != 8 && e.which != 0 && e.which != 37 && e.which != 39 && e.which != 187 && e.which != 46 && e.which != 107 && (e.which < 48 || e.which > 57)) {
+          //         $(".telephone_span_error").text("Number invalid");
+          //         return false;
+          //     }
+          //     else {
+          //       var value = $(this).val();
+          //       var value = $(this).val();
+          //       var re = /^(009665|9665|\+9665|05|5)(5|0|3|6|4|9|1|8|7)([0-9]{7})$/.test(value);
+          //       if(re == false) {
+          //           $(".telephone_span_error").text("Number invalid");
+          //           $('.custom-register-btn').attr('disabled','disabled');
+          //       }
+          //       else if(re == true) {
+          //         if (value.length < min_chars){
+          //           $(".telephone_span_error").text("Number invalid");
+          //           $('.custom-register-btn').removeAttr('disabled');
+          //         }
+          //         else if (value.length > max_chars){
+          //           $(".telephone_span_error").text("Number invalid");
+          //           $('.custom-register-btn').attr('disabled','disabled');
+
+          //         }
+          //         else{
+          //           $(".telephone_span_error").text("");
+          //           $('.custom-register-btn').removeAttr('disabled');
+          //         }
+          //       }
+          //       return true;
+
+          //     }
+
+           
+          // });
+          /* Scripts to run at page start - BEGIN */
+            prefixPhonenumber($("#telephone"));
+
+            /* Scripts to run at page start - END */
+
+            $(document).on("focusin","#telephone", function(e){
+                
+              if($(this).val() == ""){
+                prefixPhonenumber(this);
+                
+              }
+                validationPhonenumber(this);
+            });
+
+            $(document).on("focusout","#telephone", function(e){
+                
+              if($(this).val() == ""){
+                prefixPhonenumber(this); 
+                
+
+              }else{
+                validatePhone(this);
+              }
+              validationPhonenumber(this);
+
+            });
+
+            $(document).on("keypress","#telephone",function(e){
+              if(window.event) { // IE                    
+                    keynum = e.keyCode;
+                } else if(e.which){ // Netscape/Firefox/Opera                   
+                    keynum = e.which;
+                }
+
+                if(keynum < 48 || keynum > 57){
+                  return false;
+                }
+
+                if($(this).val().length <= 3){
+                  return false;
+                }
+                validationPhonenumber(this);
+
+            });
+            $(document).on("keyup","#telephone",function(e){
+              validationPhonenumber(this);
+            });
+            $(document).on("keydown","#telephone",function(e){
+              validationPhonenumber(this);
+            });
+            $(document).on("change","#telephone", function(e){
+                
+              if($(this).val() == ""){
+                prefixPhonenumber(this);
+                
+
+              }else{
+                validatePhone(this);
+              }
+              validationPhonenumber(this);
+
+            });
+
+            function prefixPhonenumber(ele){
+              var value=$(ele).val();
+              if($(ele).val() == ""){
+                $(ele).val("+966");
+              }
+              // else{
+              //   validationPhonenumber(this);
+              // }
+            }
+            function validationPhonenumber(ele){
+              var value = $(ele).val();
+              console.log(value);
+                var re = /^(009665|9665|\+9665|05|5)(5|0|3|6|4|9|1|8|7)([0-9]{7})$/.test(value);
+                // if(re == false) {
+                // console.log(re);
+                //     $(".telephone_span_error").text("Number invalid");
+                //     $('.custom-register-btn').attr('disabled','disabled');
+                // }
+                // else if(re == true) {
+                //     console.log(re);
+                //     $(".telephone_span_error").text("");
+                //     $('.custom-register-btn').removeAttr('disabled');
+                // }
+                console.log(re);
+            }
+            function validatePhone(ele){
+
+              var phone = $(ele).val();
+              if(phone.length < 4){
+                $(ele).val("+966");
+              }
+              // else{
+              // console.log(phone);
+
+              //   var str = phone[0] + phone[1] + phone[2] + phone[3];
+              //   // alert(str != "+966");
+              // console.log(str);
+
+              //   if(str != "+  "){
+              //     phone = phone.replace('+','');
+              //     $(ele).val("+966" + phone);
+              //   }
+              // }
+            }
+        });
+
+    });
+</script>
+<style>
+  .telephone_span_error{
+    color: red;
+    font-size: 12px;
+    font-weight: 500;
+  }
+</style>

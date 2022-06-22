@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="WebGate_tab" translate="label" sortOrder="1">
+            <label>SMSA Shipping</label>
+        </tab>
+        <section id="trackemail" translate="label" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>SMSA Track Setting</label>
+            <tab>WebGate_tab</tab>
+            <resource>WebGate_SMSAShipping::system_config</resource>
+            <group id="smsa_track_email" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>SMSA Track Configuration</label>
+                <field id="active" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="select">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="identity" translate="label" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Send from email</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                </field>
+                <field id="template" translate="label comment" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Track Email Template</label>
+                    <comment>Email template chosen based on theme fallback when "Default" option is selected.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="otp_message" translate="label comment" type="textarea" sortOrder="540" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Track SMS message</label>
+                    <comment><![CDATA[Use {{name}},{{track_status}},{{orderid}} to add the customer name,track status,order ID to sms message.]]></comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

@@ -1,0 +1,131 @@
+<?php
+
+/**
+ * Checkout.com
+ * Authorized and regulated as an electronic money institution
+ * by the UK Financial Conduct Authority (FCA) under number 900816.
+ *
+ * PHP version 7
+ *
+ * @category  Magento2
+ * @package   Checkout.com
+ * @author    Platforms Development Team <platforms@checkout.com>
+ * @copyright 2010-present Checkout.com
+ * @license   https://opensource.org/licenses/mit-license.html MIT License
+ * @link      https://docs.checkout.com/
+ */
+
+use CheckoutCom\Magento2\Block\Adminhtml\Payment\Moto;
+
+/** @var Moto $block */
+
+?>
+<fieldset class="admin__fieldset payment-method checkoutcom_moto"
+          id="payment_form_checkoutcom_moto" style="display: none;">
+    <div id="cko-form-holder">
+        <br>
+        <div class="one-liner">
+          <div class="card-frame">
+            <!-- form will be added here -->
+          </div>
+        </div>
+        <form id="motoCardForm" method="POST">
+            <!-- Saved cards -->
+            <div id="vault-container">
+                <?php
+                if ($block->canDisplayAdminCards()):
+                    $cardsList = $block->getUserCards();
+                    foreach ($cardsList as $card):
+                        $details = json_decode($card->getTokenDetails() ?: '{}', true);
+                        $iconUrl = $block->getCardHandler()->getCardIcon($details['type']);
+                        $publicHash = $card->getPublicHash();
+                        $tokenData = $block->getVaultHandler()->renderTokenData($card);
+                        ?>
+                        <div id="cko-vault-card-<?= $block->escapeHtmlAttr($card->getEntityId())?>"
+                        class="cko-vault-card">
+                            <div class="vault-details">
+                                <label>
+                                    <input type="radio" name="publicHash"
+                                    value="<?= $block->escapeHtmlAttr($publicHash)?>">
+                                    <img src="<?= $block->escapeHtmlAttr($iconUrl) ?>"
+                                    style="display:inline-block; vertical-align:-50%">
+                                </label>
+                                <span>
+                                <?= $block->escapeHtml($tokenData)?>
+                                </span>
+                            </div>
+                            <div class="vault-cvv">
+                                <input type="text" name="cvv-unused" maxlength="4"
+                                placeholder="<?= $block->escapeHtmlAttr(__('CVV')) ?>">
+                            </div>
+                            <div class="clr"></div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </div>
+
+            <!-- Payment form -->
+            <input type="hidden" id="ckoCardToken" name="ckoCardToken">
+        </form>
+    </div>
+</fieldset>
+
+<!-- Payment form JS -->
+<script type="text/javascript">
+    require(['jquery', 'domReady!', 'framesjs'], function ($) {
+        // Prepare the elements
+        var cardTokenField = document.getElementById('ckoCardToken');
+        var paymentForm = document.getElementById('motoCardForm');
+
+        Frames.init(
+            {
+                publicKey: '<?= $block->escapeHtml($block->getConfig()->getAccountKeys('checkoutcom_moto')['public_key']) ?>',
+                debug: Boolean(<?= $block->escapeHtml($block->getConfig()->getValue('debug')) ?>),
+                cardValidationChanged: function(event) {
+                    if (Frames.isCardValid()) {
+                        Frames.submitCard();
+                    }
+                },
+                cardTokenized: function(event) {
+                    // Add the card token to the hidden input field
+                    cardTokenField.value = event.token;
+                    Frames.enableSubmitForm();
+                }
+            }
+        );
+    });
+</script>
+
+<!-- Saved cards JS-->
+<?php
+
+if ($block->canDisplayAdminCards()): ?>
+    <script type="text/javascript">
+        require(['jquery', 'domReady!'], function ($) {
+            // Prepare some variables
+            var listItem = $('.cko-vault-card');
+
+            // Mouse over/out behaviour
+            listItem.mouseenter(function() {
+                $(this).addClass('card-on');
+            }).mouseleave(function() {
+                $(this).removeClass('card-on');
+            });
+
+            // Click behaviour
+            listItem.on('click touch', function() {
+                listItem.removeClass('card-selected');
+                listItem.not(this).find('.vault-cvv input').val('');
+                listItem.not(this).find('.vault-cvv input').attr('name', 'cvv-unused');
+                $(this).find('.vault-cvv input').attr('name', 'cvv');
+                $(this).addClass('card-selected');
+                $(this).find('input[type="radio"]').attr('checked', true);
+            });
+
+            // CVV focus event
+            $('.vault-cvv input').on('focus', function() {
+                $(this).closest(listItem).trigger('click');
+            });
+        });
+    </script>
+<?php endif; ?>

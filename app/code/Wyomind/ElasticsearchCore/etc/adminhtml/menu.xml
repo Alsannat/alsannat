@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!--
+  Copyright © 2018 Wyomind. All rights reserved.
+  See LICENSE.txt for license details.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Wyomind_ElasticsearchCore::configs"
+             parent="Magento_Backend::stores"
+             module="Wyomind_ElasticsearchCore"
+             title="Wyomind"
+             sortOrder="999"
+             resource="Wyomind_ElasticsearchCore::main"
+        />
+        <add id="Wyomind_ElasticsearchCore::configuration"
+             parent="Wyomind_ElasticsearchCore::configs"
+             module="Wyomind_ElasticsearchCore"
+             title="Elasticsearch Core"
+             sortOrder="100"
+             resource="Wyomind_ElasticsearchCore::main"
+             action="adminhtml/system_config/edit/section/wyomind_elasticsearchcore"
+        />
+        <add id="Wyomind_ElasticsearchCore::main"
+             parent="Magento_Backend::system"
+             module="Wyomind_ElasticsearchCore"
+             title="Wyomind Elasticsearch Core"
+             sortOrder="999"
+             resource="Wyomind_ElasticsearchCore::main"
+        />
+        <add id="Wyomind_ElasticsearchCore::indexer"
+             parent="Wyomind_ElasticsearchCore::main"
+             module="Wyomind_ElasticsearchCore"
+             title="Manage Indexes"
+             sortOrder="100"
+             resource="Wyomind_ElasticsearchCore::indexer"
+             action="elasticsearchcore/indexes"
+        />
+        <add id="Wyomind_ElasticsearchCore::browse"
+             parent="Wyomind_ElasticsearchCore::main"
+             module="Wyomind_ElasticsearchCore"
+             title="Browse Data"
+             sortOrder="110"
+             resource="Wyomind_ElasticsearchCore::browse"
+             action="elasticsearchcore/browse"
+        />
+    </menu>
+</config>

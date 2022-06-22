@@ -1,0 +1,238 @@
+        <div id="giftcard_price_product_attribute">
+       <input type="hidden" name="product[giftcard_price_selector]" data-role="giftcard-price-selector"  id="magenest-giftcard-price-selector" data-bind="value:selectorPrice"/>
+
+        <table class="admin__control-table"  id='magenest-selector-amount-table' data-role="giftcard-price-selector-table" >
+            <thead>
+            <tr>
+
+                <th class="required"><?php echo __('Amount') ?> </th>
+                <th class="col-delete"><?php echo __('Action') ?></th>
+            </thead>
+            </tr>
+            <tbody id="mn-giftcard-amount-table_body"  data-bind="foreach: prices, visible: prices().length > 0">
+            <tr > <td ><input type="text" data-role="gc-selector-price" data-bind="value: title"  /> </td>
+                <td class="delete-icon" data-role="delete-row">
+                    <a  data-action="delete-gs"  data-bind="click: removePrice" class="action-default scalable delete delete-btn" >Delete </a>
+                </td>
+            </tr>
+
+            </tbody>
+
+
+            <tfoot>
+            <tr>
+                <td colspan="3" class="col-actions-add">
+                    <input data-bind="value: newPriceText" placeholder="Price" />
+                    <a id="mn-giftcard-product-add-amount-btn" title="Add Amount" data-action="add-gs"  type="button" class="action-default scalable add add-btn" data-ui-id="widget-button-7">
+                        <span data-bind="click: addPrice"><?php echo __('Add Amount') ?> </span>
+                    </a>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+        </div>
+        <script type="text/javascript">
+
+            require([
+                "jquery",
+                "ko",
+                "domReady!"
+            ], function ($,ko, domReady) {
+                function Price(data) {
+                    this.title = ko.observable(data.title);
+                    this.isNew = ko.observable(data.isNew);
+                }
+               function PriceViewModel() {
+
+                    self.prices = ko.observableArray([]);
+                    self.countItem = ko.observable();
+                    self.newPriceText = ko.observable();
+                    self.selectorPrice = ko.computed(function() {
+                       var selectorPrice='' ;
+                       ko.utils.arrayForEach(this.prices(), function(item,i) {
+                           var price = item.title();
+                           if (price !='' && price != undefined) {
+
+
+                               if (i == self.prices().length-1)  {
+                                   selectorPrice += price ;
+                               } else {
+                                   selectorPrice += price + ',';
+                               }
+
+                           }
+                       });
+                       return selectorPrice;
+
+                   });
+
+
+                    self.addPrice = function () {
+                        self.prices.push( new Price({title: self.newPriceText(), isNew:true}));
+                        self.newPriceText("");
+                    };
+                    self.removePrice = function (price) {
+
+                        self.prices.destroy(price)
+                    };
+
+                   var rawPrices = '<?php echo $block->getPrices()?>';
+
+                   $.each(rawPrices.split(',') , function(i,e) {
+                       self.prices.push( new Price({title: e, isNew:false}));
+
+                   });
+                }
+
+
+                ko.applyBindings(new PriceViewModel());
+
+                $(document).ready(function() {
+                    (function($){
+                        $.fn.extend({
+                            donetyping: function(callback,timeout){
+                                timeout = timeout || 1e3; // 1 second default timeout
+                                var timeoutReference,
+                                    doneTyping = function(el){
+                                        if (!timeoutReference) return;
+                                        timeoutReference = null;
+                                        callback.call(el);
+                                    };
+                                return this.each(function(i,el){
+                                    var $el = $(el);
+                                    // Chrome Fix (Use keyup over keypress to detect backspace)
+                                    // thank you @palerdot
+                                    $el.is(':input') && $el.on('keyup keypress paste',function(e){
+                                        // This catches the backspace button in chrome, but also prevents
+                                        // the event from triggering too preemptively. Without this line,
+                                        // using tab/shift+tab will make the focused element fire the callback.
+                                        if (e.type=='keyup' && e.keyCode!=8) return;
+
+                                        // Check if timeout has been set. If it has, "reset" the clock and
+                                        // start over again.
+                                        if (timeoutReference) clearTimeout(timeoutReference);
+                                        timeoutReference = setTimeout(function(){
+                                            // if we made it here, our timeout has elapsed. Fire the
+                                            // callback
+                                            doneTyping(el);
+                                        }, timeout);
+                                    }).on('blur',function(){
+                                        // If we can, fire the event since we're leaving the field
+                                        doneTyping(el);
+                                    });
+                                });
+                            }
+                        });
+                    })($);
+                    $('#gc_max_price').donetyping(function() {
+                       console.log('max price ' + $(this).val());
+                        var maxPrice  = parseFloat( $(this).val());
+                        var minPrice =parseFloat( $('#gc_min_price').val());
+                        $( "#gc_max_price" ).rules( "remove" );
+                        if ( (maxPrice < minPrice) ) {
+                            console.log('not pass max value');
+                            console.log('min price' + minPrice);
+
+                            $( "#gc_max_price" ).rules( "remove" );
+
+                            $( "#gc_max_price" ).rules( "add", {
+                                minlength: 100,
+
+                                messages: {
+                                    minlength: jQuery.validator.format("Max price must greater than min price")
+                                }
+                            });
+                        } else {
+                            $( "#gc_max_price" ).rules( "remove" );
+                            console.log('pass max value');
+                        }
+
+
+                    },1);
+
+                $('#gc_min_price').donetyping(function() {
+
+                        var minPrice  =  parseFloat($(this).val());
+                        var maxPrice = parseFloat($('#gc_max_price').val());
+                        $( "#gc_min_price" ).rules( "remove" );
+                        if ( (maxPrice <  minPrice) ) {
+                            $( "#gc_min_price" ).rules( "remove" );
+
+                            $( "#gc_min_price" ).rules( "add", {
+                                minlength: 100,
+
+                                messages: {
+                                    minlength: jQuery.validator.format("Min price  must less than max price")
+                                }
+                        });
+                        } else {
+                            $( "#gc_min_price" ).rules( "remove" );
+                        }
+
+
+                    },1);
+
+
+                    //hide some the unused fields
+
+                    $('#attribute-giftcard_allow_message-container').hide();
+                    $('#attribute-gc_is_allow_open_price-container').hide();
+                    $('#attribute-giftcard_expired_after-container').hide();
+
+                    $("#attribute-price-container").hide();
+                    $('#price').val(1);
+                    function tooglePriceScheme(priceScheme) {
+                        if (priceScheme != NaN) {
+                            switch (priceScheme) {
+                                case 0:
+                                    $('#attribute-giftcard_price_selector-container').hide();
+
+                                    $('#attribute-gc_max_price-container').hide();
+                                    $('#attribute-gc_min_price-container').hide();
+
+                                    $('#attribute-gc_fixed_price-container').show();
+                                    break
+                                case 1:
+                                    $('#attribute-giftcard_price_selector-container').show();
+
+                                    $('#attribute-gc_max_price-container').hide();
+                                    $('#attribute-gc_min_price-container').hide();
+
+                                    $('#attribute-gc_fixed_price-container').hide();
+                                    break
+                                case 2:
+                                    $('#attribute-giftcard_price_selector-container').hide();
+
+                                    $('#attribute-gc_max_price-container').show();
+                                    $('#attribute-gc_min_price-container').show();
+
+                                    $('#attribute-gc_fixed_price-container').hide();
+                                    break;
+                            }
+
+                        }
+
+                    }
+                    var priceScheme = parseInt(jQuery('#giftcard_price_scheme').val());
+                    //init
+                    tooglePriceScheme(priceScheme);
+
+                    $('#giftcard_price_scheme').on('change',function() {
+                        var scheme = parseInt($(this).val());
+                       // console.log(scheme);
+                        tooglePriceScheme(scheme);
+                    });
+
+
+
+                    //
+                });//end of document ready
+
+            });
+
+
+
+
+
+
+        </script>

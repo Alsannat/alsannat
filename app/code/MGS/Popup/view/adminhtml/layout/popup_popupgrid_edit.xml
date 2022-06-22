@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+     <update handle="editor"/>
+    <body>
+	   <referenceContainer name="content">
+            <block class="MGS\Popup\Block\Adminhtml\Popup\Edit" name="popup_popup_edit"/>
+        </referenceContainer>
+		 <referenceContainer name="left">
+            <block class="MGS\Popup\Block\Adminhtml\Popup\Edit\Tabs" name="popup_popup_edit_tabs">
+				<block class="MGS\Popup\Block\Adminhtml\Popup\Edit\Tab\PopupInfomation" name="popup_popup_edit_tab_popupinfomation"/>
+				<block class="MGS\Popup\Block\Adminhtml\Popup\Edit\Tab\PopupSize" name="popup_popup_edit_tab_popupsize"/>
+				<block class="MGS\Popup\Block\Adminhtml\Popup\Edit\Tab\PopupBackground" name="popup_popup_edit_tab_popupbackground"/>
+				<action method="addTab">
+                    <argument name="name" xsi:type="string">popupinfomation_section</argument>
+                    <argument name="block" xsi:type="string">popup_popup_edit_tab_popupinfomation</argument>
+                </action>
+				<action method="addTab">
+                    <argument name="name" xsi:type="string">popupsize_section</argument>
+                    <argument name="block" xsi:type="string">popup_popup_edit_tab_popupsize</argument>
+                </action>
+				<action method="addTab">
+                    <argument name="name" xsi:type="string">popupbackground_section</argument>
+                    <argument name="block" xsi:type="string">popup_popup_edit_tab_popupbackground</argument>
+                </action>
+				<!--CedAddTab-->
+			</block>
+        </referenceContainer>
+    </body>
+</page>

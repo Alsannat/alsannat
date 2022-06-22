@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Backend/etc/menu.xsd">
+    <menu>
+        <add id="Webengage_Event::parent" title="Webengage" module="Webengage_Event" sortOrder="100" resource="Webengage_Event::parent"/>
+        <add id="Webengage_Event::index" title="Webengage Event Track" module="Webengage_Event" sortOrder="10" action="event/index" resource="Webengage_Event::index" parent="Webengage_Event::parent"/>
+		
+    </menu>
+</config>

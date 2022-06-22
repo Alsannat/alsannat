@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Custom_City::city" title="Region Manager"
+                          sortOrder="100">
+                    <resource id="Custom_City::manage_cities" title="Manage Cities"
+                              sortOrder="2" />
+                    <resource id="Custom_City::manage_zips" title="Manage Zip Codes"
+                              sortOrder="3" />
+                    <resource id="Custom_City::manage_states" title="Manage States"
+                              sortOrder="1" />
+                    <resource id="Custom_City::configuration" title="Configurations"
+                              sortOrder="4" />
+
+                    <resource id="Custom_City::city_imports" title="Import Manager"
+                              sortOrder="5">
+                        <resource id="Custom_City::import_zip" title="Zip codes Import" sortOrder="1" />
+                        <resource id="Custom_City::import_city" title="Cities import" sortOrder="2" />
+                        <resource id="Custom_City::import_state" title="States Import" sortOrder="3" />
+                    </resource>
+                </resource>
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="Custom_City::system_config"
+                                      title="City &amp; Region Manager" />
+                        </resource>
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

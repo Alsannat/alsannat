@@ -1,0 +1,183 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: qhauict13
+ * Date: 28/01/2016
+ * Time: 21:34
+ */
+/** @var \Magenest\GiftCard\Block\Adminhtml\Template\Edit\Js $block */
+$coors = $block->getTemplateData();
+$mediaUrl = $block->getMediaUrl();
+
+$uploadUrl = $block->getUploadUrl();
+
+$uploadUrlBackground = $block->getBackGroundUploadUrl();
+?>
+
+<script>
+    require([
+        "jquery",
+        "prototype",
+        "Magenest_GiftCard/js/uploader"
+    ], function(jQuery, prototype,uploader){
+        function changeDesignType(){
+            var dropdownSelector = $('template_design_type');
+            var imageSelector = $('template_design_view');
+            var value = <?php echo json_encode($coors)?>;
+            var coor = [];
+            var i = 0;
+
+            for(var key in value){
+                if(value.hasOwnProperty(key)){
+                    coor[i] = value[key];
+                    i++;
+                }
+            }
+
+            setCustomImageAttribute('main', coor[0]);
+            setCustomImageAttribute('box', coor[1]);
+            setCustomImageAttribute('barcode', coor[2]);
+
+            setCustomTextAttribute('title', coor[3]);
+            setCustomTextAttribute('from', coor[4]);
+            setCustomTextAttribute('to', coor[5]);
+            setCustomTextAttribute('giftkey', coor[6]);
+            setCustomTextAttribute('value', coor[7]);
+            setCustomTextAttribute('display', coor[8]);
+            setCustomTextAttribute('note', coor[9]);
+
+            if(coor[9] == undefined) {
+                $('template_custom_note_align').selectedIndex = 0;
+            } else {
+                var explode = coor[9].split(';');
+                $('template_custom_note_align').selectedIndex = explode[3];
+            }
+
+            if(dropdownSelector.value == 1){
+                imageSelector.setAttribute("src", <?php echo $block->getLeftImage(); ?>);
+            }
+            if(dropdownSelector.value == 2){
+                imageSelector.setAttribute("src", <?php echo $block->getRightImage(); ?>);
+            }
+            if(dropdownSelector.value == 3){
+                imageSelector.setAttribute("src", <?php echo $block->getCenterImage(); ?>);
+            }
+
+            if(dropdownSelector.value == 4){
+                $('template_main_image').up('div.field').show();
+                $('template_box_image').up('div.field').show();
+                $('template_barcode_image').up('div.field').show();
+                $('template_custom_title').up('div.field').show();
+                $('template_custom_from').up('div.field').show();
+                $('template_custom_to').up('div.field').show();
+                $('template_custom_giftkey').up('div.field').show();
+                $('template_custom_value').up('div.field').show();
+                $('template_custom_display').up('div.field').show();
+                $('template_custom_note').up('div.field').show();
+                $('template_custom_expiry').up('div.field').show();
+
+                $('template_design_view').up('div.field').hide();
+            } else {
+                $('template_main_image').up('div.field').hide();
+                $('template_box_image').up('div.field').hide();
+                $('template_barcode_image').up('div.field').hide();
+                $('template_custom_title').up('div.field').hide();
+                $('template_custom_from').up('div.field').hide();
+                $('template_custom_to').up('div.field').hide();
+                $('template_custom_giftkey').up('div.field').hide();
+                $('template_custom_value').up('div.field').hide();
+                $('template_custom_display').up('div.field').hide();
+                $('template_custom_note').up('div.field').hide();
+                $('template_custom_expiry').up('div.field').hide();
+
+                $('template_design_view').up('div.field').show();
+            }
+
+            return true;
+        }
+
+        function setCustomImageAttribute(type, value){
+            var i = 0;
+            if(value == undefined){
+                for(i = 0; i < 4; i++){
+                    $('template_' + type + '_image_' + i + '').setAttribute("value", 0);
+                }
+            } else {
+                var explode = value.split(';');
+                for(i = 0; i < 4; i++){
+                    $('template_' + type + '_image_' + i + '').setAttribute("value", explode[i]);
+                }
+            }
+        }
+
+        function setCustomTextAttribute(type, value){
+            var i = 0;
+            if(value == undefined){
+                for(i = 0; i < 3; i++){
+                    $('template_custom_' + type + '_' + i +'').setAttribute("value", 0);
+                }
+            } else {
+                var explode = value.split(';');
+                for(i = 0; i < 3; i++){
+                    $('template_custom_' + type + '_' + i +'').setAttribute("value", explode[i]);
+                }
+            }
+        }
+
+        jQuery('#preview').click(function(){
+            var edit_form = $('edit_form').serialize(true);
+            var form_data = Object.toJSON(edit_form);
+
+            var preview_url = '<?php echo $block->getPreviewUrl();?>';
+            var image_url = '<?php echo $mediaUrl?>' ;
+
+            new Ajax.Request(preview_url,
+                {
+                    method:'post',
+                    parameters: jQuery('#edit_form').serialize(),
+                    requestHeaders: [
+                        'Cache-Control', 'no-cache, no-store, must-revalidate',
+                        'Pragma', 'no-cache',
+                        'Expires', '0'
+                    ],
+                    evalScripts: true,
+                    onSuccess: function(response) {
+
+                       // console.log(response);
+                        var res = JSON.parse(response.responseText);
+                        var path = res.path;
+                        TINY.box.show({
+                            image: image_url + path,
+                            boxid: 'frameless',
+                            width: 880,
+                            height: 500,
+                            fixed: true,
+                            maskid: 'blackmask',
+                            maskopacity: 40,
+                           // closejs: function(){closeJS()}
+                        });
+                    }
+                }
+            );
+            return true;
+        });
+
+        jQuery(document).ready(changeDesignType);
+        jQuery(document).on('change', '#template_design_type', changeDesignType);
+        window.changeDesignType = changeDesignType;
+
+        var main_uploader = new uploader({
+            url : '<?php echo $uploadUrl?>',
+            uploadBtn: '#instant-upload-image',
+            updateSection : '#template_saved_images_main'
+        });
+
+        var background_uploader = new uploader({
+            url : '<?php echo $uploadUrlBackground?>',
+            inputprefix : 'add-bg-input',
+            uploadBtn: '#instant-upload-image',
+            updateSection : '#template_saved_images_background',
+            elementName : 'background_img'
+        });
+    });
+</script>

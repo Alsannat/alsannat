@@ -1,0 +1,363 @@
+<!-- @category   Naqel
+  @package    Naqel_Shipping -->
+<?php $order = $block->getOrder() ?>
+<?php if ($order->getIsVirtual()) : return '';endif; ?>
+<?php
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $wayBillModel=$objectManager->create('Naqel\Shipping\Model\Waybill');
+    $waybill_data = $wayBillModel->getCollection()->addFieldToFilter('entity_id',['eq'=>$order->getId()])->getData();
+    //addFieldToSelect('waybill_no')
+?>
+
+
+<?php /* Shipping Method */ ?>
+<div class="admin__page-section-item order-shipping-method">
+    <div class="admin__page-section-item-title">
+        <span class="title"><?= /* @escapeNotVerified */ __('Shipping &amp; Handling Information ') ?></span>
+    </div>
+    <div class="admin__page-section-item-content">
+        <?php  if ($order->getTracksCollection()->count()) : ?>
+            <p><a href="#" id="linkId" onclick="popWin('<?= /* @escapeNotVerified */ $this->helper('Magento\Shipping\Helper\Data')->getTrackingPopupUrlBySalesModel($order) ?>','trackorder','width=800,height=600,resizable=yes,scrollbars=yes')" title="<?= /* @escapeNotVerified */ __('Track Order') ?>"><?= /* @escapeNotVerified */ __('Track Order') ?></a></p>
+        <?php endif; ?>
+        <?php if ($order->getShippingDescription()): ?>
+            <!--<strong><?= $block->escapeHtml($order->getShippingDescription()) ?></strong> 
+            <?php if ($this->helper('Magento\Tax\Helper\Data')->displayShippingPriceIncludingTax()): ?>
+                <?php $_excl = $block->displayShippingPriceInclTax($order); ?>
+            <?php else: ?>
+                <?php $_excl = $block->displayPriceAttribute('shipping_amount', false, ' '); ?>
+            <?php endif; ?>
+            <?php $_incl = $block->displayShippingPriceInclTax($order); ?>
+
+            <?= /* @escapeNotVerified */ $_excl ?>
+
+            <?php if ($this->helper('Magento\Tax\Helper\Data')->displayShippingBothPrices() && $_incl != $_excl): ?>
+                (<?= /* @escapeNotVerified */ __('Incl. Tax') ?> <?= /* @escapeNotVerified */ $_incl ?>)
+            <?php endif; ?>
+            -->
+            <?php if (!empty($waybill_data)) : ?>
+            <br><strong>Naqel Waybill No - <span><?= $waybill_data[0]['waybill_no']; ?></span></strong>
+            <?php if(!empty($waybill_data[0]['asr_waybill_no'])) : ?> 
+              <br><strong>ASR Waybill No - <span><?= $waybill_data[0]['asr_waybill_no']; ?></span></strong>  
+            <?php endif; ?>
+            <br><strong>Naqel LastEvent Status - </strong><span id="last_event"></span> <br/>
+            
+            <?php endif; ?>
+
+             <?php 
+             //naqelshipping_naqelshipping
+             if($order->getShippingMethod() == 'naqelshipping_naqelshipping' && $order->hasShipments()):?>
+                <br>
+                
+
+                <button>
+                    <a href="<?php echo $block->getUrl('naqel_shipping/GetWaybillSticker/index/entity_id/'.$order->getId()); ?>" class="anchor_btn_class" target="_blank"  title="Label stickers">Label Sticker
+                    </a>
+                </button>
+                
+                <button>
+                    <a href="<?php echo $block->getUrl('naqel_shipping/Commercialinvoice/index/entity_id/'.$order->getId()); ?>" class="anchor_btn_class" target="_blank"  title="commercial invoice">Commercial Invoice
+                    </a>
+                </button>
+                
+                <button style="margin-top:10px;" order-id ="<?php echo $order->getId();?>" id="naqel_cancel_shipment">Cancel Shipment</button>				
+                <button style="margin-top:10px;" order-id ="<?php echo $order->getId();?>" id="naqel_cancel_booking">Cancel Booking</button>				
+			          <button style="margin-top:10px;" order-id ="<?php echo $order->getId();?>" id="naqel_asr">After Sales Return</button>
+                
+                
+                <!--<button style="margin-top:10px;" order-id ="<?php echo $order->getId();?>" id="track_naqel_order">Track Order</button>-->
+
+                <style type="text/css">
+                    .anchor_btn_class{
+                        text-decoration:none;
+                        color: #514943;
+                    }
+                </style>
+
+            <?php endif;?>   
+
+            <?php 
+            if($order->getShippingMethod() == 'naqelefulfillment_naqelefulfillment' && $order->hasShipments()):?>
+                <br>
+                <br><strong>Naqel Waybill No - <span><?= $order->getData('naqel_waybill'); ?></span></strong>
+                <br/>
+                <button style="margin-top:10px;" order-id ="<?php echo $order->getId();?>" 
+                    order-date ="<?php 
+                        $date = new \Datetime($order->getCreatedAt());
+                    echo $date->format('Y-m-d');
+                    ?>" 
+                    id="track_naqel_fulfillment_order">Order Status</button>
+            <?php endif;?>
+            <!-- track order button only for  naqel_shipping method -->
+
+
+        <?php else: ?>
+            <?= /* @escapeNotVerified */ __('No shipping information available') ?>
+        <?php endif; ?>
+    </div>
+</div>
+<div id="popup-modal">
+    <style type="text/css">
+        @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css");
+           
+            .track_tbl td.track_dot {
+                width: 50px;
+                position: relative;
+                padding: 0;
+                text-align: center;
+            }
+            .track_tbl td.track_dot:after {
+                content: "\f111";
+                color: #11ce11;
+                font-family: FontAwesome;
+                position: absolute;
+                margin-left: -5px;
+                top: 15px;
+            }
+            .track_tbl td.track_dot span.track_line {
+                background: green;
+                width: 3px;
+                min-height: 50px;
+                position: absolute;
+                height: 101%;
+            }
+            .track_tbl tbody tr:first-child td.track_dot span.track_line {
+                top: 30px;
+                min-height: 25px;
+            }
+            .track_tbl tbody tr:last-child td.track_dot span.track_line {
+                top: 0;
+                min-height: 25px;
+                height: 10%;
+            }
+    </style>
+    <div class="ajaxresponse table-responsive"></div>
+</div>
+
+
+
+<div id="popup-modal2">
+    <style type="text/css">
+        @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css");
+           
+            .track_tbl td.track_dot {
+                width: 50px;
+                position: relative;
+                padding: 0;
+                text-align: center;
+            }
+            .track_tbl td.track_dot:after {
+                content: "\f111";
+                color: #11ce11;
+                font-family: FontAwesome;
+                position: absolute;
+                margin-left: -5px;
+                top: 15px;
+            }
+            .track_tbl td.track_dot span.track_line {
+                background: green;
+                width: 3px;
+                min-height: 50px;
+                position: absolute;
+                height: 101%;
+            }
+            .track_tbl tbody tr:first-child td.track_dot span.track_line {
+                top: 30px;
+                min-height: 25px;
+            }
+            .track_tbl tbody tr:last-child td.track_dot span.track_line {
+                top: 0;
+                min-height: 25px;
+                height: 10%;
+            }
+    </style>
+    <div class="ajaxresponse table-responsive"></div>
+</div>
+
+<script>
+    require(
+        [
+            'jquery',
+            'Magento_Ui/js/modal/modal',
+            'Magento_Ui/js/modal/alert'
+        ],
+        function(
+            $,
+            modal,
+            alert
+        ) {
+        
+            $(document).ready(function () {
+              var waybill_no = '<?= $waybill_data ? $waybill_data[0]["waybill_no"] : ''; ?>';
+              var ajaxURL = '<?php echo $block->getUrl("naqel_shipping/lastevent"); ?>';
+              console.log(ajaxURL);
+              if (waybill_no) {
+              $.ajax({
+                    type: "GET",
+                    url: ajaxURL,
+                    data: {waybill_no:waybill_no},
+                    success: function(result){
+                        //console.log(result.LastEventTrackingStatus.Activity);
+                        var html = '<span class="last_event_text text-danger" > ' + result.LastEventTrackingStatus.Activity + '</span>';               
+                        $('#last_event').append(html);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown){
+                        console.log(errorThrown);
+                    }
+                });
+                              }
+            });
+            
+            $(document).on("click","#naqel_cancel_shipment",function(){
+               //var entity_id = $(this).attr('order-id');
+               var waybill_no = '<?= $waybill_data ? $waybill_data[0]["waybill_no"] : ''; ?>';
+               var ajaxURL = '<?php echo $block->getUrl("naqel_shipping/cancelshipment"); ?>';
+               $.ajax({
+                    type: "GET",
+                    url: ajaxURL,
+                    data: {waybill_no:waybill_no},
+                    success: function(result){
+                        alert({
+                          title:'Naqel Epress',
+                          content: result.Message,
+                          actions: {
+                              always: function(){}
+                          }
+                        });
+                    },
+                    error: function(jqXHR, textStatus, errorThrown){
+                        console.log(errorThrown);
+                    }
+                });
+            });
+            
+            $(document).on("click","#naqel_cancel_booking",function(){
+               var entity_id = $(this).attr('order-id');
+               var ajaxURL = '<?php echo $block->getUrl("naqel_shipping/cancelbooking"); ?>';
+               $.ajax({
+                    type: "GET",
+                    url: ajaxURL,
+                    data: {entity_id:entity_id},
+                    success: function(result){
+                        alert({
+                          title:'Naqel Epress',
+                          content: result.Message,
+                          actions: {
+                              always: function(){}
+                          }
+                        });
+                    },
+                    error: function(jqXHR, textStatus, errorThrown){
+                        console.log(errorThrown);
+                    }
+                });
+            });
+            
+            
+            $(document).on("click","#naqel_asr",function(){
+               var entity_id = $(this).attr('order-id');
+               var ajaxURL = '<?php echo $block->getUrl("naqel_shipping/aftersalesreturn"); ?>';
+               $.ajax({
+                    type: "GET",
+                    url: ajaxURL,
+                    data: {entity_id:entity_id},
+                    success: function(result){
+                        var waybillNoMsg = '';
+                        if(result.WaybillNo) {
+                          waybillNoMsg = ' New ASR WaybillNo : ' + result.WaybillNo;
+                        }
+                        alert({
+                          title:'Naqel Epress',
+                          content: result.Message + waybillNoMsg,
+                          actions: {
+                              always: function(){}
+                          }
+                        });
+                    },
+                    error: function(jqXHR, textStatus, errorThrown){
+                        console.log(errorThrown);
+                    }
+                });
+            });
+            
+            var options = {
+                type: 'popup',
+                responsive: true,
+                innerScroll: true,
+                title: 'Order Tracking',
+                buttons: [{
+                    text: $.mage.__('Exit'),
+                    class: '',
+                    click: function () {
+                        this.closeModal();
+                    }
+                }]
+            };
+
+            var popup = modal(options, $('#popup-modal'));
+            $(document).on("click","#track_naqel_order",function(){
+                var entity_id = $(this).attr('order-id');
+                var ajaxURL = '<?php echo $block->getUrl("naqel_shipping/tracking"); ?>';
+                  $.ajax({
+                    type: "GET",
+                    url: ajaxURL,
+                    data: {entity_id:entity_id},
+                    success: function(result){
+                        console.log(result);
+                        $(".ajaxresponse").html(result);
+                        $('#popup-modal').modal('openModal');
+                    },
+                    error: function(jqXHR, textStatus, errorThrown){
+                        console.log(errorThrown);
+                    },
+                    beforeSend: function(jqXHR, settings){
+                        $('body').trigger('processStart');        
+                    },
+                    complete: function(jqXHR, textStatus){
+                        $('body').trigger('processStop');
+                    }
+                });                    
+            });
+
+
+           var options2 = {
+                type: 'popup',
+                responsive: true,
+                innerScroll: true,
+                title: 'Order Status',
+                buttons: [{
+                    text: $.mage.__('Exit'),
+                    class: '',
+                    click: function () {
+                        this.closeModal();
+                    }
+                }]
+            };
+
+            var popup2 = modal(options2, $('#popup-modal2'));
+            $(document).on("click","#track_naqel_fulfillment_order",function(){
+                var entity_id = $(this).attr('order-id');
+                var order_date = $(this).attr('order-date');
+                var ajaxURL = '<?php echo $block->getUrl("naqel_fulfillment/tracking"); ?>';
+                  $.ajax({
+                    type: "GET",
+                    url: ajaxURL,
+                    data: {entity_id:entity_id, order_date:order_date },
+                    success: function(result){
+                        console.log(result);
+                        $(".ajaxresponse").html(result);
+                        $('#popup-modal2').modal('openModal');
+                    },
+                    error: function(jqXHR, textStatus, errorThrown){
+                        console.log(errorThrown);
+                    },
+                    beforeSend: function(jqXHR, settings){
+                        $('body').trigger('processStart');        
+                    },
+                    complete: function(jqXHR, textStatus){
+                        $('body').trigger('processStop');
+                    }
+                });                    
+            });            
+        }
+    );
+</script>

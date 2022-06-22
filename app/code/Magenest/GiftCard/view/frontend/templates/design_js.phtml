@@ -1,0 +1,62 @@
+<?php
+/**
+ * Created by Magenest
+ * User: Luu Thanh Thuy
+ * Date: 13/07/2016
+ * Time: 21:23
+ */
+?>
+<?php
+
+//echo get_class($block);
+//echo $block->getRequest()->getActionName();
+
+$request = $block->getRequest()->getParams();
+
+$to = (isset($request['giftcard']['giftcard_recipient_name']))? $request['giftcard']['giftcard_recipient_name']:'';
+$amount = (isset($request['giftcard']['giftcard_amount']))? $request['giftcard']['giftcard_amount']:'';
+
+$from = (isset($request['giftcard']['giftcard_sender_name']))? $request['giftcard']['giftcard_sender_name']:'';
+$headline = (isset($request['giftcard']['giftcard_headline']))? $request['giftcard']['giftcard_headline']:'';
+
+$message = (isset($request['giftcard']['giftcard_message']))? $request['giftcard']['giftcard_message']:'';
+
+//var_dump($request);
+?>
+<div class="giftcard-option-wrapper" >
+
+    <div class="field">
+       <label><?php echo __("Gift Card Value")  ?></label>
+
+        <div>
+            <input name="amount" value="<?php echo $amount?>" >
+        </div>
+    </div>
+
+    <div class="field">
+       <label><?php echo __("From")  ?></label>
+
+        <div>
+            <input name="from" value="<?php echo  $from ?>" >
+        </div>
+    </div>
+
+    <div class="field">
+       <label><?php echo __("To")  ?></label>
+
+        <div>
+            <input name="to" value="<?php  echo $to ?>">
+        </div>
+    </div>
+
+    <div class="field">
+       <label><?php echo __("Message")  ?></label>
+
+        <div>
+            <textarea name="message"> <?php echo  $message ?></textarea>
+        </div>
+    </div>
+<script type="text/javascript">
+
+    </script>
+

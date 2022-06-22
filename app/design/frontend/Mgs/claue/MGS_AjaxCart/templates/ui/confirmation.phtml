@@ -1,0 +1,158 @@
+<?php
+/* @var $block \Magento\Framework\View\Element\Template */
+?>
+<?php $cartBlock = $this->getLayout()->createBlock('\Magento\Checkout\Block\Cart\Grid'); ?>
+<?php $rendererBlock = $this->getLayout()->createBlock('\Magento\Checkout\Block\Cart\Item\Renderer'); ?>
+<?php $msrphelper = $this->helper(Magento\Msrp\Helper\Data::class); ?>
+<?php $popupItemHelper = $this->helper('\Evincemage\ProductAttributes\Helper\PopupHelper'); ?>
+<?php $allCartItems = $cartBlock->getItems(); ?>
+<?php
+    $cartSummary = $block->getCartSummary();
+    $cartSummaryText = $cartSummary == 1 ? __('item') : __('items');
+?>
+    <div class="popup__columns add_cart_popup">
+         <h2 class="cart--tag"><?php echo $block->escapeHtml(__('CART')) ?></h2>
+
+        <?php echo $block->getChildHtml('messages') ?>
+
+        <div class="popup__column">
+
+              <div class="product-row--main">
+            <?php foreach ($allCartItems as $_item): ?>
+                <?php
+                    $rendererBlock->setItem($_item);
+                    $_item = $rendererBlock->getItem();
+                    $product = $_item->getProduct();
+
+                    $canApplyMsrp = $msrphelper->isShowBeforeOrderConfirm($product) && $msrphelper->isMinimalPriceLessMsrp($product);
+                ?>
+                <div class="product-row">
+                    <div class="row-content">
+                        <div class="item-image-wrapper">
+                            <?php echo $popupItemHelper->getImage($popupItemHelper->getProductForThumbnail($_item), 'cart_page_product_thumbnail')->toHtml() ?>
+                        </div>
+                        <div class="item-details-wrapper">
+                            <div class="product-name">
+                                <?php echo __($_item->getName()) ?>
+                            </div>
+                            <div class="product-options-wrapper">
+                                <?php if ($_options = $popupItemHelper->getProductOptions($_item)): ?>
+                                    <dl class="item-options">
+                                        <?php foreach ($_options as $_option) :?>
+                                        <dt>
+                                            <?php echo $block->escapeHtml($_option['label']); ?>
+                                        </dt>
+                                        <dd>
+                                            <?php echo $block->escapeHtml($_option['value']); ?>
+                                        </dd>
+                                        <?php endforeach; ?>
+                                    </dl>
+                                <?php endif;?>
+                            </div>
+                            <div class="product-stock-value">
+                                <label class="stocl-label"><?php echo $block->escapeHtml(__('Qty')) ?>: </label>
+                                <span class="stock-value"><?php echo $block->escapeHtml($popupItemHelper->getQty($_item)) ?></span>
+                            </div>
+                            <div class="product-unit-price">
+                                <label class="price-label"><?php echo $block->escapeHtml(__('Price')) ?>: </label>
+                                <span class="price-value">
+                                    <?php if ($canApplyMsrp) :?>
+                                        <span class="cart msrp subtotal">--</span>
+                                    <?php else :?>
+                                        <span class="price-including-tax" data-label="<?= $block->escapeHtmlAttr(__('Excl. Tax')) ?>">
+                                            <span class="cart-price">
+                                                <?php echo $block->escapeHtml($this->helper(Magento\Checkout\Helper\Data::class)->formatPrice($_item->getCalculationPrice()),['span']) ?>
+                                            </span>
+                                        </span>
+                                    <?php endif; ?>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+            <div class="pop-up-bottom-wrapper">
+                <div class="subtotals-container">
+                    <div class="label-container"><span class="subtotal-label"><?php echo $block->escapeHtml(__('Subtotal')) ?></span></div>
+                    <div class="value-container"><?php /* @noEscape */ echo $block->getCartSubtotal() ?></div>
+                </div>
+                <div class="checkout-button">
+                    <?php if($block->getIsCheckout()): ?>
+                        <div class="popup__actions-wrapper">
+                            <button class="popup__action-redirect--checkout btn btn-primary" data-action="redirect-checkout"
+                                data-href="<?php /* @noEscape */ echo $block->getUrl('checkout') ?>"><?php echo $block->escapeHtml(__('CHECKOUT')) ?>
+                            </button>
+                        </div>
+                    <?php endif ?>
+                </div>
+                <div class="continue-shopping">
+                    <a href="#" class="continue-shopping-url"><?php echo $block->escapeHtml(__('CONTINUE SHOPPING')) ?></a>
+                </div>
+            </div>
+
+			<div class="popup__table" style="display: none;">
+				<div class="popup__table-col">
+					<div class="popup__column--media">
+						<?php echo $block->getChildHtml('product_image') ?>
+					</div>
+				</div>
+			   <div class="popup__table-col">
+					<div class="popup__column--result">
+						<p class="popup__result-title">: </p>
+						<?php if($block->getIsCart()) { ?>
+							<div class="popup__result-view-cart text-center"><button class="btn btn-xs btn-default" type="button" onclick="setLocation('<?php echo $block->getUrl('checkout/cart') ?>');"><?php echo $block->escapeHtml(__('View Cart'))   ?></button></div>
+						<?php } ?>
+					</div>
+				</div>
+			</div>
+        </div>
+        <?php if(2<1): ?>
+        <div class="offer-container">
+            <div class="offer-content-wrapper">
+                <div class="offer-text">
+                    <h3 class="offer-head"><?= __('Buy 2 Get Cheapest 1 Free') ?></h3>
+                    <span class="offer-desc"><?=__('Add to cart any 3 products the cheapest one will be for free buy now !!')?></span>
+                </div>
+                <div class="offer-note">
+                    <span class="note-text"><?= __('Note: this offer does not apply to products that have offers') ?></span>
+                </div>
+            </div>
+        </div>
+        <?php endif; ?>
+    </div>
+<script>
+    require(["jquery"], function ($) {
+        jQuery(document).ready(function() {
+
+            jQuery('.mfp-mgs-quickview-frame').addClass('success-ajax--popup');
+            jQuery('.success-ajax--popup').removeClass('mfp-mgs-quickview-frame');
+
+            jQuery('.popup__action-close').click(function(){
+                jQuery('.mfp-close').trigger('click');
+            });
+            jQuery('.popup__result-view-cart').click(function(){
+                var url_cart_update = '<?php echo $this->getUrl('ajaxcart/index/updatecart')?>';
+                jQuery.ajax({
+                    url: url_cart_update,
+                    method: "POST"
+                });
+                window.location.href = jQuery(this).attr('data-href');
+            })
+            jQuery('.popup__action-redirect--checkout').click(function(){
+                var url_cart_update = '<?php echo $this->getUrl('ajaxcart/index/updatecart')?>';
+                jQuery.ajax({
+                    url: url_cart_update,
+                    method: "POST"
+                });
+                window.location.href = jQuery(this).attr('data-href');
+            })
+        });
+
+    });
+</script>
+<style>
+.mfp-bg.success-ajax--popup.mfp-ready {
+    background: #252424;
+}
+</style>

@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+<!--
+  Copyright © 2018 Wyomind. All rights reserved.
+  See LICENSE.txt for license details.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <wyomind_elasticsearchcore>
+            <license>
+                <!--required for License Manager -->
+                <extension_label>Elasticsearch Core</extension_label>
+                <extension_version>4.0.7</extension_version>
+                <extension_code>elsc</extension_code>
+                <activation_key/>
+                <actk/>
+            <activation_key>LD63WA220N9TR2OXN</activation_key></license>
+            <configuration>
+                <can_use_layerednavigation>-1</can_use_layerednavigation>
+                <can_use_autocomplete>-1</can_use_autocomplete>
+                <can_use_multifacetedautocomplete>-1</can_use_multifacetedautocomplete>
+                <cant_use_layerednavigation>0</cant_use_layerednavigation>
+                <cant_use_autocomplete>0</cant_use_autocomplete>
+                <cant_use_multifacetedautocomplete>0</cant_use_multifacetedautocomplete>
+                <elasticsearch_server_status>-1</elasticsearch_server_status>
+                <server_version>-</server_version>
+                <compatibility>6</compatibility>
+                <servers>127.0.0.1:9200</servers>
+                <verify_host>1</verify_host>
+                <timeout>5</timeout>
+                <index_prefix/>
+                <index_settings><![CDATA[{
+   "number_of_shards": 1,
+   "number_of_replicas": 0,
+   "analysis": {
+       "analyzer": {
+           "std": {
+               "tokenizer": "standard",
+               "char_filter": "html_strip",
+               "filter": ["standard", "elision", "asciifolding", "lowercase", "length"]
+           },
+           "keyword": {
+               "tokenizer": "keyword",
+               "filter": ["asciifolding", "lowercase", "length"]
+           },
+           "keyword_prefix": {
+               "tokenizer": "keyword",
+               "filter": ["asciifolding", "lowercase", "edge_ngram_front"]
+           },
+           "text_prefix": {
+               "tokenizer": "standard",
+               "char_filter": "html_strip",
+               "filter": ["standard", "elision", "asciifolding", "lowercase", "edge_ngram_front"]
+           },
+           "text_suffix": {
+               "tokenizer": "standard",
+               "char_filter": "html_strip",
+               "filter": ["standard", "elision", "asciifolding", "lowercase", "edge_ngram_back"]
+           }
+       },
+       "filter": {
+           "edge_ngram_front": {
+               "type": "edgeNGram",
+               "min_gram": 1,
+               "max_gram": 20,
+               "side": "front"
+           },
+           "edge_ngram_back": {
+               "type": "edgeNGram",
+               "min_gram": 1,
+               "max_gram": 20,
+               "side": "back"
+           },
+           "length": {
+               "type": "length",
+               "min": 1,
+               "min_subword_size": 1
+           }
+       }
+   }
+}]]></index_settings>
+                <safe_reindex>1</safe_reindex>
+                <query_operator>AND</query_operator>
+                <enable_fuzzy_query>1</enable_fuzzy_query>
+                <fuzzy_query_mode>AUTO</fuzzy_query_mode>
+                <enable_product_weight>0</enable_product_weight>
+                <enable_pub_folder>0</enable_pub_folder>
+            </configuration>
+            <debug>
+                <enable_frontend_request_log>0</enable_frontend_request_log>
+                <enable_reindex_log>0</enable_reindex_log>
+                <enable_elasticsearch_sever_status_log>1</enable_elasticsearch_sever_status_log>
+                <backend_notification_on_elasticsearch_sever_fail>1</backend_notification_on_elasticsearch_sever_fail>
+                <backend_notification_on_elasticsearch_sever_fail_settings>
+                    <subject>Wyomind ElasticsearchCore - Elasticsearch Server failed</subject>
+                    <content><![CDATA[- Store {{name}}, {{code}} (ID: {{store_id}})<br/>- Elasticsearch Server version : {{server_version}}<br/>- Servers : {{servers}}<br/>]]></content>
+                </backend_notification_on_elasticsearch_sever_fail_settings>
+                <mail_notification_on_elasticsearch_sever_fail>0</mail_notification_on_elasticsearch_sever_fail>
+                <mail_notification_on_elasticsearch_sever_fail_settings>
+                    <subject>Wyomind ElasticsearchCore - Elasticsearch Server status information</subject>
+                    <content><![CDATA[Elasticsearch Sever status: {{server_status}} [store ID {{store_id}}] <br/>Message: {{message}}]]></content>
+                </mail_notification_on_elasticsearch_sever_fail_settings>
+            </debug>
+            <design>
+                <primary_color>#0879A1</primary_color>
+                <secondary_color>#faffba</secondary_color>
+                <background_primary_color>#ffffff</background_primary_color>
+                <background_secondary_color>#f9f9f9</background_secondary_color>
+                <transition_enable>1</transition_enable>
+                <transition_duration>0.2</transition_duration>
+                <overlay_enable>1</overlay_enable>
+                <blur_enable>1</blur_enable>
+            </design>
+            <types>
+                <product>
+                    <enable>1</enable>
+                    <image_size>90</image_size>
+                    <attributes>{"name":{"c":"1","w":"10","b":"varchar"},"sku":{"c":"1","w":"9","b":"static"},"color":{"c":"1","w":"1","b":"int"},"description":{"c":"1","w":"1","b":"text"},"gender":{"c":"1","w":"1","b":"varchar"},"manufacturer":{"c":"1","w":"1","b":"int"},"size":{"c":"1","w":"1","b":"int"}}</attributes>
+                </product>
+                <category>
+                    <enable>1</enable>
+                    <attributes>{"name":{"c":"1","b":"varchar"},"url_key":{"c":"1","b":"varchar"},"meta_title":{"c":"1","b":"varchar"},"description":{"c":"1","b":"varchar"}}</attributes>
+                </category>
+                <cms>
+                    <enable>1</enable>
+                    <attributes>{"content":{"c":"1","b":"text"},"identifier":{"c":"1","b":"text"},"title":{"c":"1","b":"text"}}</attributes>
+                    <excluded_pages>1,3,4</excluded_pages>
+                </cms>
+            </types>
+        </wyomind_elasticsearchcore>
+    </default>
+</config>

@@ -1,0 +1,20 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$FormKey = $objectManager->get('Magento\Framework\Data\Form\FormKey');
+?>
+
+<div class="additional-cache-management">
+    <h2>
+        <span><?php /* @escapeNotVerified */ echo __('Varnish Cache Management') ?></span>
+    </h2>
+    <form action="<?php echo $this->getUrl('varnish/varnish/varnish'); ?>">
+        <input name="form_key" type="hidden" value="<?php echo $FormKey->getFormKey();?>">
+        <p>
+            <button type="submit">
+                <?php /* @escapeNotVerified */ echo __('Purge Varnish URL') ?>
+            </button>
+            <input type="text" name="path"/>
+            <span><?php /* @escapeNotVerified */ echo __('Purge a particular URL in varnish') ?></span>
+        </p>
+    </form>
+</div>

@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+
+<!--
+/**
+ * Checkout.com Magento 2 Magento2 Payment.
+ *
+ * PHP version 7
+ *
+ * @category  Checkout.com
+ * @package   Magento2
+ * @author    Checkout.com Development Team <integration@checkout.com>
+ * @copyright 2019 Checkout.com all rights reserved
+ * @license   https://opensource.org/licenses/mit-license.html MIT License
+ * @link      https://www.checkout.com
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- Logger -->
+    <virtualType name="checkoutcom_magento2_logger_handler" type="Magento\Framework\Logger\Handler\Base">
+        <arguments>
+            <argument name="fileName" xsi:type="string">/var/log/checkoutcom_magento2.log</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="checkoutcom_magento2_logger" type="Magento\Framework\Logger\Monolog">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="debug" xsi:type="object">checkoutcom_magento2_logger_handler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="CheckoutCom\Magento2\Helper\Logger">
+        <arguments>
+            <argument name="logger" xsi:type="object">checkoutcom_magento2_logger</argument>
+        </arguments>
+    </type>
+    <!-- Method handler configurations -->
+    <type name="CheckoutCom\Magento2\Model\Service\MethodHandlerService">
+        <arguments>
+            <argument name="instances" xsi:type="array">
+                <item name="checkoutcom_card_payment" xsi:type="object">CheckoutCom\Magento2\Model\Methods\CardPaymentMethod</item>
+                <item name="checkoutcom_apm" xsi:type="object">CheckoutCom\Magento2\Model\Methods\AlternativePaymentMethod</item>
+                <item name="checkoutcom_apple_pay" xsi:type="object">CheckoutCom\Magento2\Model\Methods\ApplePayMethod</item>
+                <item name="checkoutcom_google_pay" xsi:type="object">CheckoutCom\Magento2\Model\Methods\GooglePayMethod</item>
+                <item name="checkoutcom_vault" xsi:type="object">CheckoutCom\Magento2\Model\Methods\VaultMethod</item>
+            </argument>
+        </arguments>
+    </type>
+    <!-- END Method handler configurations -->
+
+    <!-- CKO API v3 Preferences -->
+    <preference for="CheckoutCom\Magento2\Api\V3Interface" type="CheckoutCom\Magento2\Model\Api\V3"/>
+    <preference for="CheckoutCom\Magento2\Api\Data\PaymentRequestInterface" type="CheckoutCom\Magento2\Model\Api\Data\PaymentRequest" />
+    <preference for="CheckoutCom\Magento2\Api\Data\PaymentResponseInterface" type="CheckoutCom\Magento2\Model\Api\Data\PaymentResponse" />
+    <!-- END CKO API v3 Preferences -->
+
+    <!-- Instant Purchase override -->
+    <preference for="Magento\InstantPurchase\CustomerData\InstantPurchase" type="CheckoutCom\Magento2\Model\InstantPurchase\CustomerData" />
+    <!-- END Instant Purchase override -->
+
+    <!-- After place order plugin -->
+    <type name="Magento\Sales\Api\OrderManagementInterface">
+        <plugin name="cko_after_place_order" type="CheckoutCom\Magento2\Plugin\AfterPlaceOrder" />
+    </type>
+
+    <!-- Command line interface -->
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="webhooks" xsi:type="object">CheckoutCom\Magento2\Console\Webhooks</item>
+            </argument>
+        </arguments>
+    </type>
+    <!-- END Command line interface -->
+
+    <!-- Webhook entity repository preference -->
+    <preference for="CheckoutCom\Magento2\Api\WebhookEntityRepositoryInterface" type="CheckoutCom\Magento2\Model\Api\WebhookEntityRepository" />
+</config>

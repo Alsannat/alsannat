@@ -1,0 +1,96 @@
+span.error {
+  color: red;
+}
+
+span.success {
+  color: green;
+}
+
+
+
+#row_wyomind_elasticsearchlayerednavigation_settings_display_category_layer_top, /* mage 2.1 */
+table#wyomind_elasticsearchlayerednavigation_settings_display_category_layer_top_attributes,
+table#wyomind_elasticsearchlayerednavigation_settings_display_category_layer_left_attributes,
+table#wyomind_elasticsearchlayerednavigation_settings_display_category_layer_right_attributes,
+table#wyomind_elasticsearchlayerednavigation_settings_display_search_layer_top_attributes,
+#row_wyomind_elasticsearchlayerednavigation_settings_display_search_layer_top, /* mage 2.1 */
+table#wyomind_elasticsearchlayerednavigation_settings_display_search_layer_left_attributes,
+table#wyomind_elasticsearchlayerednavigation_settings_display_search_layer_right_attributes,
+#row_wyomind_elasticsearchmultifacetedautocomplete_settings_display_layer, /* mage 2.1 */
+table#wyomind_elasticsearchmultifacetedautocomplete_settings_display_layer_attributes {
+  tr {
+    // hide the position column header
+    th:nth-child(4) {
+      display: none;
+    }
+    // hide the position column
+    td:nth-child(4) {
+      display: none;
+    }
+  }
+  li {
+    // handler for the drag and drop
+    list-style: none;
+    padding-top: 8px;
+    padding-left: 20px;
+    &:before {
+      content: '\e63E';
+      font-family: 'Admin Icons';
+      cursor: ns-resize;
+    }
+  }
+}
+
+span.color-preview {
+    display: inline-block;
+    padding: 4px;
+    border: 1px solid grey;
+    &._0879A1 {
+        background:#0879A1;
+        color: white;
+    }
+    &._FAFFBA {
+        background:#FAFFBA;
+        color: dimgrey;
+    }
+    &._FFFFFF {
+        background:#FFFFFF;
+        color: dimgrey;
+    }
+    &._F9F9F9 {
+        background:#F9F9F9;
+        color: dimgrey;
+    }
+}
+
+#wyomind_elasticsearchcore_design {
+    .tooltip-content {
+        width: auto;
+        max-width: 400px;
+    }
+    .system-config {
+        background-repeat: no-repeat;
+        background-size: 400px auto;
+        width: 400px;
+        &.small {
+            background-size: 200px auto;
+            width: 200px;
+        }
+        &.design-colors-primary {
+            background-image: url('../images/design-colors-primary.png');
+            height: 200px;
+        }
+        &.design-colors-secondary {
+            background-image: url('../images/design-colors-secondary.png');
+            height: 200px;
+        }
+        &.design-colors-bg-primary {
+            background-image: url('../images/design-colors-bg-primary.png');
+            height: 200px;
+        }
+        &.design-colors-bg-secondary {
+            background-image: url('../images/design-colors-bg-secondary.png');
+            height: 200px;
+        }
+    }
+}

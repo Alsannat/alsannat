@@ -1,0 +1,40 @@
+<?php
+$_product = $block->getProduct();
+$value = $_product->getPriceInfo()->getPrice('final_price')->getValue()/4;
+$finalPriceAmt = number_format((float)$value, 2, '.', '') ;
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$storeManager = $objectManager->get('Magento\Store\Model\StoreManagerInterface');
+$currencyCode = $storeManager->getStore()->getCurrentCurrencyCode();
+
+$getLocale = $objectManager->get('Magento\Framework\Locale\Resolver');
+$haystack  = $getLocale->getLocale();
+$lang = strstr($haystack, '_', true);
+$class = "";
+if($lang == "ar"){
+  $class= "tabby-promo-snippet--rtl";
+}
+?>
+<?php if(2<1): ?>
+<div id="customtabbypromo">
+  <div class="tabby-promo-snippet <?php echo $class; ?>">
+    <div class="tabby-promo-snippet__content ">
+      <span class="tabby-promo-snippet__text"><?php echo __("or 4 interest-free payments of %1 %2", $finalPriceAmt, __($currencyCode)); ?>.</span>
+      <a href="#" class="tabby-promo-snippet__link"><?php echo __("Learn More");?>
+      </a>
+    </div>
+
+    <a class="tabby-promo-snippet__logo" href="https://tabby.ai/" target="_blank"><div class="tabby-promo-snippet__logo-img" alt="Tabby Logo" width="47" height="25">
+    </div></a>
+  </div>
+</div>
+<?php endif; ?>
+<style>
+.tabby-promo-snippet {
+    width: 100%;
+    max-width: 100%;
+}
+#tabbyPromo{
+  display: none;
+}
+</style>

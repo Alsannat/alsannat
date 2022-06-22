@@ -1,0 +1,43 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 subscribe_text">
+<h3>Get messages for exclusive offers, postal products, and special deals</h3>
+<p>If you clicked Submit, you agree to <a style="text-decoration: underline; color: #fff;" href="/baggage-policy"> Privacy Policy </a>, so you can unsubscribe at any time</p>
+
+</div>
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 mid-subscribe">
+	<div class="block newsletter">
+    <div class="content">
+<h3 class="show_mobile" style="display:none;">Get messages for exclusive offers, postal products, and special deals</h3>     
+
+	 <form class="form subscribe"
+            novalidate
+            action="<?php /* @escapeNotVerified */ echo $block->getFormActionUrl() ?>"
+            method="post"
+            data-mage-init='{"validation": {"errorClass": "mage-error"}}'
+            id="newsletter-validate-detail-footer">
+            <div class="field form-group newsletter">
+                <div class="control">
+                    <input name="email" type="email" id="newsletter-footer"
+                                placeholder="<?php /* @escapeNotVerified */ echo __('Your email address') ?>"
+                                data-validate="{required:true, 'validate-email':true}"/>
+                </div>
+            </div>
+            <div class="actions">
+                <button class="action subscribe btn btn-primary btn-sm" title="<?php /* @escapeNotVerified */ echo __('Send') ?>" type="submit">
+                    <span><?php /* @escapeNotVerified */ echo __('Send') ?></span>
+                </button>
+            </div>
+        </form>
+		<p class="show_mobile" style="display:none;" >If you clicked Submit, you agree to <a style="text-decoration: underline; color: #fff;" href="/baggage-policy"> Privacy Policy </a>, so you can unsubscribe at any time</p>
+
+    </div>
+</div>
+</div>

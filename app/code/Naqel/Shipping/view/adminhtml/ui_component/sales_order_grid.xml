@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Ui/etc/ui_configuration.xsd">
+
+    <listingToolbar name="listing_top">
+       <massaction name="listing_massaction">
+           <action name="naqel_bulk_shipment">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">naqel_bulk_shipment</item>
+                        <item name="label" xsi:type="string" translate="true">Naqel Bulk Shipment</item>
+                        <item name="url" xsi:type="url" path="naqel_shipping/order/massShip"/>
+                        <item name="confirm" xsi:type="array">
+                            <item name="title" xsi:type="string" translate="true">Naqel Bulk Shipment</item>
+                            <item name="message" xsi:type="string" translate="true">Are you sure you want to create shipment for selected items?</item>
+                        </item>
+                    </item>
+                </argument>
+            </action>      
+            <!--<action name="get_waybill_sticker">
+                <settings>
+                    <url path="naqel_shipping/order/massGetWaybillSticker"/>
+                    <type>get_waybill_sticker</type>
+                    <label translate="true">Get Naqel Waybill Sticker</label>
+                </settings>
+            </action>
+            <action name="get_commercial_invoice">
+                <settings>
+                    <url path="naqel_shipping/order/massCommercialinvoice"/>
+                    <type>get_commercial_invoice</type>
+                    <label translate="true">Get Naqel Commercial invoice</label>
+                </settings>
+            </action>
+            <action name="get_naqel_bulk_shipment">
+                <settings>
+                    <url path="naqel_shipping/order/massShip"/>
+                    <type>get_naqel_bulk_shipment</type>
+                    <label translate="true">Generate Bulk Shipment</label>
+                </settings>
+            </action>
+            <action name="get_naqel_bulk_invoice">
+                <settings>
+                    <url path="naqel_shipping/order/massInvoice"/>
+                    <type>get_naqel_bulk_invoice</type>
+                    <label translate="true">Generate Bulk Invoice</label>
+                </settings>
+            </action> -->
+            
+             <action name="naqel_multi_sticker">
+              <settings>
+                  <url path="naqel_shipping/order/massSticker"/>
+                  <type>naqel_multi_sticker</type>
+                  <label translate="true">Naqel Bulk Sticker</label>
+              </settings>
+          </action>
+       </massaction>
+       
+        <!--<massaction name="listing_massaction" component="Magento_Ui/js/grid/tree-massactions">
+          <action name="order_preparation">
+              <settings>
+                  <url path="ordercustomstatus/order/preparation"/>
+                  <type>order_preparation</type>
+                  <label translate="true">Orders processed</label>
+              </settings>
+          </action>
+      </massaction>-->
+    </listingToolbar>
+     
+    <columns name="sales_order_columns">
+         <column name="waybill_no" class="Naqel\Shipping\Ui\Component\Listing\Column\Waybillnocolumn">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Naqel WayBill No.</item>
+                     <item name="sortable" xsi:type="boolean">false</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                </item>
+            </argument>
+        </column>
+        <column name="shipping_information">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Shipping Information</label>
+                <visible>true</visible>
+            </settings>
+        </column>
+    </columns>
+</listing>

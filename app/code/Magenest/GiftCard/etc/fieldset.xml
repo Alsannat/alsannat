@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:DataObject/etc/fieldset.xsd">
+    <scope id="global">
+        <fieldset id="sales_convert_quote">
+            <field name="gift_cards">
+                <aspect name="to_order" />
+            </field>
+            <field name="gift_cards_amount">
+                <aspect name="to_order" />
+            </field>
+            <field name="base_gift_cards_amount">
+                <aspect name="to_order" />
+            </field>
+            <field name="gift_cards_amount_used">
+                <aspect name="to_order" />
+            </field>
+            <field name="base_gift_cards_amount_used">
+                <aspect name="to_order" />
+            </field>
+            <field name="base_grand_total_without_giftcard">
+                <aspect name="to_order" />
+            </field>
+            <field name="grand_total_without_giftcard">
+                <aspect name="to_order" />
+            </field>
+        </fieldset>
+
+
+    </scope>
+</config>

@@ -1,0 +1,175 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php
+/**
+ * Product list toolbar
+ *
+ * @var $block \Magento\Catalog\Block\Product\ProductList\Toolbar
+ */
+use Magento\Catalog\Model\Product\ProductList\Toolbar;
+?>
+<?php
+
+
+$whole_url = $this->getUrl('*/*/*', ['_current' => true, '_use_rewrite' => true]);
+$key ='';
+if (strpos($whole_url, '?') !== false) {
+    $url_arr = explode("?", $whole_url);
+    //$url = $url_arr[0];
+    
+    if(strpos($url_arr[1],'product_list_order') !== false){
+        $key_to_remove = "product_list_order";
+        $url = preg_replace('~(\?|&)'.$key_to_remove.'=[^&]*~', '$1', $whole_url);
+
+        if(strpos($url_arr[1], '&') !== false){
+            $key_arr = explode("&", $url_arr[1]);
+            $last_key = count($key_arr) - 1;
+            $key = explode("=", $key_arr[$last_key]);
+            $key = $key[1];
+        }
+        else{
+            $key = explode("=", $url_arr[1]);
+            $key = $key[1];
+        }
+    }
+    else {
+        //product_list_order is not present
+        $url = $whole_url . "&";
+    }
+
+}else{
+    $url = $whole_url ."?";
+}
+
+?>
+
+<div class="toolbar-sorter sorter">
+
+<div  class="sortby-wrapper-mobile" ><span class="sorter-options">ترتيب حسب</span></div>
+
+
+    <div class="form-item-select">
+		<select id="sorter" data-role="sorter" class="sorter-options">
+        <?php 
+               $name=array("الاكثر طلبا","المنتجات الجديده","المنتجات المخفضه","السعر الاعلى اولا","السعر الاقل اولا","xyz","abc","pqr","mnp");
+                        
+                                $count = 0; 
+						?>
+			<?php  foreach ($block->getAvailableOrders() as $_key => $_order): ?>
+				<option value="<?php /* @escapeNotVerified */  echo $_key; ?>"
+					<?php  if ($block->isOrderCurrent($_key)): ?>
+						selected="selected"
+					<?php  endif; ?>
+					>
+                    <?php ///* @escapeNotVerified */  echo __('Sort by') ?> <?php //echo $block->escapeHtml(__($_order)) ?>
+                    <?php echo "ترتيب حسب ".$name[$count]; ?>
+                    <?php $count++; ?>
+				</option>
+			<?php  endforeach; ?>
+		</select>
+	</div>
+    <!-- <?php  //if ($block->getCurrentDirection() == 'desc'): ?>
+        <a title="<?php /* @escapeNotVerified */ // echo __('Set Ascending Direction') ?>" href="#" class="action sorter-action sort-desc" data-role="direction-switcher" data-value="asc">
+            <span><?php /* @escapeNotVerified */ // echo __('Set Ascending Direction') ?></span>
+        </a>
+    <?php // else: ?>
+        <a title="<?php /* @escapeNotVerified */ // echo __('Set Descending Direction') ?>" href="#" class="action sorter-action sort-asc" data-role="direction-switcher" data-value="desc">
+            <span><?php /* @escapeNotVerified */ //echo __('Set Descending Direction') ?></span>
+        </a>
+    <?php //endif; ?> -->
+
+<div class="filer-sort-wrapper">
+ <div class="filer-sort">
+     <div class="sort-bar ">
+                <div class="filter-header-wrapper">
+                <div class="filter-header">
+                <div class="filter-header-title">ترتيب المنتجات</div>
+                <a href="#" class="filter-header-close"> <span class="pe-7s-close"></span> </a>
+                </div>
+                </div>
+            <div class="filter-sorting">
+                <div class="sorting">
+                    <div class="sorting-head filtering-head"> ترتيب حسب </div>
+                    <ul class="sorting-list">
+                    <?php $sorter = array("suggest", "new", "discount","high-to-low","low-to-high","xyz","abc","pqr","mnp");
+                                //$changename= array("Suggested"=>"ينصح بها","New"=>"منتجات جديدة","Discount"=>"منتجات مخفضة","High To Low"=>"الأعلى أولا","Low To High"=>"الأقل أولاً");
+                            $name=array("ينصح بها","منتجات جديدة","منتجات مخفضة","الأعلى أولا","الأقل أولاً","xyz","abc","pqr","mnp");
+                        
+                                $count = 0; 
+						?>
+						<?php foreach ($block->getAvailableOrders() as $_key => $_order): 
+							$selected = ($key == $_key)?'selected':'' ; ?>
+							
+							<li class="<?php echo $selected ?>">
+							 <a href="<?php echo $url.'product_list_order='.$_key ?>" >
+                             <span class="<?php echo $sorter[$count];  ?>" >
+					                        </span>
+                            <?php echo $name[$count]; ?>
+                            <?php// echo $_order; ?>
+    								</a>
+							
+							</li>
+							<?php $count++; ?>
+						<?php endforeach; ?>
+
+					</ul>
+                </div>
+            </div>
+             </div>
+        </div>
+    </div>
+ </div>
+
+
+ <script type="text/javascript" >
+    require([
+        'jquery'
+    ], function($){
+
+                //    $(document).on("click",".sorting-list li a",function() 
+                   $('.sorting-list li a').off().on('click', function (event){
+                              
+                                $('.sorting-list li a').removeClass('selected');
+                                $(this).addClass("selected");
+                               
+                           
+                             
+                        });
+
+        $('.sortby-wrapper-mobile span').off().on('click', function (event){
+                $('body').toggleClass("sorter-options-menu-open");      
+              
+             
+                  
+        });
+
+             $('.filter-header-close').on('click', function (event) {
+              
+                $('body').removeClass('sorter-options-menu-open');
+            });
+            
+            $('html').click(function(e) {              
+                     
+                   $("body").removeClass('sorter-options-menu-open');
+            }); 
+            $(".sortby-wrapper-mobile span, .filer-sort ").click(function(event) {
+                event.stopPropagation();
+            });
+
+    });
+</script>
+
+
+
+
+
+
+
+

@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Magenest. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Config/etc/system_file.xsd">
+    <system>
+        <tab id="magenest" translate="label" sortOrder="200">
+            <label>Magenest</label>
+        </tab>
+        <section id="giftcard" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Gift Card Configuration</label>
+            <tab>magenest</tab>
+            <resource>Magenest_GiftCard::config_giftcard</resource>
+
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <field id="invoice_status_to_active" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Order item status to active gift card</label>
+                    <source_model>Magento\Downloadable\Model\System\Config\Source\Orderitemstatus</source_model>
+
+                    <comment>It is good idea to choose invoice for production environment</comment>
+                </field>
+
+                <field id="pattern" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Pattern to generate gift card code</label>
+                    <source_model>Magento\Downloadable\Model\System\Config\Source\Orderitemstatus</source_model>
+                    <comment>[A4][N5] for example</comment>
+                </field>
+
+                <field id="email_template" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Email Template</label>
+                    <source_model>Magenest\GiftCard\Model\Config\Source\Email\Template</source_model>
+                    <comment>Email template to send gift card to recipient</comment>
+                </field>
+                <field id="email_identity" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Email Sender</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                    <comment>Email address of store which is used to send gift card to recipient</comment>
+                </field>
+            </group>
+
+            <group id="design" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Design</label>
+            <field id="mode" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Gift Card Design Mode</label>
+                <source_model>Magenest\GiftCard\Model\Source\Design\Mode</source_model>
+
+                <comment>PDF is default mode</comment>
+            </field>
+            </group>
+        </section>
+    </system>
+</config>

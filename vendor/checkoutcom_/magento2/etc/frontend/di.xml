@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+
+<!--
+/**
+ * Checkout.com Magento 2 Magento2 Payment.
+ *
+ * PHP version 7
+ *
+ * @category  Checkout.com
+ * @package   Magento2
+ * @author    Checkout.com Development Team <integration@checkout.com>
+ * @copyright 2019 Checkout.com all rights reserved
+ * @license   https://opensource.org/licenses/mit-license.html MIT License
+ * @link      https://www.checkout.com
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- Frontend config provider -->
+    <type name="Magento\Checkout\Model\CompositeConfigProvider">
+        <arguments>
+            <argument name="configProviders" xsi:type="array">
+                <item name="checkoutcom_magento2_config_provider" xsi:type="object">CheckoutCom\Magento2\Model\Ui\ConfigProvider</item>
+            </argument>
+        </arguments>
+    </type>
+    <!-- End Frontend config provider -->
+
+    <!-- Instant Purchase config -->
+    <type name="Magento\Customer\CustomerData\SectionPoolInterface">
+        <arguments>
+            <argument name="sectionSourceMap" xsi:type="array">
+                <item name="instant-purchase" xsi:type="string">CheckoutCom\Magento2\Model\InstantPurchase\CustomerData</item>
+            </argument>
+        </arguments>
+    </type>
+    <preference for="Magento\InstantPurchase\Controller\Button\PlaceOrder" type="CheckoutCom\Magento2\Controller\Button\PlaceOrder" />
+    <!-- End Instant Purchase config -->
+
+    <!-- Custom UI Messages -->
+    <type name="Magento\Framework\View\Element\Message\MessageConfigurationsPool">
+        <arguments>
+            <argument name="configurationsMap" xsi:type="array">
+                <item name="ckoMessages" xsi:type="array">
+                    <item name="renderer" xsi:type="const">\Magento\Framework\View\Element\Message\Renderer\BlockRenderer::CODE</item>
+                    <item name="data" xsi:type="array">
+                        <item name="template" xsi:type="string">CheckoutCom_Magento2::ui/messages.phtml</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- knet info Messages -->
+    <type name="Magento\Framework\View\Element\Message\MessageConfigurationsPool">
+        <arguments>
+            <argument name="configurationsMap" xsi:type="array">
+                <item name="knetInfoMessage" xsi:type="array">
+                    <item name="renderer" xsi:type="const">\Magento\Framework\View\Element\Message\Renderer\BlockRenderer::CODE</item>
+                    <item name="data" xsi:type="array">
+                        <item name="template" xsi:type="string">CheckoutCom_Magento2::ui/knetInfo.phtml</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+</config>

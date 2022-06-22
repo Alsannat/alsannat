@@ -1,0 +1,17 @@
+<?php if (count($block->getStores())>1): ?>
+	<?php $id = $block->getIdModifier() ? '-' . $block->getIdModifier() : ''?>
+	<div class="dropdown dropdown-switcher language switcher-language" id="switcher-language<?php /* @escapeNotVerified */ echo $id?>">
+		<ul>
+			<?php foreach ($block->getStores() as $_lang): ?>
+				<?php if ($_lang->getId() != $block->getCurrentStoreId()): ?>
+					<strong class="label switcher-label"><?php echo __('Select Language') ?></strong>
+					<li class="padd-mobile view-<?php echo $block->escapeHtml($_lang->getCode()); ?> switcher-option">
+						<a href="#" data-post='<?php /* @escapeNotVerified */ echo $block->getTargetStorePostData($_lang); ?>'>
+							<?php echo $block->escapeHtml($_lang->getName()) ?>
+						</a>
+					</li>
+				<?php endif; ?>
+			<?php endforeach; ?>
+		</ul>
+	</div>
+<?php endif; ?>

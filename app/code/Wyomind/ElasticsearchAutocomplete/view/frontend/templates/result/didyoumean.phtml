@@ -1,0 +1,16 @@
+<?php
+if ($block->isSuggestionEnabled()): ?>
+
+    <?php
+    $dataHelper = $block->getDataHelper();
+    $storeCode = $dataHelper->getCurrentStoreCode();
+    $suggestion = $block->getSuggestion($storeCode);
+    ?>
+
+    <?php if ($suggestion != ""): ?>
+        <h2>
+            <em><?php echo __('Did you mean %1?', '<a href="' . $block->getQueryUrl($suggestion) . '">' . $suggestion . '</a>'); ?></em>
+        </h2>
+    <?php endif; ?>
+
+<?php endif; ?>

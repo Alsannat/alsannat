@@ -1,0 +1,84 @@
+<?php $popup = $this->getPopup(); ?>
+
+<?php if ($popup): ?>
+	
+	<?php $popupStyle = $this->getPopupCss($popup); ?>
+	<div style="display:none">
+		<div <?php if($popup->getPopupScroll() == 1): ?>class="enable-scroll"<?php endif ?> id="mgs-popup" <?php echo $popupStyle; ?>>
+			<button class="action-close" data-role="closeBtn" type="button">
+                <span><?php echo __('Close'); ?></span>
+            </button>
+			<div class="block-mgs-popup">
+				<div class="block-popup-top">
+					<div class="popup-content">
+						<!-- Content HTML -->
+						<?php $objectManager = \Magento\Framework\App\ObjectManager::getInstance(); ?>
+						<?php echo $objectManager->get('\Magento\Cms\Model\Template\FilterProvider')->getBlockFilter()->filter($popup->getContentHtml()); ?>
+						
+						<!-- Countdown -->
+						<?php if($popup->getEnbCms() == 1 && $popup->getTimeEnd() != ""): ?>
+							<?php $now = $this->getNowTime(); ?>
+							<?php $dateEnd = $popup->getTimeEnd(); ?>
+							<?php $dateEnd = date("Y-m-d H:i:s", strtotime($dateEnd)); ?>
+							<?php if($dateEnd > $now): ?>
+								<div class="countdown" >
+									<div class="timer" id="timer-table">
+										<div class="numbers" id="mgs_popup_count" style="padding: 5px 0 0 0; "></div>
+										<div><strong id="dday"></strong><?php echo __('Days'); ?></div>
+										<div><strong id="dhour"></strong><?php echo __('Hours'); ?></div>
+										<div><strong id="dmin"></strong><?php echo __('Mins'); ?></div>
+										<div class="last"><strong id="dsec"></strong><?php echo __('Secs'); ?></div>
+									</div>
+								</div>
+								<?php 
+									$fnY = (int)date('Y', strtotime($dateEnd));
+									$fnM = (int)date('m', strtotime($dateEnd));
+									$fnD = (int)date('d', strtotime($dateEnd));
+									$fnH = (int)date('H', strtotime($dateEnd));
+									$fnI = (int)date('i', strtotime($dateEnd));
+								?>
+								<script type="text/javascript">
+									countdown(<?php echo $fnY ?>,<?php echo $fnM ?>,<?php echo $fnD ?>,<?php echo $fnH ?>,<?php echo $fnI ?>);
+								</script>
+							<?php endif ?>
+						<?php endif ?>
+						
+						<!-- Checkbox -->
+						<?php if($popup->getCheckClosed() == 1): ?>
+							<div class="checkbox">
+								<label for="dont_show"><input id="dont_show" onclick="dontShowPopup('dont_show')" type="checkbox">&nbsp;<?php echo __("Don't show this popup again"); ?></label>
+							</div>
+						<?php endif ?>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<?php $class = 'mgs-popup ' . $popup->getCssHtml(); ?>
+	<script type="text/javascript">
+		require(
+			[
+				'jquery',
+				'Magento_Ui/js/modal/modal'
+			],
+		function( $, modal ) {
+			$(window).load(function () {
+				if(getCookieMgsPopup('mgspopup')!='nevershow'){
+					if ($('#mgs-popup').length) {
+						var options = {
+							type: 'popup',
+							modalClass: '<?php echo $class; ?>',
+							responsive: true,
+							innerScroll: true,
+							title: '',
+							buttons: []
+						};
+
+						var mgsPopup = modal(options, $('#mgs-popup'));
+						$('#mgs-popup').trigger('openModal');
+					}
+				}
+			});
+		});
+	</script>
+<?php endif ?>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
+ * @package Amasty_CashOnDelivery
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <!--validate COD payment based on shipping methods and post code-->
+    <!-- <event name="payment_method_is_active">
+        <observer name="amasty_cash_on_delivery_payment_method_is_active"
+                  instance="Amasty\CashOnDelivery\Observer\Payment\Model\Method\CheckAvailable" />
+    </event> -->
+
+    <!--set status from config 'Order status'-->
+    <event name="sales_order_payment_place_end">
+        <observer name="amasty_cash_on_delivery_sales_order_payment_place_end"
+                  instance="Amasty\CashOnDelivery\Observer\Sales\Order\Payment\Place" />
+    </event>
+</config>

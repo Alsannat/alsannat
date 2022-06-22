@@ -1,0 +1,128 @@
+Index: view/adminhtml/web/template/form/schedule.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/view/adminhtml/web/template/form/schedule.html b/view/adminhtml/web/template/form/schedule.html
+--- a/view/adminhtml/web/template/form/schedule.html	(revision 07b47b61b72bdf27dd02ea7ca83a215ec005a935)
++++ b/view/adminhtml/web/template/form/schedule.html	(date 1648582918717)
+@@ -188,7 +188,9 @@
+                                 id: $parent.htmlId + '_' + $index() + '_sales_rule_id',
+                                 name: $parent.htmlName + '[' + $index() + '][coupon][sales_rule_id]'}"/>
+             <!-- /ko -->
+-            <small data-bind="i18n: 'Rule option `Use Auto Generation` should be turned on'"></small>
++            <small data-bind="i18n: 'Rule option `Use Auto Generation` should be turned on.'"></small><br>
++            <small data-bind="i18n: 'The default coupon length is 12 characters. If you want to change this value Stores->Configuration->Amasty Extensions->Abandoned Cart Email->General->Set Coupon Length'"></small>
++
+             <!-- ko if: $parent.isModuleRulesEnabled -->
+             <div>
+                 <small>
+Index: i18n/en_US.csv
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/i18n/en_US.csv b/i18n/en_US.csv
+--- a/i18n/en_US.csv	(revision 07b47b61b72bdf27dd02ea7ca83a215ec005a935)
++++ b/i18n/en_US.csv	(date 1648582556976)
+@@ -136,7 +136,8 @@
+ "Send the Same Coupon Again","Send the Same Coupon Again"
+ "Use Shopping Cart Rule","Use Shopping Cart Rule"
+ "Rule option `Use Auto Generation` should be turned on","Rule option `Use Auto Generation` should be turned on"
+-"Enrich your cart price rules list with 20 more promo actions. Run a great variety of exclusive promotions to easily attract customers attention and increase sales. See more details","Enrich your cart price rules list with 20 more promo actions. Run a great variety of exclusive promotions to easily attract customers attention and increase sales. See more details"
++"The default coupon length is 12 characters. If you want to change this value Stores->Configuration->Amasty Extensions->Abandoned Cart Email->General->Set Coupon Length'","The default coupon length is 12 characters. If you want to change this value Stores->Configuration->Amasty Extensions->Abandoned Cart Email->General->Set Coupon Length'"
++Enrich your cart price rules list with 20 more promo actions. Run a great variety of exclusive promotions to easily attract customers attention and increase sales. See more details","Enrich your cart price rules list with 20 more promo actions. Run a great variety of exclusive promotions to easily attract customers attention and increase sales. See more details"
+ here,here
+ Collapse,Collapse
+ Expand,Expand
+Index: Model/CouponForHistoryFactory.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Model/CouponForHistoryFactory.php b/Model/CouponForHistoryFactory.php
+--- a/Model/CouponForHistoryFactory.php	(revision 07b47b61b72bdf27dd02ea7ca83a215ec005a935)
++++ b/Model/CouponForHistoryFactory.php	(date 1648286496026)
+@@ -2,6 +2,8 @@
+ 
+ namespace Amasty\Acart\Model;
+ 
++use Magento\Framework\App\Config\ScopeConfigInterface;
++
+ class CouponForHistoryFactory
+ {
+     /**
+@@ -49,6 +51,11 @@
+      */
+     private $groupCollection = null;
+ 
++    /**
++     * @var ScopeConfigInterface
++     */
++    private $scopeConfig;
++
+     public function __construct(
+         \Magento\Framework\Stdlib\DateTime\DateTime $date,
+         \Magento\Framework\Stdlib\DateTime $dateTime,
+@@ -57,7 +64,8 @@
+         \Magento\SalesRule\Model\ResourceModel\Coupon\CollectionFactory $couponCollectionFactory,
+         \Amasty\Base\Model\Serializer $serializer,
+         \Magento\Customer\Model\ResourceModel\Group\CollectionFactory $groupCollectionFactory,
+-        \Magento\Store\Model\StoreManagerInterface $storeManager
++        \Magento\Store\Model\StoreManagerInterface $storeManager,
++        ScopeConfigInterface $scopeConfig
+     ) {
+         $this->date = $date;
+         $this->dateTime = $dateTime;
+@@ -67,6 +75,7 @@
+         $this->serializer = $serializer;
+         $this->groupCollectionFactory = $groupCollectionFactory;
+         $this->storeManager = $storeManager;
++        $this->scopeConfig = $scopeConfig;
+     }
+ 
+     public function create(
+@@ -146,7 +155,7 @@
+             [
+                 'rule_id' => $rule->getId(),
+                 'qty' => 1,
+-                'length' => 12,
++                'length' => $this->scopeConfig->getValue('amasty_acart/general/coupon_length'),
+                 'format' => 'alphanum',
+                 'prefix' => '',
+                 'suffix' => '',
+Index: etc/config.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/etc/config.xml b/etc/config.xml
+--- a/etc/config.xml	(revision 07b47b61b72bdf27dd02ea7ca83a215ec005a935)
++++ b/etc/config.xml	(date 1648285960541)
+@@ -5,6 +5,7 @@
+             <general>
+                 <eea_countries>AT,BE,BG,HR,CY,CZ,DK,EE,FI,FR,DE,GR,HU,IS,IE,IT,LV,LI,LT,LU,MT,NL,NO,PL,PT,RO,SK,SI,ES,SE,GB,CH</eea_countries>
+                 <customer_coupon>0</customer_coupon>
++                <coupon_length>12</coupon_length>
+                 <send_onetime>1</send_onetime>
+                 <history_clean_days>180</history_clean_days>
+                 <disable_logging_for_guests>0</disable_logging_for_guests>
+Index: etc/adminhtml/system.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/etc/adminhtml/system.xml b/etc/adminhtml/system.xml
+--- a/etc/adminhtml/system.xml	(revision 07b47b61b72bdf27dd02ea7ca83a215ec005a935)
++++ b/etc/adminhtml/system.xml	(date 1648287245188)
+@@ -17,6 +17,10 @@
+                     <comment><![CDATA[If the option is disabled the coupon can be used by all customers.]]></comment>
+                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                 </field>
++                <field id="coupon_length" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
++                    <label>Set Coupon Length For Custom Rule</label>
++                    <validate>required-entry validate-digits</validate>
++                </field>
+                 <field id="history_clean_days" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                     <label>Specify Number of Days to Clean Emails History</label>
+                     <validate>required-entry validate-digits</validate>

@@ -1,0 +1,24 @@
+<script>
+require([
+        'jquery','mage/url', 'jquery/ui', 'jquery/validate', 'mage/translate', 'mage/mage','jquery/jquery.cookie'
+    ], function($, url){
+
+        if(!$.cookie('contest-success') || $.cookie('contest-success') == null){
+            window.location.href = url.build('contest');
+        }
+        
+        $(".copy-text").click(function (e) {
+        e.preventDefault();
+        var element = $('#copy-code').text();
+        copyToClipboard(element);
+  });
+
+function copyToClipboard(element) {
+    var $temp = $("<input>");
+    $("body").append($temp);
+    $temp.val(element).select();
+    document.execCommand("copy");
+    $temp.remove();
+}
+    });
+</script>

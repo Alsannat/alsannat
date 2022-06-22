@@ -1,0 +1,24 @@
+<?php
+// echo $this->getLayout()
+// ->createBlock('Magento\Cms\Block\Block')
+// ->setBlockId('product_page_static_icon_rtl')
+// ->toHtml();
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$product = $objectManager->get('Magento\Framework\Registry')->registry('current_product');
+$desktop = $product->getResource()->getAttribute('static_desktop');
+$mobile = $product->getResource()->getAttribute('static_mobile');
+/*
+?>
+ 
+<div class="product-description-icon">
+<?php if($desktop->getFrontend()->getValue($product)!=null): ?>
+<span class="desktop-icon arabic"><img src="<?php echo $block->getUrl("media/catalog/product/")?><?php echo 'file/'.$desktop->getFrontend()->getValue($product); ?>"/></span>
+<?php endif; ?>
+ <?php if($mobile->getFrontend()->getValue($product)!=null): ?>
+ <span class="mobile-icon arabic"><img src="<?php echo $block->getUrl("media/catalog/product/")?><?php echo 'file/'.$mobile->getFrontend()->getValue($product); ?>"/></span>
+<?php endif; ?>
+
+ </div>
+ 
+ <?php */ ?>

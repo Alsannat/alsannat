@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <script src="Magenest_GiftCard::js/jscolor/jscolor.js" />
+        <script src="Magenest_GiftCard::js/tinybox/tinybox.js" />
+        <script src="Magenest_GiftCard::js/image-upload.js" />
+        <script src="Magenest_GiftCard::js/background-upload.js" />
+        <css src="Magenest_GiftCard::css/style.css"/>
+        <css src="Magenest_GiftCard::css/tinybox.css" />
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Magenest\GiftCard\Block\Adminhtml\Design\Edit" name="giftcard_design_edit"/>
+        </referenceContainer>
+    </body>
+    <referenceContainer name="left">
+        <block class="Magenest\GiftCard\Block\Adminhtml\Design\Edit\Tabs" name="giftcard_design_tabs">
+            <block class="Magenest\GiftCard\Block\Adminhtml\Design\Edit\Tab\General" name="giftcard_template_edit_tab_general"/>
+            <block class="Magenest\GiftCard\Block\Adminhtml\Design\Edit\Tab\Image" name="giftcard_template_edit_tab_image"/>
+            <block class="Magenest\GiftCard\Block\Adminhtml\Design\Edit\Tab\Background" name="giftcard_template_edit_tab_background"/>
+            <action method="addTab">
+                <argument name="name" xsi:type="string">giftcard_template_general</argument>
+                <argument name="block" xsi:type="string">giftcard_template_edit_tab_general</argument>
+            </action>
+            <action method="addTab">
+                <argument name="name" xsi:type="string">giftcard_template_image</argument>
+                <argument name="block" xsi:type="string">giftcard_template_edit_tab_image</argument>
+            </action>
+            <action method="addTab">
+                <argument name="name" xsi:type="string">giftcard_template_background</argument>
+                <argument name="block" xsi:type="string">giftcard_template_edit_tab_background</argument>
+            </action>
+        </block>
+    </referenceContainer>
+    <referenceContainer name="js">
+        <block class="Magenest\GiftCard\Block\Adminhtml\Design\Edit\Js" template="template/js.phtml"/>
+    </referenceContainer>
+</page>

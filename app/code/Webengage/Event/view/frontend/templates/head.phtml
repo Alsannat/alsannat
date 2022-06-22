@@ -1,0 +1,190 @@
+<?php
+
+function formatPhone($number, $country) {
+    $countryCodes = array("CA" => "1", "US" => "1", "BS" => "1242", "BB" => "1246", "AI" => "1264", "AG" => "1268", "VG" => "1284",
+        "VI" => "1340", "BM" => "1441", "GD" => "1473", "TC" => "1649", "MS" => "1664", "MP" => "1670", "GU" => "1671",
+        "AS" => "1684", "LC" => "1758", "DM" => "1767", "VC" => "1784", "DO" => "1849", "TT" => "1868", "KN" => "1869",
+        "JM" => "1876", "PR" => "1939", "EG" => "20", "SS" => "211", "MA" => "212", "DZ" => "213", "TN" => "216",
+        "LY" => "218", "GM" => "220", "SN" => "221", "MR" => "222", "ML" => "223", "GN" => "224", "CI" => "225",
+        "BF" => "226", "NE" => "227", "TG" => "228", "BJ" => "229", "MU" => "230", "LR" => "231", "SL" => "232",
+        "GH" => "233", "NG" => "234", "TD" => "235", "CF" => "236", "CM" => "237", "CV" => "238", "ST" => "239", "GQ" => "240",
+        "GA" => "241", "CG" => "242", "CD" => "243", "AO" => "244", "GW" => "245", "IO" => "246", "SC" => "248", "SD" => "249",
+        "RW" => "250", "ET" => "251", "SO" => "252", "DJ" => "253", "KE" => "254", "TZ" => "255", "UG" => "256", "BI" => "257",
+        "MZ" => "258", "ZM" => "260", "MG" => "261", "TF" => "262", "YT" => "262", "RE" => "262", "ZW" => "263", "NA" => "264",
+        "MW" => "265", "LS" => "266", "BW" => "267", "SZ" => "268", "KM" => "269", "ZA" => "27", "SH" => "290", "ER" => "291",
+        "AW" => "297", "FO" => "298", "GL" => "299", "GR" => "30", "NL" => "31", "BE" => "32", "FR" => "33", "ES" => "34",
+        "KY" => "345", "GI" => "350", "PT" => "351", "LU" => "352", "IE" => "353", "IS" => "354", "AL" => "355", "MT" => "356",
+        "CY" => "357", "AX" => "358", "FI" => "358", "BG" => "359", "HU" => "36", "LT" => "370", "LV" => "371", "EE" => "372",
+        "MD" => "373", "AM" => "374", "BY" => "375", "AD" => "376", "MC" => "377", "SM" => "378", "VA" => "379", "UA" => "380",
+        "RS" => "381", "ME" => "382", "XK" => "383", "HR" => "385", "SI" => "386", "BA" => "387", "MK" => "389", "IT" => "39",
+        "RO" => "40", "CH" => "41", "CZ" => "420", "SK" => "421", "LI" => "423", "AT" => "43", "GG" => "44", "IM" => "44", "JE" => "44",
+        "GB" => "44", "DK" => "45", "SE" => "46", "BV" => "47", "NO" => "47", "SJ" => "47", "PL" => "48", "DE" => "49", "FK" => "500",
+        "GS" => "500", "BZ" => "501", "GT" => "502", "SV" => "503", "HN" => "504", "NI" => "505", "CR" => "506", "PA" => "507",
+        "PM" => "508", "HT" => "509", "PE" => "51", "MX" => "52", "CU" => "53", "AR" => "54", "BR" => "55", "CL" => "56", "CO" => "57",
+        "VE" => "58", "GP" => "590", "BL" => "590", "MF" => "590", "BO" => "591", "GY" => "592", "EC" => "593", "GF" => "594",
+        "PY" => "595", "MQ" => "596", "SR" => "597", "UY" => "598", "Netherlands" => "599", "MY" => "60", "AU" => "61", "CX" => "61",
+        "CC" => "61", "ID" => "62", "PH" => "63", "NZ" => "64", "PN" => "64", "SG" => "65", "TH" => "66", "TL" => "670", "AQ" => "672",
+        "HM" => "672", "NF" => "672", "BN" => "673", "NR" => "674", "PG" => "675", "TO" => "676", "SB" => "677", "VU" => "678",
+        "FJ" => "679", "PW" => "680", "WF" => "681", "CK" => "682", "NU" => "683", "WS" => "685", "KI" => "686", "NC" => "687",
+        "TV" => "688", "PF" => "689", "TK" => "690", "FM" => "691", "MH" => "692", "KZ" => "7", "RU" => "7", "JP" => "81",
+        "KR" => "82", "VN" => "84", "KP" => "850", "HK" => "852", "MO" => "853", "KH" => "855", "LA" => "856", "CN" => "86",
+        "BD" => "880", "TW" => "886", "TR" => "90", "IN" => "91", "PK" => "92", "AF" => "93", "LK" => "94", "MM" => "95", "MV" => "960",
+        "LB" => "961", "JO" => "962", "SY" => "963", "IQ" => "964", "KW" => "965", "SA" => "966", "YE" => "967", "OM" => "968",
+        "PS" => "970", "AE" => "971", "IL" => "972", "BH" => "973", "QA" => "974", "BT" => "975", "MN" => "976", "NP" => "977",
+        "IR" => "98", "TJ" => "992", "TM" => "993", "AZ" => "994", "GE" => "995", "KG" => "996", "UZ" => "998",);
+
+    $countryCode = $countryCodes[$country];
+
+    // Country code is already present
+    if (strpos($number, "+") === 0) {
+        return $number;
+    }
+
+    // Else, append it
+    return "+" . $countryCode . $number;
+}
+
+function getPhoneNumber($objectManager, $customerSession) {
+    $defaultNumber = "";
+    $addressData = $objectManager->create('\Magento\Customer\Model\Address')->load(
+        $customerSession->getCustomer()->getDefaultShipping()
+    )->getData();
+
+    // If telephone number doesn't exist, bail
+    if (!isset($addressData) || !array_key_exists('telephone', $addressData)) {
+        return $defaultNumber;
+    }
+
+    $number = $addressData['telephone'];
+    $country = $addressData['country_id'];
+
+    // If telephone number is blank, bail
+    if (!$number) {
+        return $defaultNumber;
+    }
+
+    return formatPhone($number, $country);
+}
+
+function getWebengageData($key)
+{
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance(); // Instance of object manager
+    $resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
+    $readConnection = $resource->getConnection();
+
+    $checkData = 'SELECT * FROM `webengage_configuration` WHERE `wekey` = "'.$key.'"limit 1';
+
+    $getData = $readConnection->fetchAll($checkData);
+    if (!empty($getData)) {
+        return $getData[0];
+    }
+}
+$getRegion = getWebengageData('we_region');
+$region = '';
+if (!empty($getRegion)) {
+    $region = $getRegion['wevalue'];
+}
+
+$widgetURL1 = $region == 'india' ? 'https://widgets.in.webengage.com' : 'https://ssl.widgets.webengage.com';
+$widgetURL2 = $region == 'india' ? 'http://widgets.in.webengage.com' : 'http://cdn.widgets.webengage.com';
+
+$getLicenceCode = getWebengageData('we_licence_code');
+$licenceCode = '';
+if (!empty($getLicenceCode)) {
+    $licenceCode = $getLicenceCode['wevalue'];
+}
+if (trim($licenceCode) != '') {
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance(); // Instance of object manager
+    $customerSession = $objectManager->create('Magento\Customer\Model\Session');
+    $checkoutSession = $objectManager->create('Magento\Newsletter\Model\Session');
+    $customerLoggedin = $customerSession->getCustomerloggedin() && $customerSession->getCustomerloggedin() == 'yes' ? $customerSession->getCustomerloggedin() : '';
+    $customerLoggedout = isset($_COOKIE['customerLoggedOut']) && $_COOKIE['customerLoggedOut'] != '' ? $_COOKIE['customerLoggedOut'] : '';
+    $customerSignupLoggedIn = $customerSession->getSignuplogindata() && $customerSession->getSignuplogindata() == 'yes' ? $customerSession->getSignuplogindata() : '';
+    $storeManager = $objectManager->get('\Magento\Store\Model\StoreManagerInterface');
+    $store = $storeManager->getStore();
+    $FormKey = $objectManager->get('Magento\Framework\Data\Form\FormKey');
+    $customerEmail = '';
+    if ($customerSession->isLoggedIn()) {
+        $customerEmail = $customerSession->getCustomer()->getEmail();
+    } ?>
+
+
+<script id='_webengage_script_tag' type='text/javascript'>
+    var webengage; !function(w,e,b,n,g){function o(e,t){e[t[t.length-1]]=function(){r.__queue.push([t.join("."),arguments])}}var i,s,r=w[b],z=" ",l="init options track screen onReady".split(z),a="feedback survey notification".split(z),c="options render clear abort".split(z),p="Open Close Submit Complete View Click".split(z),u="identify login logout setAttribute".split(z);if(!r||!r.__v){for(w[b]=r={__queue:[],__v:"6.0",user:{}},i=0;i<l.length;i++)o(r,[l[i]]);for(i=0;i<a.length;i++){for(r[a[i]]={},s=0;s<c.length;s++)o(r[a[i]],[a[i],c[s]]);for(s=0;s<p.length;s++)o(r[a[i]],[a[i],"on"+p[s]])}for(i=0;i<u.length;i++)o(r.user,["user",u[i]]);setTimeout(function(){var f=e.createElement("script"),d=e.getElementById("_webengage_script_tag");f.type="text/javascript",f.async=!0,f.src=("https:"==e.location.protocol?"<?php echo $widgetURL1; ?>":"<?php echo $widgetURL2; ?>")+"/js/webengage-min-v-6.0.js",d.parentNode.insertBefore(f,d)})}}(window,document,"webengage");
+    webengage.init('<?php echo $licenceCode; ?>');
+    var sdkLoaded = setInterval(
+        getSDK, 
+        250
+    );
+    function getSDK() {
+        if (webengage && webengage.user && webengage.user.getAnonymousId && webengage.state && webengage.state.getSession) {
+            var getLuid = webengage.user.getAnonymousId();
+            var suid = webengage.state.getSession().suid;
+            <?php if (isset($customerLoggedin) && $customerLoggedin != '' && $customerLoggedin == 'yes') {
+        $customerSession->setCustomerloggedin('');
+        unset($_COOKIE['customerLoggedIn']);
+        setcookie('customerLoggedIn', false, -1, '/'); ?>
+                    webengage.user.login("<?php echo $customerEmail; ?>");
+                    <?php
+                    if ($customerSession->isLoggedIn()) {
+                        ?> 
+                         webengage.user.setAttribute({
+                        /* System attributes */
+                        "we_first_name" : "<?php echo $customerSession->getCustomer()->getFirstname(); ?>",
+                        "we_last_name" :  "<?php echo $customerSession->getCustomer()->getLastname(); ?>",
+                        "we_email" : "<?php echo $customerEmail; ?>",
+                        "we_phone": "<?php echo getPhoneNumber($objectManager, $customerSession); ?>",
+                    });
+                     <?php
+                    }
+    }
+
+    if (isset($customerSignupLoggedIn) && $customerSignupLoggedIn != '' && $customerSignupLoggedIn == 'yes') {
+        ?>
+                     webengage.user.login("<?php echo $customerEmail; ?>");
+                     <?php
+                    if ($customerSession->isLoggedIn()) {
+                        unset($_COOKIE['customerSignupLoggedIn']);
+                        setcookie('customerSignupLoggedIn', 'trackedInfo', time() - 3600);
+                        $customerSession->setSignuplogindata(''); ?> 
+
+                         webengage.user.setAttribute({
+                        "we_first_name" : "<?php echo $customerSession->getCustomer()->getFirstname(); ?>",
+                        "we_last_name" :  "<?php echo $customerSession->getCustomer()->getLastname(); ?>",
+                        "we_email" : "<?php echo $customerEmail; ?>",
+                        "we_phone": "<?php echo getPhoneNumber($objectManager, $customerSession); ?>",
+                    });
+                     <?php
+                    }
+    }
+
+    // Update phone number
+    if ($customerSession->isLoggedIn() && ($customerSession->getWeUpdatePhone() === 'yes')) {
+        // Reset
+        $customerSession->setWeUpdatePhone(null);
+        ?>
+        webengage.user.setAttribute({
+            "we_phone": "<?php echo getPhoneNumber($objectManager, $customerSession); ?>",
+        });
+        <?php
+    }
+
+    if (isset($customerLoggedout) && $customerLoggedout != '' && $customerLoggedout == 'yes') {
+        unset($_COOKIE['customerLoggedOut']);
+        setcookie('customerLoggedOut', false, -1, '/'); ?>
+                 webengage.user.logout();
+        <?php
+    } ?>
+        
+            var request = new XMLHttpRequest();
+            request.open('POST', "<?php echo $storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_WEB); ?>head/index/refreshinfo", true);
+            request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+            request.send("weLuid="+getLuid+"&suid="+suid+"&type=web&form_key=<?php echo $FormKey->getFormKey(); ?>");
+            clearInterval(sdkLoaded)
+        }
+    }
+</script>
+
+
+        <?php
+} ?>

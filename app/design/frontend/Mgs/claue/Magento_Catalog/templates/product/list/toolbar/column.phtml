@@ -1,0 +1,74 @@
+<?php 
+$_productCollection = $block->getLoadedProductCollection();
+$_helper = $this->helper('Magento\Catalog\Helper\Output');
+$themeHelper = $this->helper('MGS\Mpanel\Helper\Data');
+$changeProductPerRow = $themeHelper->getEnableChangeProductPerRow();
+?>
+
+<?php if($changeProductPerRow): ?>
+		<div class="change-product-per-row button-group layout-mode-button-group">
+			<!-- <a href="#" class="pr two" data-col="6"></a>
+			<a href="#" class="pr three" data-col="4"></a>
+			<a href="#" class="pr four active is-checked" data-col="3"></a>
+			<a href="#" class="pr six" data-col="2"></a> -->
+			<?php $defaultValueProduct = $themeHelper->getDefaultValueNumberProductPerRow();
+			if($defaultValueProduct == null) {
+				$defaultValueProduct = '4';
+			}
+			?>
+			<?php $arrayValues = $themeHelper->getValuesNumberProductPerRow();?>
+			<?php foreach ($arrayValues as $number): ?>
+				<?php 
+				switch ($number) {
+					case '1':
+						$classNumber = 'one';
+						$dataCol = '12';
+						break;
+					case '2':
+						$classNumber = 'two';
+						$dataCol = '6';
+						break;
+					case '3':
+						$classNumber = 'three';
+						$dataCol = '4';
+						break;
+					case '4':
+						$classNumber = 'four';
+						$dataCol = '3';
+						break;
+					case '5':
+						$classNumber = 'five';
+						$dataCol = '5';
+						break;
+					case '6':
+						$classNumber = 'six';
+						$dataCol = '2';
+						break;
+					case '7':
+						$classNumber = 'seven';
+						$dataCol = '7';
+						break;
+					case '8':
+						$classNumber = 'eight';
+						$dataCol = '8';
+						break;
+					
+					default:
+						$classNumber = 'four';
+						$dataCol = '3';
+						break;
+				}
+				?>
+				<a href="#" class="pr <?php echo $classNumber; if($number == $defaultValueProduct) echo " active is-checked";?>" data-col="<?php echo $dataCol; ?>"></a>
+
+			<?php endforeach;?>
+			
+		</div>
+		
+		    <?php if(in_array($defaultValueProduct, $arrayValues)): ?>
+		    	<?php 
+		    	$colCheck = $themeHelper->convertPerRowtoCol($defaultValueProduct);
+				$colClass = $themeHelper->convertColClass($colCheck, 'col');
+		    	?>
+		    <?php endif ?>
+	    <?php endif ?>

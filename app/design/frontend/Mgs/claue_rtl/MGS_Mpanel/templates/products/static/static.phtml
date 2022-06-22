@@ -1,0 +1,39 @@
+<?php
+echo $this->getLayout()
+->createBlock('Magento\Cms\Block\Block')
+->setBlockId('static-homepage-slider-rtl')
+->toHtml();
+?>
+
+<script type="text/javascript" >
+    require([
+        'jquery',
+        'mgs/owlcarousel'
+    ], function($){
+        $(document).ready(function() {
+            $('.owl-carousel.test').owlCarousel({
+                loop:true,
+                rtl:true,
+                nav:true,
+                navText: ["<i class='pe-7s-angle-left'></i>","<i class='pe-7s-angle-right'></i>"],
+                autoplay:true,
+                autoplayHoverPause: true,
+                margin :20,
+                //autoplayTimeout:3000
+                responsive:{
+                                    0:{
+                                        items:4
+                                    },
+                                    768:{
+                                        items:4
+                                    },
+                                    992:{
+                                        items:6
+                                    }
+                                }
+
+
+            })
+        });
+    });
+</script>

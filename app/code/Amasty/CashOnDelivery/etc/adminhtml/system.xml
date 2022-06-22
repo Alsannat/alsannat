@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
+ * @package Amasty_CashOnDelivery
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="payment" type="text" sortOrder="400" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="cashondelivery" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Cash On Delivery Payment by Amasty</label>
+                <field id="order_status" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>New Order Status</label>
+                    <source_model>Amasty\CashOnDelivery\Model\Config\Source\Order\Status\NewStatus</source_model>
+                </field>
+                <field id="enable_payment_fee" translate="label" type="select" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Cash on Delivery Fee</label>
+                    <source_model>Magento\Config\Model\Config\Source\Enabledisable</source_model>
+                </field>
+                <field id="payment_fee_label" translate="label" type="text" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Cash on Delivery Fee Label</label>
+                    <depends>
+                        <field id="enable_payment_fee">1</field>
+                    </depends>
+                </field>
+                <field id="payment_fee_type" translate="label" type="select" sortOrder="125" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Cash on Delivery Fee Type</label>
+                    <source_model>Amasty\CashOnDelivery\Model\Config\Source\PaymentFeeTypes</source_model>
+                    <depends>
+                        <field id="enable_payment_fee">1</field>
+                    </depends>
+                </field>
+                <field id="payment_calculate_based_on" translate="label" type="select" sortOrder="127" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Calculate Based On</label>
+                    <source_model>Amasty\CashOnDelivery\Model\Config\Source\CalculateBasedOn</source_model>
+                    <depends>
+                        <field id="payment_fee_type">1</field>
+                    </depends>
+                </field>
+                <field id="payment_fee" translate="label comment" type="text" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Cash on Delivery Fee</label>
+                    <frontend_model>Amasty\CashOnDelivery\Block\Adminhtml\Config\FeeComment</frontend_model>
+                    <validate>required-entry validate-greater-than-zero validate-length-of-numbers-after-comma</validate>
+                    <depends>
+                        <field id="enable_payment_fee">1</field>
+                    </depends>
+                </field>
+                <field id="payment_fee_free" translate="label comment" type="text" sortOrder="132" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Maximum price for free shipping</label>
+                    <depends>
+                        <field id="enable_payment_fee">1</field>
+                    </depends>
+                </field>
+                <field id="enable_postcode_verification" translate="label comment" type="select" sortOrder="135" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Postal Code Verification for Customers</label>
+                    <comment>If disabled, all postal codes are allowed.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Enabledisable</source_model>
+                </field>
+                <field id="postcode_verification_type" translate="label" type="select" sortOrder="135" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Address Type to Validate</label>
+                    <source_model>Magento\Customer\Model\Config\Source\Address\Type</source_model>
+                    <depends>
+                        <field id="enable_postcode_verification">1</field>
+                    </depends>
+                </field>
+                <field id="allowed_postal_codes" translate="label comment" type="textarea" sortOrder="137" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Allowed Postal Codes</label>
+                    <comment>Enter comma separated list of codes you want to allow. If you want to allow all postal code, disable Postal Code Verification for Customers.</comment>
+                    <validate>required-entry</validate>
+                    <depends>
+                        <field id="enable_postcode_verification">1</field>
+                    </depends>
+                </field>
+                <field id="payment_shipping_allowspecific" translate="label" type="allowspecific" sortOrder="140" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Allowed Shipping Methods</label>
+                    <source_model>Amasty\CashOnDelivery\Model\Config\Source\Shipping</source_model>
+                </field>
+                <field id="payment_shipping_specificcountry" translate="label" type="multiselect" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Specific Shipping Methods</label>
+                    <source_model>Magento\Shipping\Model\Config\Source\Allmethods</source_model>
+                    <frontend_model>Amasty\CashOnDelivery\Block\Adminhtml\Config\ShippingComment</frontend_model>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

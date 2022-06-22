@@ -1,0 +1,6 @@
+<!-- ko if: ($row().update_mode == "0") -->
+<span class='grid-severity-notice'><!-- ko i18n: 'On Save' --><!-- /ko --></span>
+<!--/ko-->
+<!-- ko ifnot: ($row().update_mode == "0") -->
+<span class='grid-severity-critical'><!-- ko i18n: 'By Schedule' --><!-- /ko --></span>
+<!--/ko-->

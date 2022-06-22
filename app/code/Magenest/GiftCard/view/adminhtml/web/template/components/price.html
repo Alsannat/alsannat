@@ -1,0 +1,38 @@
+<input type="text" class="hidden" name="product[giftcard_price_selector]"  data-bind="
+    value: value,
+    valueUpdate: 'keyup'"
+        />
+<!--
+<span data-bind="text:value"></span>
+-->
+
+<label class="admin__field-label" >
+    <span  class="span-mandatory" data-bind="i18n: 'Price'" data-config-scope="[GLOBAL]"></span>
+</label>
+
+<table>
+    <tbody>
+      <!--ko foreach:  { data: rows, as: 'row' } -->
+      <tr class="giftcard-price-tr" style=" display: block; margin-bottom: 5px;">
+          <td class="price-giftcard-selector">
+              <span class="required"></span>
+              <!--<input class="admin__control-text validate-number required"   type="text" data-bind="value:price,event:{keydown:$parent.updatePriceValue($parent,event)}" />-->
+              <input class="admin__control-text validate-number required"   type="text" data-bind="value:price" />
+
+          </td>
+          <td style="padding: 0 10px;" >
+              <div class="action-default delete"  data-bind="event:{click:$parent.deletePriceRow(row,event)},clickBubble: false">
+                  Delete
+              </div>
+          </td>
+      </tr>
+    <!--/ko-->
+    </tbody>
+    <tfoot>
+       <tr>
+           <td style="padding:20px 0">
+               <div class="action-default add" data-bind="event:{click: btnAdd()},clickBubble: false"> Add </div>
+           </td>
+       </tr>
+    </tfoot>
+</table>

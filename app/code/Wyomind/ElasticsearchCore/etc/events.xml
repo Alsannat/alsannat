@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<!--
+  Copyright © 2018 Wyomind. All rights reserved.
+  See LICENSE.txt for license details.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <!-- CONFIGURATION -->
+    <event name="admin_system_config_changed_section_wyomind_elasticsearchcore">
+        <observer name="wyomind_elasticsearchcore_admin_system_config_changed_section_after" instance="Wyomind\ElasticsearchCore\Observer\SaveConfig" />
+    </event>
+    <event name="admin_system_config_changed_section_wyomind_elasticsearchautocomplete">
+        <observer name="wyomind_elasticsearchautocomplete_admin_system_config_changed_section_after" instance="Wyomind\ElasticsearchCore\Observer\SaveConfig" />
+    </event>
+    <event name="admin_system_config_changed_section_wyomind_elasticsearchmultifacetedautocomplete">
+        <observer name="wyomind_elasticsearchmultifacetedautocomplete_admin_system_config_changed_section_after" instance="Wyomind\ElasticsearchCore\Observer\SaveConfig" />
+    </event>
+    <event name="admin_system_config_changed_section_wyomind_elasticsearchlayerednavigation">
+        <observer name="wyomind_elasticsearchlayerednavigation_admin_system_config_changed_section_after" instance="Wyomind\ElasticsearchCore\Observer\SaveConfig" />
+    </event>
+    <!-- PRODUCT -->
+    <event name="controller_action_catalog_product_save_entity_after">
+        <observer name="wyomind_elasticsearchcore_catalog_product_save_after" instance="Wyomind\ElasticsearchCore\Observer\Reindex" />
+    </event>
+    <event name="controller_action_postdispatch_catalog_product_save">
+        <observer name="wyomind_elasticsearchcore_postdispatch_catalog_product_save" instance="Wyomind\ElasticsearchCore\Observer\Reindex" />
+    </event>
+    <event name="catalog_product_attribute_update_after">
+        <observer name="wyomind_elasticsearchcore_catalog_product_attribute_update_after" instance="Wyomind\ElasticsearchCore\Observer\Reindex" />
+    </event>
+    <event name="catalog_product_delete_after_done">
+        <observer name="wyomind_elasticsearchcore_catalog_product_delete_after" instance="Wyomind\ElasticsearchCore\Observer\Reindex" />
+    </event>
+    <event name="review_save_commit_after">
+        <observer name="wyomind_elasticsearchcore_review_save_commit_after" instance="Wyomind\ElasticsearchCore\Observer\Reindex" />
+    </event>
+
+    <!-- Standard checkout -->
+    <event name="checkout_submit_all_after">
+        <observer name="wyomind_elasticsearchcore_checkout_submit_all_after" instance="Wyomind\ElasticsearchCore\Observer\Reindex" />
+    </event>
+    <!-- Paypal -->
+    <event name="paypal_express_place_order_success">
+        <observer name="wyomind_elasticsearchcore_checkout_submit_all_after" instance="Wyomind\ElasticsearchCore\Observer\Reindex" />
+    </event>
+    <event name="paypal_ipn_submit_all_after">
+        <observer name="wyomind_elasticsearchcore_paypal_ipn_submit_all_after" instance="Wyomind\ElasticsearchCore\Observer\Reindex" />
+    </event>
+    <!-- Ebizmart POS -->
+    <event name="pos_order_after_submit">
+        <observer name="wyomind_elasticsearchcore_checkout_submit_all_after" instance="Wyomind\ElasticsearchCore\Observer\Reindex" />
+    </event>
+
+    <!-- Synonyms -->
+    <event name="model_save_commit_after"><!-- no event prefix in the Magento core module ?! -->
+        <observer name="wyomind_elasticsearchcore_search_synonyms_save_commit_after" instance="Wyomind\ElasticsearchCore\Observer\SearchSynonymsSaveCommitAfter" />
+    </event>
+
+    <!-- CATEGORY -->
+    <event name="catalog_category_save_before">
+        <observer name="wyomind_elasticsearchcore_catalog_category_save_before_reindex_product" instance="Wyomind\ElasticsearchCore\Observer\Reindex" />
+    </event>
+    <event name="catalog_category_save_commit_after">
+        <observer name="wyomind_elasticsearchcore_catalog_category_save_commit_after" instance="Wyomind\ElasticsearchCore\Observer\Reindex" />
+    </event>
+    <event name="catalog_category_delete_before">
+        <observer name="wyomind_elasticsearchcore_catalog_category_save_before_reindex_product" instance="Wyomind\ElasticsearchCore\Observer\Reindex" />
+    </event>
+    <event name="catalog_category_delete_after">
+        <observer name="wyomind_elasticsearchcore_catalog_category_delete_after" instance="Wyomind\ElasticsearchCore\Observer\Reindex" />
+    </event>
+    <event name="catalog_category_delete_commit_after">
+        <observer name="wyomind_elasticsearchcore_catalog_category_delete_commit_after" instance="Wyomind\ElasticsearchCore\Observer\Reindex" />
+    </event>
+
+    <!-- CMS -->
+    <event name="cms_page_save_after">
+        <observer name="wyomind_elasticsearchcore_cms_page_save_after" instance="Wyomind\ElasticsearchCore\Observer\Reindex" />
+    </event>
+    <event name="cms_page_delete_after">
+        <observer name="wyomind_elasticsearchcore_cms_page_delete_after" instance="Wyomind\ElasticsearchCore\Observer\Reindex" />
+    </event>
+</config>

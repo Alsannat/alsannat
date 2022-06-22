@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <carriers>
+            <naqelshipping>
+                <active>0</active>
+                <title>Naqel Shipping</title>
+                <sallowspecific>0</sallowspecific>
+                <model>Naqel\Shipping\Model\Carrier\Shipping</model>
+                <client_id></client_id>
+                <password></password>
+                <naqel_api_version></naqel_api_version>
+                <naqel_api_endpoint_url></naqel_api_endpoint_url>
+                <client_name></client_name>
+                <client_email></client_email>
+                <client_phone_no></client_phone_no>
+                <client_mobile_no></client_mobile_no>
+                <client_po_box></client_po_box>
+                <client_zip_code></client_zip_code>
+                <client_fax></client_fax>
+                <client_first_address></client_first_address>
+                <client_country_code></client_country_code>
+                <client_city_code></client_city_code>
+                <client_location></client_location>
+                <price>10.00</price>
+                <min_order_total>10.00</min_order_total>
+                <client_currencyid></client_currencyid>
+                <client_loadtype></client_loadtype>
+            </naqelshipping>
+        </carriers>
+    </default>
+</config>

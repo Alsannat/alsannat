@@ -1,0 +1,37 @@
+<?php 
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $storeInformation = $objectManager->create('Magento\Store\Model\Information');
+    $store = $objectManager->create('Magento\Store\Model\Store');
+    $storeInfo = $storeInformation->getStoreInformationObject($store);
+    $customerSession = $objectManager->get('Magento\Customer\Model\Session');
+?>
+<div class="whatsapp show-mobile">
+    <a href="https://api.whatsapp.com/send?phone=966507340005&text=&source=&data=" rel="nofollow">
+        <span class="fa fa-whatsapp"></span>
+    </a>
+</div>
+<div class="customer-action show-mobile">
+    <span id="icon_customer_line"></span>
+    <div id="show_customer_div">
+       <!--  <div class="top-title">Hello Guest!</div>
+        <div class="customer-links">
+            <a href="#social-login-popup" title="Login" class="social-login" data-effect="mfp-3d-unfold">Login</a>
+            <span>/</span>
+            <a href="#social-login-popup" title="Register" class="social-login" data-effect="mfp-3d-unfold">Register</a>
+        </div> -->
+        <?php if($customerSession->isLoggedIn())  { ?>
+            <div class="top-title"><?php echo __('Hello!...') ?></div>
+            <div class="customer-links logged-in">
+                <a class="account-link" href="<?php echo $block->getUrl('customer/account') ?>" title="<?php echo __('Login') ?>"><?php echo __('Your Dashboard') ?></a>
+                <?php echo $block->getChildHtml('toplinks-header'); ?>
+            </div>
+        <?php } else { ?>
+            <div class="top-title"><?php echo __('Hello Guest!') ?></div>
+            <div class="customer-links">
+                <a href="<?php echo $block->getUrl('registration') ?>" title="<?php echo __('Login') ?>"><?php echo __('Login') ?></a>
+                <span>/</span>
+                <a href="<?php echo $block->getUrl('registration') ?>" title="<?php echo __('Register') ?>"><?php echo __('Register') ?></a>
+            </div>
+        <?php } ?>
+    </div>
+</div>

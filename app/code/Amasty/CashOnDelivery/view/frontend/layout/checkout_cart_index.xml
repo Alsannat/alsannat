@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
+ * @package Amasty_CashOnDelivery
+ */
+-->
+
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Amasty_CashOnDelivery::css/amcashondelivery.css"/>
+    </head>
+    <body>
+        <referenceContainer name="checkout.cart.items">
+            <block class="Amasty\CashOnDelivery\Block\Checkout\Cart\CheckAvailable" name="checkout.cart.cashondelivery.check" as="amcashondelivery.check" template="Amasty_CashOnDelivery::checkout/cart/check.phtml"/>
+        </referenceContainer>
+        <move element="checkout.cart.cashondelivery.check" destination="cart.summary" after="checkout.cart.shipping"/>
+    </body>
+</page>
+

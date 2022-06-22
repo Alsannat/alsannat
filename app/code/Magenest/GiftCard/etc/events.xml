@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Magenest. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="sales_order_item_save_commit_after">
+        <observer name="giftcard_observer" instance="Magenest\GiftCard\Observer\GiftCard\SaveGiftCardOrderItemObserver" />
+    </event>
+    <event name="sales_order_save_commit_after">
+        <observer name="giftcard_observer" instance="Magenest\GiftCard\Observer\GiftCard\SetGiftCardStatusObserver" />
+    </event>
+    <event name="sales_model_service_quote_submit_before">
+        <observer name="giftcard_observer" instance="Magenest\GiftCard\Observer\GiftCard\QuoteSubmitBefore" />
+    </event>
+    <event name="checkout_cart_product_add_after">
+        <observer name="giftcard_observer" instance="Magenest\GiftCard\Observer\Cart\Option" />
+    </event>
+    <event name="sales_order_invoice_register">
+        <observer name="giftcard_observer" instance="Magenest\GiftCard\Observer\Invoice\Register" />
+    </event>
+    <event name="sales_order_creditmemo_refund">
+        <observer name="giftcard_observer" instance="Magenest\GiftCard\Observer\CreditMemo\Refund" />
+    </event>
+    <event name="sales_quote_address_save_before" >
+        <observer name="giftcard_observer" instance="Magenest\GiftCard\Observer\Quote\Address" />
+    </event>
+    <event name="sales_order_save_before" >
+        <observer name="giftcard_observer" instance="Magenest\GiftCard\Observer\Quote\Order" />
+    </event>
+    <event name="payment_cart_collect_items_and_amounts">
+        <observer name="giftcard_observer" instance="Magenest\GiftCard\Observer\Cart\Paypal" />
+    </event>
+   <!-- <event name="layout_generate_blocks_after"> &lt;!&ndash; triggered right after layout is loaded &ndash;&gt;
+        <observer name="giftcard_observer" instance="Magenest\GiftCard\Observer\Layout\Column" />
+    </event>-->
+  <!--  <event name="core_copy_fieldset_sales_convert_order_to_invoice">
+        <observer name="giftcard_observer" instance="Magenest\GiftCard\Observer\Invoice\Convert"/>
+    </event>-->
+</config>

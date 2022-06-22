@@ -1,0 +1,44 @@
+require(
+	['jquery'],
+	function($){
+		'use strict',
+		$(document).ready(function(){
+			$(document).ajaxStop(function ()
+			{	console.log("test vest");
+            	var weight_kg=$('div[data-index="weight_kg"] .admin__control-text').val();
+            	var weight_lbs=$('div[data-index="weight_kg"] .admin__control-addon .admin__control-text').val();
+			 	$("input[name='product\\[weight_kg\\]']").on("keyup",function()
+			 	{
+			 		var currentWeight = parseInt($(this).val());
+			 		var weightInPounds = parseFloat(currentWeight*2.205);
+			 		if(!isNaN(weightInPounds))
+			 		{
+			 			$('div[data-index="weight"] .admin__control-addon .admin__control-text').val(weightInPounds);
+			 		}
+			 		
+
+			 	});
+
+			 	if((weight_kg!=undefined&&weight_kg!="")&&(weight_lbs==undefined||weight_lbs==""))
+			 	{
+			 		if(!isNaN(parseFloat(weight_kg*2.205)))
+			 		{
+			 			$('div[data-index="weight"] .admin__control-addon .admin__control-text').val(parseFloat(weight_kg*2.205));
+			 		}
+			 		
+			 	}
+
+			 	if((weight_kg==undefined||weight_kg=="")&&(weight_lbs!=undefined&&weight_lbs!=""))
+			 	{
+			 		if(!isNaN(parseFloat(weight_lbs/2.205)))
+			 		{
+			 			$('div[data-index="weight_kg"] .admin__control-text').val(parseFloat(weight_lbs/2.205));
+			 		}
+			 	}
+
+
+        	});
+			 
+			 
+		});
+	});

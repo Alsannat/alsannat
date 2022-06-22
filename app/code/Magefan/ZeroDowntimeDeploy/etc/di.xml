@@ -1,0 +1,26 @@
+<!--
+/**
+ * Copyright © Magefan (support@magefan.com). All rights reserved.
+ * Please visit Magefan.com for license details (https://magefan.com/end-user-license-agreement).
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="Magefan_ZeroDowntimeDeploy_Console_Command_Deploy" xsi:type="object">Magefan\ZeroDowntimeDeploy\Console\Command\Deploy</item>
+                <item name="Magefan_ZeroDowntimeDeploy_Console_Command_Cron" xsi:type="object">Magefan\ZeroDowntimeDeploy\Console\Command\Cron</item>
+                <item name="Magefan_ZeroDowntimeDeploy_Console_Command_Create_Instance" xsi:type="object">Magefan\ZeroDowntimeDeploy\Console\Command\CreateInstance</item>
+                <item name="Magefan_ZeroDowntimeDeploy_Console_Command_Enable_New_Modules" xsi:type="object">Magefan\ZeroDowntimeDeploy\Console\Command\EnableNewModules</item>
+                <item name="Magefan_ZeroDowntimeDeploy_Console_Command_Delete_Instance" xsi:type="object">Magefan\ZeroDowntimeDeploy\Console\Command\DeleteInstance</item>
+                <item name="Magefan_ZeroDowntimeDeploy_Console_Command_Copy_New_Files_To_Magento_Root" xsi:type="object">Magefan\ZeroDowntimeDeploy\Console\Command\CopyNewFilesToMagentoRoot</item>
+                <item name="Magefan_ZeroDowntimeDeploy_Console_Command_Remove_Old_Files_In_Magento_Root" xsi:type="object">Magefan\ZeroDowntimeDeploy\Console\Command\RemoveOldFilesInMagentoRoot</item>
+                <item name="Magefan_ZeroDowntimeDeploy_Console_Command_Replace_Files_In_Magento_Root" xsi:type="object">Magefan\ZeroDowntimeDeploy\Console\Command\ReplaceFilesInMagentoRoot</item>
+                <item name="Magefan_ZeroDowntimeDeploy_Console_Command_Deploy_Mode_Set" xsi:type="object">Magefan\ZeroDowntimeDeploy\Console\Command\DeployModeSet</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\Module\Plugin\DbStatusValidator">
+        <plugin disabled="false" name="Magefan_ZeroDowntimeDeploy_Plugin_Magento_Framework_Module_Plugin_DbStatusValidator" sortOrder="10" type="Magefan\ZeroDowntimeDeploy\Plugin\Magento\Framework\Module\Plugin\DbStatusValidator"/>
+    </type>
+</config>

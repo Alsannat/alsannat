@@ -1,0 +1,22 @@
+{
+    "name": "webkul/module-google-map-pin-address",
+    "description": "Webkul Magento2 Google Map Pin Address",
+    "require": {
+        "magento/module-customer": "102.0.*",
+        "magento/module-checkout": "100.3.*"
+    },
+    "type": "magento2-module",
+    "version": "3.0.0",
+    "license": [
+        "proprietary"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Webkul\\GoogleMapPinAddress\\": ""
+            
+        }
+    }
+}

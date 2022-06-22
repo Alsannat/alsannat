@@ -1,0 +1,45 @@
+<?php
+/**
+ * Created by Magenest
+ * User: Luu Thanh Thuy
+ * Date: 02/03/2016
+ * Time: 16:03
+ *
+ */
+?>
+<?php
+/**  @var $block  \Magenest\GiftCard\Block\Adminhtml\Catalog\Product\Edit\Tab\Attributes\Template */
+$templates = $block->getAvailableTemplate();
+?>
+<div id="giftcard_template_product_attribute">
+    <input  type="hidden" name="product[giftcard_template]" data-role="giftcard-template-attribute"/>
+    <select multiple data-role="product_giftcard_template_selectbox" id="magenest-giftcard-template-select-box">
+        <?php if ($templates->getSize()) { ?>
+            <?php foreach ($templates as $template) { ?>
+                <option value="<?php echo $template->getId() ?>"><?php echo $template->getName() ?></option>
+
+            <?php } ?>
+        <?php } ?>
+
+
+    </select>
+</div>
+
+<script type="text/javascript">
+    require([
+        "jquery",
+        "Magenest_GiftCard/js/product/attribute/giftcard-template",
+        "domReady!"
+    ], function ($,productTemplate, domReady) {
+        $("#giftcard_template_product_attribute").productTemplate({
+            hiddenElement : $('input[data-role="giftcard-template-attribute"]'),
+            selectElement : $('select[data-role="product_giftcard_template_selectbox"]'),
+            originSelectedTemplates:'<?php echo $block->getSelectedTemplate() ?>'
+
+        });
+
+    });
+
+
+
+</script>

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Magenest. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
+    <type name="Magento\Catalog\Block\Adminhtml\Product\Edit\Tab\Attributes">
+        <plugin name="giftcard" type="\Magenest\GiftCard\Block\Plugin\Adminhtml\Product\Edit\Tab\Attributes"/>
+    </type>
+    <virtualType name="Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="gift-card" xsi:type="array">
+                    <item name="class" xsi:type="string">Magenest\GiftCard\Ui\DataProvider\Product\Modifier\GiftCard</item>
+                    <item name="sortOrder" xsi:type="number">90</item>
+                </item>
+                <item name="customDesignGiftCard" xsi:type="array">
+                    <item name="class" xsi:type="string">Magenest\GiftCard\Ui\DataProvider\Product\Modifier\Design</item>
+                    <item name="sortOrder" xsi:type="number">91</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Catalog\Model\Product\Attribute\Backend\Price">
+        <plugin name="configurable" type="Magenest\GiftCard\Model\Plugin\PriceBackend" sortOrder="100" />
+    </type>
+</config>

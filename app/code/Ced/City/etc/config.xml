@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+
+    <default>
+        <cscity>
+            <general>
+                <import></import>
+            </general>
+        </cscity>
+        <carriers>
+        <flatrate>
+            <sallowspecific>0</sallowspecific>
+            <model>Magento\OfflineShipping\Model\Carrier\Flatrate</model>
+        </flatrate>
+        <flatrate1>
+            <sallowspecific>0</sallowspecific>
+            <model>Magento\OfflineShipping\Model\Carrier\Flatrate</model>
+        </flatrate1>
+        <flatrate2>
+            <sallowspecific>0</sallowspecific>
+            <model>Magento\OfflineShipping\Model\Carrier\Flatrate</model>
+        </flatrate2>
+        </carriers>
+    </default>
+</config>

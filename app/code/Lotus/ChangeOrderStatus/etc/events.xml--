@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+	<event name="sales_order_invoice_save_after">
+		<observer name="lotus_changeorderstatus_invoice_save_after" instance="Lotus\ChangeOrderStatus\Observer\NewInvoice" />
+	</event>
+	<event name="sales_order_shipment_save_after">
+		<observer name="lotus_changeorderstatus_shipment_save_after" instance="Lotus\ChangeOrderStatus\Observer\NewShipment" />
+	</event>
+	<event name="sales_order_creditmemo_save_after">
+		<observer name="lotus_changeorderstatus_creditmemo_save_after" instance="Lotus\ChangeOrderStatus\Observer\NewCreditmemo" />
+	</event>
+</config>

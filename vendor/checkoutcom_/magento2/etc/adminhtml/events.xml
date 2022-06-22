@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Checkout.com Magento 2 Magento2 Payment.
+ *
+ * PHP version 7
+ *
+ * @category  Checkout.com
+ * @package   Magento2
+ * @author    Checkout.com Development Team <integration@checkout.com>
+ * @copyright 2019 Checkout.com all rights reserved
+ * @license   https://opensource.org/licenses/mit-license.html MIT License
+ * @link      https://www.checkout.com
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <!-- Order save before event -->
+    <event name="sales_order_save_before">
+        <observer name="cko_order_save_before" instance="CheckoutCom\Magento2\Observer\Backend\MotoPaymentRequest" />
+    </event>
+    
+    <!-- Order after void event -->
+    <event name="sales_order_payment_void">
+        <observer name="cko_order_payment_void" instance="CheckoutCom\Magento2\Observer\Backend\OrderAfterVoid" />
+    </event>
+
+    <!-- Order after refund event -->
+    <event name="sales_order_payment_refund">
+        <observer name="cko_order_payment_refund" instance="CheckoutCom\Magento2\Observer\Backend\OrderAfterRefund" />
+    </event>
+
+    <!-- Order after cancel event -->
+    <event name="sales_order_payment_cancel">
+        <observer name="cko_order_payment_cancel" instance="CheckoutCom\Magento2\Observer\Backend\OrderAfterCancel" />
+    </event>
+</config>

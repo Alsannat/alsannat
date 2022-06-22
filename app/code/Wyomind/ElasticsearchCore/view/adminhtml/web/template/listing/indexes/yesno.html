@@ -1,0 +1,6 @@
+<!-- ko if: ($row().is_active== "1") -->
+<span class='grid-severity-notice'><!-- ko i18n: 'Yes' --><!-- /ko --></span>
+<!--/ko-->
+<!-- ko ifnot: ($row().is_active == "1") -->
+<span class='grid-severity-critical'><!-- ko i18n: 'No' --><!-- /ko --></span>
+<!--/ko-->

@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Backend/etc/menu.xsd">
+    <menu>
+        <add id="Custom_SpecialPrice::parent" title="SpecialPrice" module="Custom_SpecialPrice" sortOrder="100" resource="Custom_SpecialPrice::parent"/>
+        <add id="Custom_SpecialPrice::index" title="SpecialPrice Index" module="Custom_SpecialPrice" sortOrder="10" action="specialprice/index" resource="Custom_SpecialPrice::index" parent="Custom_SpecialPrice::parent"/>
+		
+    </menu>
+</config>

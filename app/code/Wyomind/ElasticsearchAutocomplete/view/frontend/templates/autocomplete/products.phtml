@@ -1,0 +1,81 @@
+<script id="ea-products-template" type="text/x-magento-template">
+    <% if (enabled) { %>
+    <span class="section wyomind-primary-bgcolor">
+<span class="section-name"><%= title %></span>
+<span aria-hidden="true" class="section-amount"><%= count %></span>
+</span>
+    <div class="ea-products-grid">
+        <% _.each(products,function(doc) { %>
+        <div class="ea-product wyomind-primary-color-hover">
+            <a href="<% if (typeof doc.shortest_url != "undefined") { %><%- doc.shortest_url %><% } else { %><%- doc.url %><% } %>">
+                <% if (doc.image) { %>
+                <div class="ea-image">
+                    <img src="<%- doc.image %>" alt=""/>
+                </div>
+                <% } %>
+                <div class="info">
+                    <span class="name"><%= doc.name %></span>
+                    <span class="category"><?= /* @noEscape */ __('in') ?> <%= doc.category %></span>
+                    <!--                <% if (typeof doc.highlight != "undefined" && typeof doc.highlight.description != "undefined") { %>-->
+                    <!--                <span class="description"><%= doc.description %></span>-->
+                    <!--                <% } %>-->
+                    <span class="price">
+                        <div class="price-box">
+                            <% if (typeof doc['prices_'+customerGroupId] !== "undefined") { %>
+                                <% doc.prices = doc['prices_'+customerGroupId]; %>
+                                <% if (doc.type_id == 'bundle') { %>
+                                    <p class="price-from">
+                                        <span class="price-label">From:&nbsp;</span>
+                                        <span class="price"><%= _.getFormattedPrice(doc.prices.min_price, doc.tax_class_id) %></span>
+                                    </p>
+                                    <p class="price-to">
+                                        <span class="price-label">To:&nbsp;</span>
+                                        <span class="price"><%= _.getFormattedPrice(doc.prices.max_price, doc.tax_class_id) %></span>
+                                    </p>
+                                <% } else if (doc.type_id == 'grouped') { %>
+                                    <p class="minimal-price">
+                                        <span class="price-label">Starting at:&nbsp;</span>
+                                        <span class="price"><%= _.getFormattedPrice(doc.prices.min_price, doc.tax_class_id) %></span>
+                                    </p>
+                                <% } else { %>
+                                    <% if (doc.prices.final_price < doc.prices.price) { %>
+                                        <% if (typeof doc.special_from_date != "undefined") {
+                                            tmp =  doc.special_from_date.split(/[- :]/);
+                                            doc.special_from_date = new Date(tmp[0], tmp[1]-1, tmp[2], tmp[3], tmp[4], tmp[5]).getTime();
+                                        } %>
+                                        <% if (typeof doc.special_to_date != "undefined") {
+                                            tmp =  doc.special_to_date.split(/[- :]/);
+                                            doc.special_to_date = new Date(tmp[0], tmp[1]-1, tmp[2], tmp[3], tmp[4], tmp[5]).getTime();
+                                        } %>
+
+                                        <% if (((typeof doc.special_from_date != "undefined" && doc.special_from_date <= Date.now()) && (typeof doc.special_to_date != "undefined" && Date.now() <= doc.special_to_date))
+                                            || (typeof doc.special_from_date != "undefined" && typeof doc.special_to_date == "undefined" && doc.special_from_date <= Date.now())
+                                            || (typeof doc.special_to_date != "undefined" && typeof doc.special_from_date == "undefined" && Date.now() <= doc.special_to_date)
+                                            || (typeof doc.special_to_date == "undefined" && typeof doc.special_from_date == "undefined")) { %>
+                                            <p class="old-price">
+                                                <span class="price"><%= _.getFormattedPrice(doc.prices.price, doc.tax_class_id) %></span>
+                                            </p>
+                                            <p class="special-price">
+                                                <span class="price"><%= _.getFormattedPrice(doc.prices.final_price, doc.tax_class_id) %></span>
+                                            </p>
+                                        <% } else { %>
+                                            <span class="regular-price">
+                                                <span class="price"><%= _.getFormattedPrice(doc.prices.price, doc.tax_class_id) %></span>
+                                            </span>
+                                        <% } %>
+                                    <% } else { %>
+                                        <span class="regular-price">
+                                            <span class="price"><%= _.getFormattedPrice(doc.prices.price, doc.tax_class_id) %></span>
+                                        </span>
+                                    <% } %>
+                                <% } %>
+                            <% }%>
+                        </div>
+                    </span>
+                </div>
+            </a>
+        </div>
+        <% }) %>
+    </div>
+    <% } %>
+</script>

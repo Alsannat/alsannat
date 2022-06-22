@@ -1,0 +1,32 @@
+<?php
+/**
+ * @var \Amasty\Acart\Block\Email\Items $block
+ * @var \Magento\Catalog\Api\Data\ProductInterface $product
+ * @var \Amasty\Acart\ViewModel\Email\ProductViewModel $viewModel
+ * @var \Magento\Framework\Escaper $escaper
+ */
+$viewModel = $block->getData('viewModel');
+$showConfigurableImage = $block->showConfigurableImage();
+?>
+<?php if ($block->getQuote()): ?>
+    <table class="row" border="0" width="480" cellpadding="0" cellspacing="0" align="center">
+        <tbody>
+            <tr>
+                <td height="30"> </td>
+            </tr>
+            <tr>
+            <td align="center">    
+            <?php $i = 0;
+            foreach ($block->getItems() as $item):
+                $i++ ?>
+                <?php $product = $viewModel->getProduct($item); ?>
+                <?= $block->getItemBlockHtml($item); ?>
+            <?php endforeach; ?>
+            </td>
+            </tr>
+            <tr>
+                <td height="30"> </td>
+            </tr>
+            </tbody>
+    </table>
+<?php endif; ?>

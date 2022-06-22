@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright © 2018 Wyomind. All rights reserved.
+  See LICENSE.txt for license details.
+-->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">elasticsearchcore_indexes.listing_data_source</item>
+            <item name="deps" xsi:type="string">elasticsearchcore_indexes.listing_data_source</item>
+        </item>
+        <item name="spinner" xsi:type="string">columns</item>
+    </argument>
+    <dataSource name="listing_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Wyomind\ElasticsearchCore\Ui\DataProvider\Listing\Indexes</argument>
+            <argument name="name" xsi:type="string">listing_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">indexer_id</argument>
+            <argument name="requestFieldName" xsi:type="string">indexer_id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="update_url" xsi:type="url" path="mui/index/render"/>
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="indexField" xsi:type="string">indexer_id</item>
+                    </item>
+                </item>
+            </argument>
+        </argument>
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
+            </item>
+        </argument>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="sticky" xsi:type="boolean">false</item>
+            </item>
+        </argument>
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filters name="listing_filters"/>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+    <columns name="columns">
+        <column name="indexer_id">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Wyomind\ElasticsearchCore\Ui\Component\Listing\Indexes\Column\IndexerId</item>
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="label" xsi:type="string" translate="true">Indexer</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                    <item name="sortable" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+        </column>
+        <column name="comment">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                    <item name="sorting" xsi:type="string">asc</item>
+                    <item name="label" xsi:type="string" translate="true">Description</item>
+                    <item name="sortOrder" xsi:type="number">21</item>
+                    <item name="sortable" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+        </column>
+        <!--<column name="update_mode">-->
+            <!--<argument name="data" xsi:type="array">-->
+                <!--<item name="options" xsi:type="object">Wyomind\ElasticsearchCore\Ui\Component\Listing\Indexes\Column\UpdateMode</item>-->
+                <!--<item name="config" xsi:type="array">-->
+                    <!--<item name="filter" xsi:type="string">select</item>-->
+                    <!--<item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>-->
+                    <!--<item name="dataType" xsi:type="string">select</item>-->
+                    <!--<item name="bodyTmpl" xsi:type="string">Wyomind_ElasticsearchCore/listing/indexes/updateMode</item>-->
+                    <!--<item name="editor" xsi:type="array">-->
+                        <!--<item name="editorType" xsi:type="string">select</item>-->
+                        <!--<item name="validation" xsi:type="array">-->
+                            <!--<item name="required-entry" xsi:type="boolean">true</item>-->
+                        <!--</item>-->
+                    <!--</item>-->
+                    <!--<item name="label" xsi:type="string" translate="true">Update Mode</item>-->
+                    <!--<item name="sortOrder" xsi:type="number">30</item>-->
+                    <!--<item name="sortable" xsi:type="boolean">false</item>-->
+                <!--</item>-->
+            <!--</argument>-->
+        <!--</column>-->
+        <column name="reindexed">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Wyomind\ElasticsearchCore\Ui\Component\Listing\Indexes\Column\Reindexed</item>
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="bodyTmpl" xsi:type="string">Wyomind_ElasticsearchCore/listing/indexes/reindexed</item>
+                    <item name="editor" xsi:type="array">
+                        <item name="editorType" xsi:type="string">select</item>
+                        <item name="validation" xsi:type="array">
+                            <item name="required-entry" xsi:type="boolean">true</item>
+                        </item>
+                    </item>
+                    <item name="label" xsi:type="string" translate="true">Status</item>
+                    <item name="sortOrder" xsi:type="number">40</item>
+                    <item name="sortable" xsi:type="boolean">true</item>
+                </item>
+            </argument>
+        </column>
+        <column name="last_index_date">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">dateRange</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/date</item>
+                    <item name="sorting" xsi:type="string">asc</item>
+                    <item name="label" xsi:type="string" translate="true">Last Update</item>
+                    <item name="sortOrder" xsi:type="number">50</item>
+                    <item name="sortable" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+        </column>
+        <actionsColumn name="actions" class="Wyomind\ElasticsearchCore\Ui\Component\Listing\Indexes\Column\Actions">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="resizeEnabled" xsi:type="boolean">false</item>
+                    <item name="indexField" xsi:type="string">indexer_id</item>
+                    <item name="sortOrder" xsi:type="number">999</item>
+                </item>
+            </argument>
+        </actionsColumn>
+    </columns>
+</listing>
+

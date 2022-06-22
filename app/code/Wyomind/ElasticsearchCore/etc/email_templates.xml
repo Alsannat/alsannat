@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<!--
+  Copyright © 2018 Wyomind. All rights reserved.
+  See LICENSE.txt for license details.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <!-- elasticsearch sever failed email notification template -->
+    <template id="wyomind_elasticsearchcore_server_failed" label="Elasticsearch Server Failed" file="server_failed.html" type="html" module="Wyomind_ElasticsearchCore" area="adminhtml"/>
+</config>

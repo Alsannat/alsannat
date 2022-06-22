@@ -1,0 +1,84 @@
+.magenest-giftcard-product-form-options__step-number {
+    display: inline-block;
+    width: 25px;
+    text-align: center;
+    line-height: 24px;
+    border-radius: 100%;
+    border: 1px solid #ccc;
+}
+.magenest-giftcard-product-form-options__template-options {
+    margin-bottom: 15px;
+}
+.magenest-giftcard-product-form-options__template-option {
+    border: 2px solid transparent;
+    width: 100%;
+    float: none;
+    width: 30%;
+    display: inline-block;
+    vertical-align: top;
+    margin-bottom: 5px;
+}
+.magenest-giftcard-product-form-options__template-option.selected ,
+.magenest-giftcard-product-form-options__template-option:hover{
+    border: 2px solid blue;
+}
+.magenest-giftcard-product-form-options__template-option img{
+    max-width: 100%;
+    width: 100%;
+}
+.magenest-giftcard-product-form-options__fromto .fromto {
+    display: block;
+}
+.magenest-giftcard-product-form-options__fromto .fromto-name,
+.magenest-giftcard-product-form-options__fromto .fromto-email  {
+    width: 45%;
+    display: inline-block;
+}
+.product-add-form .product-options-wrapper .magenest-giftcard-product-form-options .fieldset .label.fromto {
+
+    display: block;
+}
+.product-add-form .product-options-wrapper .magenest-giftcard-product-form-options .fieldset .control.fromto-name ,
+.product-add-form .product-options-wrapper .magenest-giftcard-product-form-options .fieldset .control.fromto-email {
+    width: 40%;
+    display: inline-block;
+}
+.magenest-giftcard-product-form-options__preview {
+    margin: 15px 0;
+}
+
+.chosenGiftCard {
+    border: solid;
+    border-bottom-color: blue;
+
+}
+
+.block-discount-heading {
+    color: #1979c3;
+    font-weight: 400;
+
+}
+
+#block-discount-heading {
+    color: #1979c3;
+    font-weight: 400;
+    line-height:1.1;
+    margin-top : 2rem;
+    margin-bottom: 2rem;
+    font-size: 1.6rem;
+}
+
+.giftcard-design-btn {
+    background-color: #0000f6;
+    width: 100%;
+}
+
+.built-in-art {
+    width: 50px;
+    height: 60px;
+    display: inline-block;
+    margin-left: 6px;
+    margin-top: 6px;
+    padding: 5px;
+    cursor: pointer;
+}

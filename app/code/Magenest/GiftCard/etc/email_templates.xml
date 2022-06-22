@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright Â© 2015 Magenest. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../../../Magento/Email/etc/email_templates.xsd">
+    <template id="giftcard_email_template" label="GiftCard Email Template" file="giftcard_new.html" type="html"
+              module="Magenest_GiftCard" area="frontend"/>
+</config>

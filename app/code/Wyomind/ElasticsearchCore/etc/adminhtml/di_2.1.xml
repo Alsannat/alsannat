@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+  Copyright © 2018 Wyomind. All rights reserved.
+  See LICENSE.txt for license details.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Config\Model\Config">
+        <plugin name="wyomind_elasticsearchcore_plugin_config_model_config" type="Wyomind\ElasticsearchCore\Plugin\Config\Model\Config" />
+    </type>
+    <type name="Magento\Config\Model\Config\Structure\Element\Section">
+        <plugin name="wyomind_elasticsearchcore_plugin_config_model_config_structure_element_section" type="Wyomind\ElasticsearchCore\Plugin\Config\Model\Config\Structure\Element\Section" />
+    </type>
+    <type name="Magento\Config\Model\Config\Structure\Data">
+        <plugin name="wyomind_elasticsearchcore_plugin_config_model_config_structure_data" type="Wyomind\ElasticsearchCore\Plugin\Config\Model\Config\Structure\Data" />
+    </type>
+
+    <!-- Magento 2.1 -->
+    <preference for="Magento\Framework\View\Element\UiComponent\Config\ManagerInterface" type="Wyomind\ElasticsearchCore\Ui\Model\Manager"/>
+
+
+    <type name="Magento\Catalog\Model\Product\Action">
+        <plugin name="wyomind_elasticsearchcore_plugin_catalog_model_product_action" type="Wyomind\ElasticsearchCore\Plugin\Catalog\Model\Product\Action" />
+    </type>
+
+    <!-- NOTIFICATIONS -->
+    <type name="Magento\Framework\Notification\MessageList">
+        <arguments>
+            <argument name="messages" xsi:type="array">
+                <item name="wyomind_elasticsearchcore_notification" xsi:type="string">\Wyomind\ElasticsearchCore\Model\System\Message\Notification</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

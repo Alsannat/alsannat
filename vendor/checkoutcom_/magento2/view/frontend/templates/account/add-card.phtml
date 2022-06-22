@@ -1,0 +1,114 @@
+
+<?php
+/**
+ * Checkout.com
+ * Authorized and regulated as an electronic money institution
+ * by the UK Financial Conduct Authority (FCA) under number 900816.
+ *
+ * PHP version 7
+ *
+ * @category  Magento2
+ * @package   Checkout.com
+ * @author    Platforms Development Team <platforms@checkout.com>
+ * @copyright 2010-present Checkout.com
+ * @license   https://opensource.org/licenses/mit-license.html MIT License
+ * @link      https://docs.checkout.com/
+ */
+
+use CheckoutCom\Magento2\Block\Account\AddCard;
+
+/** @var AddCard $block */
+?>
+
+<button id="ckoShowForm" class="action submit primary">
+    <?= $block->escapeHtml(__('Add a card')) ?>
+</button>
+
+<div id="cko-form-holder" style="display: none;">
+    <br>
+    <div class="one-liner">
+      <div class="card-frame">
+        <!-- form will be added here -->
+      </div>
+    </div>
+    <form class="widget-container" id="saveCardForm" method="POST">
+        <?= $block->getBlockHtml('formkey') ?>
+        <input type="hidden" id="ckoCardToken" name="ckoCardToken">
+    </form>
+</div>
+<button id="ckoSaveCard" type="button" class="action primary"  title="<?= $block->escapeHtmlAttr(__('Save the card')) ?>" style="display: none;">
+    <?= $block->escapeHtml(__('Save the card')) ?>
+</button>
+
+<script type="text/javascript">
+    require([
+        'jquery',
+        'domReady!',
+        'framesjs'
+    ], function ($) {
+        // Prepare the elements
+        var saveCardButton = $('#ckoSaveCard');
+        var showFormButton = $('#ckoShowForm');
+        var cardTokenField = $('#ckoCardToken');
+        var cardFormContainerId = '#cko-form-holder';
+        var ckoPublicKey = '<?= $block->escapeHtml($block->getConfig()->getValue('public_key')); ?>';
+        var paymentForm = document.getElementById('saveCardForm');
+
+        // Initialize the embedded form
+        Frames.init(
+            {
+                publicKey: ckoPublicKey,
+                debug: Boolean(<?= $block->escapeHtml(($block->getConfig()->getValue('debug') && $block->getConfig()->getValue('console_logging'))); ?>),
+                cardValidationChanged: function() {
+                    if (Frames.isCardValid()) {
+                        Frames.submitCard();
+                    }
+                    saveCardButton.attr("disabled", !Frames.isCardValid());
+                },
+                frameActivated: function () {
+                    saveCardButton.attr("disabled", true);
+                },
+                cardTokenized: function(event) {
+                    // Add the card token to the form
+                    Frames.addCardToken(paymentForm, event.token);
+
+                    // Add the card token to the hidden input field
+                    cardTokenField.val(event.token);
+
+                    Frames.enableSubmitForm();
+                }
+            }
+        );
+
+        // Add card form controls
+        showFormButton.on('click touch', function (event) {
+            $(cardFormContainerId).show();
+            saveCardButton.show();
+            showFormButton.hide();
+        });
+
+        // Handle the submit event
+        saveCardButton.on('click touch', function (event) {
+            // Disable the save button
+            saveCardButton.attr("disabled", true);
+
+            // Start the loader
+            $('body').trigger('processStart');
+
+            // Send the request
+            $.ajax({
+                type: 'POST',
+                url: '<?= $block->escapeHtml($block->getUrl('checkout_com/account/savecard')); ?>',
+                data: {cardToken: cardTokenField.val()},
+                contentType: "application/json",
+                dataType: "json",
+                success: function (data) {
+                    window.location.href = data.url;
+                },
+                error: function (request, status, error) {
+                   $('body').trigger('processStop');
+                }
+            });
+        });
+    });
+</script>

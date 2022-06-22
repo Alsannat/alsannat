@@ -1,0 +1,4 @@
+﻿html, body{overflow-x: hidden !important;}
+.cms-index-index #maincontent, .cms-page-view #maincontent{ width:100%}
+.cms-index-index .page-title-wrapper{display:none}
+

@@ -1,0 +1,75 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php /* @var $block \Magento\Catalog\Block\Product\View\AbstractView */?>
+<?php
+
+$_product = $block->getProduct();
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$StockState = $objectManager->get('\Magento\CatalogInventory\Api\StockStateInterface');
+$total_stock = 0;
+if($_product->getTypeID() == 'configurable'){
+    $productTypeInstance = $_product->getTypeInstance();
+    $usedProducts = $productTypeInstance->getUsedProducts($_product);
+    foreach ($usedProducts as $simple) {
+        $total_stock += $StockState->getStockQty($simple->getId(), $simple->getStore()->getWebsiteId());
+    }
+}
+
+?>
+
+<?php if ($block->displayProductStockStatus()): ?>
+    <?php if ($_product->isAvailable()): ?>
+        <?php if($_product->getTypeID() == 'configurable'): ?>
+            <?php $qty = $total_stock; ?>
+            <?php if ($qty > 5): ?>
+                <div class="stock available" title="<?php /* @escapeNotVerified */ echo __('Availability') ?>">
+                    <?php /* @escapeNotVerified */ echo __('Available/Out of stock:') ?><span><?php /* @escapeNotVerified */ echo __(' Availability') ?></span>
+                </div>
+            <?php else: ?>
+                <?php if($qty == 0):?>
+                    <div class="stock available" title="<?php /* @escapeNotVerified */ echo __('Availability') ?>">
+                        <?php /* @escapeNotVerified */ echo __('Available/Out of stock:') ?><span><?php /* @escapeNotVerified */ echo __('Out of stock') ?></span>
+                    </div>
+                <?php else: ?>
+                    <div class="stock available" title="<?php /* @escapeNotVerified */ echo __('Availability') ?>">
+                        <?php /* @escapeNotVerified */ echo __('Available/Out of stock:') ?><span><?php /* @escapeNotVerified */ echo " " . $qty . __(' products') ?></span>
+                    </div>
+                <?php endif; ?>
+            <?php endif; ?>
+        <?php elseif($_product->getTypeID() == 'simple' || $_product->getTypeID() == 'virtual'):?>
+            <?php $qty = $_product->getExtensionAttributes()->getStockItem()->getQty(); ?>
+            <?php if ($qty > 5): ?>
+                <div class="stock available" title="<?php /* @escapeNotVerified */ echo __('Availability') ?>">
+                    <?php /* @escapeNotVerified */ echo __('Available/Out of stock:') ?><span><?php /* @escapeNotVerified */ echo __(' Availability') ?></span>
+                </div>
+            <?php else: ?>
+                <?php if($qty == 0):?>
+                    <div class="stock available" title="<?php /* @escapeNotVerified */ echo __('Availability') ?>">
+                        <?php /* @escapeNotVerified */ echo __('Available/Out of stock:') ?><span><?php /* @escapeNotVerified */ echo __('Out of stock') ?></span>
+                    </div>
+                <?php else: ?>
+                    <div class="stock available" title="<?php /* @escapeNotVerified */ echo __('Availability') ?>">
+                        <?php /* @escapeNotVerified */ echo __('Available/Out of stock:') ?><span><?php /* @escapeNotVerified */ echo " " . $qty . __(' products') ?></span>
+                    </div>
+                <?php endif; ?>
+            <?php endif; ?>
+        <?php else: ?>
+            <div class="stock available" title="<?php /* @escapeNotVerified */ echo __('Availability') ?>">
+                <?php /* @escapeNotVerified */ echo __('Available/Out of stock:') ?><span><?php /* @escapeNotVerified */ echo __(' Availability') ?></span>
+            </div>
+        <?php endif; ?>
+
+    <?php else: ?>
+        <div class="stock unavailable" title="<?php /* @escapeNotVerified */ echo __('Availability') ?>">
+            <?php /* @escapeNotVerified */ echo __('Available/Out of stock:') ?><span><?php /* @escapeNotVerified */ echo __('Out of stock') ?></span>
+        </div>
+    <?php endif; ?>
+<?php endif; ?>

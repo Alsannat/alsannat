@@ -1,0 +1,52 @@
+<form id="contact-form" class="form contact" action="#" method="post" enctype="multipart/form-data" data-mage-init='{"validation":{}}'>
+    <div class = "messages test"><p></p></div>
+	<fieldset class="fieldset">
+		<div class="field filesubmission">
+            <label class="label" for="filesubmission"><span><?= $block->escapeHtml(__('File Attachment')) ?></span></label>
+            <div class="control">
+                <input name="filesubmission" id="filesubmission" title="<?= $block->escapeHtmlAttr(__('Attachment')) ?>"  class="input-file" type="file" />
+            </div>
+        </div>
+	</fieldset>
+	<div class="actions-toolbar">
+        <div class="primary">
+            <input type="hidden" name="hideit" id="hideit" value="" />
+            <input type="hidden" name="form_key" value="<?php echo $block->getFormKey() ?>" />
+            <button type="submit" title="<?= $block->escapeHtmlAttr(__('Submit')) ?>" class="action submit primary"><span><?= $block->escapeHtml(__('Submit')) ?></span></button>
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
+    require(["jquery"],function($) {
+        $("button").click(function(e) {
+             e.preventDefault();
+            var customurl = "<?php echo $this->getUrl('specialprice/index/post')?>";
+			var data;
+
+			data = new FormData();
+			data.append( 'file', $( '#filesubmission' )[0].files[0]);
+            debugger;
+            $.ajax({
+                url: customurl,
+                method:"POST",  
+                data:new FormData($('#contact-form')[0]),
+				enctype: 'multipart/form-data',
+				showLoader: true, 
+                contentType:false,          // The content type used when sending data to the server.  
+                cache:false,                // To unable request pages to be cached  
+                processData:false,
+           success: function(response){  
+                         //console.log(response); 
+                         var filex = response;
+                         if(filex.indexOf(".csv") !=-1){
+                            $(".messages.test").html("Successfully imported");
+                         }else{
+                            $(".messages.test").html("Something went wrong");
+                         }
+                    }
+            });
+        });
+    });
+
+    
+</script>

@@ -1,0 +1,160 @@
+"WYSIWYG Editor","WYSIWYG Editor"
+"Gift Card","Gift Card"
+"GiftCard Information","GiftCard Information"
+"Order Information","Order Information"
+"Edit Gift Card","Edit Gift Card"
+Id,Id
+Code,Code
+Balance,Balance
+Status,Status
+"Expiry Date","Expiry Date"
+"Created Date","Created Date"
+Product,Product
+Order,Order
+"Recipient Information","Recipient Information"
+"Sender Name","Sender Name"
+"Sender Email","Sender Email"
+"Recipient Name","Recipient Name"
+"Recipient Email","Recipient Email"
+Headline,Headline
+Message,Message
+ID,ID
+"Created At","Created At"
+Action,Action
+Amount,Amount
+"Save Template","Save Template"
+"Save and Continue Edit","Save and Continue Edit"
+Preview,Preview
+"Delete Template","Delete Template"
+"Edit template '%1'","Edit template '%1'"
+"New Templates","New Templates"
+"Background Image Uploads","Background Image Uploads"
+"General Configuration","General Configuration"
+"Template Name","Template Name"
+"Design Style","Design Style"
+"Main Image Coordinates","Main Image Coordinates"
+"Message Box Coordinates","Message Box Coordinates"
+"Barcode Coordinates","Barcode Coordinates"
+"Title Coordinates","Title Coordinates"
+"""From"" Coordinates","""From"" Coordinates"
+"""To"" Coordinates","""To"" Coordinates"
+"Gift Key Coordinates","Gift Key Coordinates"
+"""Value"" String Coordinates","""Value"" String Coordinates"
+"Value Number Coordinates","Value Number Coordinates"
+"Expiry Date Coordinates","Expiry Date Coordinates"
+"Note Coordinates","Note Coordinates"
+Title,Title
+"Style Color","Style Color"
+"Text Color","Text Color"
+Note,Note
+"Main Image Uploads","Main Image Uploads"
+"Gift Card Template Configuration","Gift Card Template Configuration"
+GiftCard,GiftCard
+"This giftcard no longer exists.","This giftcard no longer exists."
+"New Gift Card","New Gift Card"
+Unavailable,Unavailable
+Available,Available
+"A total of %1 record(s) have been deleted.","A total of %1 record(s) have been deleted."
+"A total of %1 record(s) have been updated.","A total of %1 record(s) have been updated."
+"You have saved the gift card successfully.","You have saved the gift card successfully."
+"Something went wrong while saving this gift card.","Something went wrong while saving this gift card."
+Template,Template
+"You deleted the template.","You deleted the template."
+"We can't delete this rate because of an incorrect template ID.","We can't delete this rate because of an incorrect template ID."
+"Something went wrong deleting this template.","Something went wrong deleting this template."
+"This template no longer exists.","This template no longer exists."
+"Edit Template","Edit Template"
+"New Template","New Template"
+"Gift Card Template Manager","Gift Card Template Manager"
+"Unable to save template.","Unable to save template."
+"The template has been saved.","The template has been saved."
+"Something went wrong while saving template.","Something went wrong while saving template."
+"Design Gift Card","Design Gift Card"
+"Cannot generate left style template.","Cannot generate left style template."
+"Cannot generate right style template.","Cannot generate right style template."
+"Cannot generate center style template.","Cannot generate center style template."
+"Cannot generate custom style template.","Cannot generate custom style template."
+"%1 (Default)","%1 (Default)"
+Fixed,Fixed
+Selected,Selected
+Range,Range
+giftcard_amount,giftcard_amount
+Enabled,Enabled
+Disabled,Disabled
+Left,Left
+Right,Right
+Center,Center
+Custom,Custom
+Enable,Enable
+Disable,Disable
+"'giftcard_' .","'giftcard_' ."
+"The value of gift card price must be set properly","The value of gift card price must be set properly"
+Edit,Edit
+"Gift Card Design","Gift Card Design"
+Add,Add
+"Add art","Add art"
+Background,Background
+Art,Art
+"Add Amount","Add Amount"
+"Allow message","Allow message"
+"Yes ","Yes "
+"NO ","NO "
+"Expires after (days)","Expires after (days)"
+"Apply GiftCard","Apply GiftCard"
+"Enter giftcard code","Enter giftcard code"
+Apply,Apply
+Remove,Remove
+"Choose an Amount","Choose an Amount"
+"Card value","Card value"
+"Select a design","Select a design"
+"Compose your email","Compose your email"
+To,To
+From,From
+"Enter your headline here","Enter your headline here"
+optional,optional
+"Enter your gift card message here","Enter your gift card message here"
+"Scheduled send time","Scheduled send time"
+Delete,Delete
+Text,Text
+"Add Art","Add Art"
+Restart,Restart
+Reset,Reset
+Save,Save
+"Gift card option","Gift card option"
+Download,Download
+"Background Color","Background Color"
+Upload,Upload
+Flip,Flip
+"Center Horizontally","Center Horizontally"
+"Center Vertically","Center Vertically"
+"Bring to front","Bring to front"
+"Bring forwards","Bring forwards"
+"Send backwards","Send backwards"
+"Send to back","Send to back"
+Lock,Lock
+"Gift Card Value","Gift Card Value"
+"Design gift card","Design gift card"
+"%recipient_name,","%recipient_name,"
+"Your friend  %sender_name,","Your friend  %sender_name,"
+"Send you a gift card which has balance %giftcard_balance","Send you a gift card which has balance %giftcard_balance"
+Magenest,Magenest
+"Gift Card Configuration","Gift Card Configuration"
+General,General
+"Order item status to active gift card","Order item status to active gift card"
+"It is good idea to choose invoice for production environment","It is good idea to choose invoice for production environment"
+"Pattern to generate gift card code","Pattern to generate gift card code"
+"[A4][N5] for example","[A4][N5] for example"
+"Email Template","Email Template"
+"Email template to send gift card to recipient","Email template to send gift card to recipient"
+"Email Sender","Email Sender"
+"Email address of store which is used to send gift card to recipient","Email address of store which is used to send gift card to recipient"
+"Delete giftcards","Delete giftcards"
+"Are you sure to delete selected giftcards?","Are you sure to delete selected giftcards?"
+"Change status","Change status"
+"Expiry date","Expiry date"
+"Add New Template","Add New Template"
+"Delete templates","Delete templates"
+"Are you sure to delete selected templates?","Are you sure to delete selected templates?"
+"Template Title","Template Title"
+"Design Type","Design Type"
+Minimum,Minimum

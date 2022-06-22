@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+  Copyright © 2018 Wyomind. All rights reserved.
+  See LICENSE.txt for license details.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Wyomind_ElasticsearchAutocomplete::configuration"
+             parent="Wyomind_ElasticsearchCore::configs"
+             module="Wyomind_ElasticsearchAutocomplete"
+             title="Elasticsearch Autocomplete"
+             sortOrder="200"
+             resource="Wyomind_ElasticsearchAutocomplete::configuration"
+             action="adminhtml/system_config/edit/section/wyomind_elasticsearchautocomplete"/>
+
+    </menu>
+</config>

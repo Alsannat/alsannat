@@ -1,0 +1,187 @@
+<?php 
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+         $customerSession = $objectManager->get('Magento\Customer\Model\Session');
+         if($customerSession->isLoggedIn() ) {
+                 header("Location: /customer/account/");
+                 exit();
+          }
+          ?>
+<?php
+$helper = $this->helper('MGS\Guestwishlist\Helper\Data');
+$items = $helper->getWishlistItemCollection();
+$themeHelper = $this->helper('MGS\Mpanel\Helper\Data');
+$settings = $themeHelper->getThemeSettings();
+$perrow = $settings['catalog']['per_row'];
+$colCheck = $themeHelper->convertPerRowtoCol($perrow);
+$colClass = $themeHelper->convertColClass($colCheck, 'col');
+$quickViewHelper = $this->helper('MGS\QuickView\Helper\Data');
+$_imagehelper = $this->helper('Magento\Catalog\Helper\Image');
+
+$image = 'wishlist_thumbnail';
+$padding = $themeHelper->getImagePadding();
+$size = $themeHelper->getImageSize();
+?>
+<div class="myaccount-outer">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="myaccount-inner">
+                    <div class="title-wrapper">
+                        <div class="title">
+                            <h3><?= $block->escapeHtml(__('Welcome to Alsannat For Luggage')) ?></h3>
+                            <p><?= $block->escapeHtml(__('You are not logged in yet')) ?></p>
+                        </div>
+                        <div class="btn-wrapper">
+                            <a href="/registration?account=1" class="black-btn"><?= $block->escapeHtml(__('Login')) ?></a>
+                            <a href="/registration?name=tab2&account=1" class="create-link"><?= $block->escapeHtml(__('Create a New Account')) ?></a>
+                        </div>
+                    </div>
+                    <div class="account-details">
+                        <h4><?= $block->escapeHtml(__('Settings')) ?></h4>
+                        <div class="account-details-outer">
+                           <div class="account-details-list">
+                             <div class="account-details-list-wrapper">
+                                 <div class="list-title">
+                                  <span>    <img alt="country" src="<?php /* @escapeNotVerified */ echo $block->getViewFileUrl('images/country.png') ?>" /></span> 
+                                  <?= $block->escapeHtml(__('Country')) ?>  
+                                </div>
+                                <div class="list-right">
+                                <?= $block->escapeHtml(__('Saudi Arabia')) ?> <span>   <img alt="country" src="<?php /* @escapeNotVerified */ echo $block->getViewFileUrl('images/flags/sa.png') ?>" /> </span>
+                                </div>
+                            </div>  
+                          </div> 
+                          <div class="account-details-list">
+                             <div class="account-details-list-wrapper">
+                                 <div class="list-title">
+                                 <span>    <img alt="language" src="<?php /* @escapeNotVerified */ echo $block->getViewFileUrl('images/language.png') ?>" /></span>
+                                 <?= $block->escapeHtml(__('Language')) ?> 
+                                </div>
+                                <div class="list-right">
+                                <?php $block = $block->getLayout()->createBlock('Magento\Store\Block\Switcher'); ?>
+                                                <?php if (count($block->getStores())>1): ?>
+                                                    <?php $id = $block->getIdModifier() ? '-' . $block->getIdModifier() : ''?>
+                                                    <div class="dropdown dropdown-switcher language switcher-language" id="switcher-language<?php /* @escapeNotVerified */ echo $id?>">
+                                                        <?php foreach ($block->getStores() as $_lang): ?>
+                                                            <?php if ($_lang->getId() == $block->getCurrentStoreId()): ?>
+                                                                <button class="switcher-toggle dropdown-toggle" type="button" data-toggle="dropdown">
+                                                                    <?php echo $block->escapeHtml($_lang->getName()) ?>
+                                                                    <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                                                </button>
+                                                            <?php endif; ?>
+                                                        <?php endforeach; ?>
+                                                        <ul class="dropdown-menu">
+                                                            <?php foreach ($block->getStores() as $_lang): ?>
+                                                                <?php if ($_lang->getId() != $block->getCurrentStoreId()): ?>
+                                                                    <li class="view-<?php echo $block->escapeHtml($_lang->getCode()); ?> switcher-option">
+                                                                        <a href="#" data-post='<?php /* @escapeNotVerified */ echo $block->getTargetStorePostData($_lang); ?>'>
+                                                                            <img alt="<?php echo $_lang->getCode(); ?>" src="<?php /* @escapeNotVerified */ echo $block->getViewFileUrl('images/flags/' . $_lang->getCode() . '.png') ?>" /><?php echo $block->escapeHtml($_lang->getName()) ?>
+                                                                        </a>
+                                                                    </li>
+                                                                <?php endif; ?>
+                                                            <?php endforeach; ?>
+                                                        </ul>
+                                                    </div>
+                                                <?php endif; ?>
+                                </div>
+                            </div>  
+                          </div> 
+                       </div>
+                    </div>
+                    <div class="account-details">
+                        <h4><?= $block->escapeHtml(__('Contact Us')) ?></h4>
+                        <div class="account-details-outer">
+                           <div class="account-details-list">
+                             <div class="account-details-list-wrapper accordion1">
+                                 <div class="list-title">
+                                 <span><img alt="contact" src="<?php /* @escapeNotVerified */ echo $block->getViewFileUrl('images/contact.png') ?>" /></span> 
+                                 <?= $block->escapeHtml(__('Contact Us')) ?>
+                                </div>
+                            </div>  
+                            <div class="account-details-contact">
+                            <?php $mediaUrl = $this->helper('Magento\Cms\Helper\Wysiwyg\Images')->getBaseUrl(); ?>
+                            <ul>
+                            <li><a target="_blank" href="https://api.whatsapp.com/send?phone=966507340005&text=&source=&data="><span><img width="40" height="40" src="<?php echo $mediaUrl. '/wysiwyg/con-one.svg' ?>" alt="whatsapp" /></span>+966 50 7340005</a></li>
+                            <li><a href="mailto:support@alsannat.com"><span><img width="40" height="40" src="<?php echo $mediaUrl. '/wysiwyg/con_two.svg' ?>" alt="mail" /></span>support@alsannat.com</a></li> 
+                            <li><a href="tel:+966114121765"><span><img width="40" height="40" src="<?php echo $mediaUrl. '/wysiwyg/con_three.svg' ?>" alt="phone" /></span>+966 11 4121765</a></li> 
+                           </ul>
+                           </div>
+                          </div> 
+                          <div class="account-details-list">
+                             <div class="account-details-list-wrapper">
+                                 <div class="list-title">
+                                 <span>    <img alt="branch" src="<?php /* @escapeNotVerified */ echo $block->getViewFileUrl('images/branches.png') ?>" /></span>
+                                 <?= $block->escapeHtml(__('Branches')) ?> 
+                                </div>
+                               
+                            </div>  
+                          </div> 
+                       </div>
+                    </div>
+                    <div class="account-details">
+                        <h4>
+                        <?= $block->escapeHtml(__('Wish list')) ?></h4>
+                        <div class="account-details-outer">
+                          <div class="account-details-list">
+                             <div class="account-details-list-wrapper account-product-outer">
+                             <?php $iterator = 1; ?>
+                            <?php if (count($items)): ?>
+                             <ul class="account-product-list">       
+                             <?php $i=0; foreach ($items as $item): $i++ ?>
+                                <?php
+                                $_product = $item['product'];
+                                $productUrl = $_product->getUrlModel()->getUrl($_product, []);
+                                ?>
+                            <li>
+                                <div class="account-product-image"> <div class="account-product-image-wrapper">
+                                <?php $productImage = $_imagehelper->init($_product, $image)->resize($size['width'], $size['height'])->getUrl(); ?>
+								<a href="<?php echo $block->escapeUrl($productUrl) ?>">
+									<img src="<?php echo $productImage ?>" alt="<?php echo $block->stripTags($_product->getName(), null, true); ?>"/>
+									
+                                </a>
+                                </div>
+                                </div>
+                                <div class="account-product-contant">
+                                    <h5><a href="<?php echo $block->escapeUrl($productUrl) ?>"><?php echo $block->stripTags($_product->getName(), null, true); ?></a></h5>
+                                    <span class="price"><?= $block->escapeHtml(__('Price')) ?>:<?php echo $helper->formatPrice($_product->getFinalPrice()) ?></span>
+                                </div>
+                            </li>
+                            <?php endforeach; ?>
+                            </ul>
+                            <?php else: ?>
+                                <div class="message info empty">
+                                    <span><?= $block->escapeHtml(__('This Wish List has no Items')) ?></span>
+                                </div>
+                            <?php endif; ?>
+                               
+                            </div>  
+                          </div> 
+                       </div>
+                    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+require([
+        'jquery','mage/url', 'jquery/ui', 'jquery/validate', 'mage/translate', 'mage/mage','jquery/jquery.cookie'
+    ], function($, url){
+
+        $(".account-details-list .account-details-list-wrapper.accordion1").click(function(){
+
+          if($(this).closest(".account-details-list").find(".account-details-contact").is(':visible')){
+              $(this).closest(".account-details-list").find(".account-details-contact").slideDown();
+          } else {
+              $(this).closest(".account-details-list").find(".account-details-contact").slideUp();
+          }
+          $(this).closest(".account-details-list").siblings().find(".account-details-contact").stop(true,true).slideUp();
+          $(this).closest(".account-details-list").find(".account-details-contact").stop(true,true).slideToggle();
+          $(this).toggleClass('active');
+      });
+    });
+</script>
+<style type="text/css">
+  .myaccount-outer .account-details .account-details-list .account-details-contact ul li a span{
+    padding-left: 0;
+  }
+</style>

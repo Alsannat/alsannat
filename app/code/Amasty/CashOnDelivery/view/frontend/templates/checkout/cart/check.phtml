@@ -1,0 +1,46 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
+ * @package Amasty_CashOnDelivery
+ */
+?>
+<?php /** @var \Amasty\CashOnDelivery\Block\Checkout\Cart\CheckAvailable $this*/ ?>
+
+<?php if ($this->isVerificationEnable()) : ?>
+    <div id="block-amcashondelviery"
+         class="block amcashondelviery"
+         data-mage-init='{"collapsible":{"openedState": "active", "saveState": true}}'>
+        <div class="title" data-role="title">
+            <strong id="block-amcashondelviery-heading" role="heading" aria-level="2">
+                <?= __($this->escapeHtml('Check Cash on Delivery Availability for Your ZIP')) ?>
+            </strong>
+        </div>
+        <div id="block-amcashondelviery-summary"
+             data-bind="scope:'block-amcashondelviery-summary'"
+             class="content" data-role="content"
+             aria-labelledby="block-amcashondelviery-heading">
+            <div hidden data-amcashdel-js="allowed-postal-code" class="amcashdel-success">
+                <?= __($this->escapeHtml('Cash on Delivery is available')) ?>
+            </div>
+            <div hidden data-amcashdel-js="not-allowed-postal-code" class="amcashdel-error">
+                <?= __($this->escapeHtml('Cash on Delivery is not available')) ?>
+            </div>
+            <div class="amcashdel-input-wrapper">
+                <input type="text"
+                       class="input-text amcashdel-input"
+                       id="postal_code"
+                       name="postal_code"
+                       value=""
+                       placeholder="<?= __($this->escapeHtml("Enter your postal code here")) ?>"
+                       data-mage-init='{"amCodCheckAvailable": {}}'
+                >
+                <button type="button"
+                        class="action primary amcashdel-btn"
+                        data-amcashdel-js="amcashdel-check-status">
+                    <?= $block->escapeHtml(__('Check')) ?>
+                </button>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>

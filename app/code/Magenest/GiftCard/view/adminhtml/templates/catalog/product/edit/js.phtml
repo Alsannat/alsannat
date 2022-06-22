@@ -1,0 +1,54 @@
+<?php
+/**
+ * Created by Magenest
+ * User: Luu Thanh Thuy
+ * Date: 26/07/2016
+ * Time: 10:08
+ */
+?>
+
+<?php
+/** @var \Magenest\GiftCard\Block\Adminhtml\Catalog\Product\Edit\Js $block */
+$url = $block->getUrl('*/*/*', ['_current' => true, '_use_rewrite' => true]);
+
+/*if (strpos($url, 'giftcard')) {*/
+
+$typeId = $block->getProductType();
+
+if ($typeId == 'giftcard') {
+
+    ?>
+    <script type="text/javascript">
+        require([
+            "jquery",
+            "Magenest_GiftCard/js/product/giftcardPrice",
+            "domReady!"
+        ], function ($, PriceScheme, domReady) {
+            $(document).ready(function () {
+                function setLimitBGForGiftCard()
+                {
+                    var trCnt = jQuery('div[data-index="container_design"]').find('table[data-index="link"]').find('tbody').find('tr');
+
+                    if (trCnt.length >= 1) {
+
+                        jQuery('div[data-index="container_design"]').find('table[data-index="link"]').find('tfoot').hide();
+                    } else {
+                        jQuery('div[data-index="container_design"]').find('table[data-index="link"]').find('tfoot').show();
+                    }
+                }
+
+                setInterval(setLimitBGForGiftCard,100);
+                setInterval(function () {
+                    var price_scheme = new PriceScheme();
+                }, 100);
+
+
+            });
+
+        });
+
+    </script>
+
+<?php
+   }
+?>

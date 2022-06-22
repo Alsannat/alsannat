@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magefan (support@magefan.com). All rights reserved.
+ * Please visit Magefan.com for license details (https://magefan.com/end-user-license-agreement).
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="mfzerodwt" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Zero Downtime Deployment</label>
+            <tab>magefan</tab>
+            <resource>Magefan_ZeroDowntimeDeploy::config_zerodwt</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>General</label>
+                <attribute type="expanded">1</attribute>
+                <field id="version" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <frontend_model>Magefan\ZeroDowntimeDeploy\Block\Adminhtml\System\Config\Form\Info</frontend_model>
+                </field>
+                <field id="enabled" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enable Extension</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="key" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Product Key</label>
+                    <frontend_model>Magefan\Community\Block\Adminhtml\System\Config\Form\ProductKeyField</frontend_model>
+                </field>
+                <field id="static_content_deploy" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Static Content Deploy</label>
+                    <source_model>Magefan\ZeroDowntimeDeploy\Model\Config\Source\StaticContent</source_model>
+                </field>
+                <field id="enable_caches" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enable All Caches After Deploy</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Sometimes after deploying a few caches can be disabled, set this option to YES to enable all Magento caches after the deployment.]]></comment>
+                </field>
+                <field id="magento_cli_command" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Magento CLI Command</label>
+                    <comment><![CDATA[Use this field to run magento commands with specific command.<br/>
+                    By default: bin/magento {{command}}.<br/>
+                    You can use such variables in this field: {{command}}, {{magento-folder}}.
+                    ]]></comment>
+                </field>
+            </group>
+            <group id="composer" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Composer</label>
+                <field id="pull_from_composer" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Pull From Composer</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[If set to "Yes", then "<strong>composer install</strong>" command will be run during the deployment to get a new code via the composer.]]></comment>
+                </field>
+                <field id="composer_pull_command" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Composer CLI Command</label>
+                    <depends>
+                        <field id="pull_from_composer">1</field>
+                    </depends>
+                    <comment><![CDATA[
+                        By default, it is just a "composer", but due to your environment-specific, you may want to run it with some options. For example, you can define Composer CLI Command as:<br/>
+                        <strong>php -dmemory_limit=-1 /usr/bin/composer</strong><br/>
+                        or<br/>
+                        <strong>composer  --ignore-platform-reqs</strong><br/>
+                        or<br/>
+                        <strong>composer.phar</strong><br/>
+                        You can use such variables in this field: {{magento-folder}}.
+                    ]]></comment>
+                </field>
+            </group>
+            <group id="git" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Git</label>
+                <field id="pull_from_git" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Pull From Git</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Set to "Yes" if you use git. Once enabled, "<strong>git pull origin master</strong>" command will be run during the deployment to pull a new code from your git repository.<br/>
+                     We recommend setting git connection configuration via SSH, rather than HTTPS.
+                     If you use an HTTPS git connection, then during the deployment git user and password will be required.]]></comment>
+                </field>
+                <field id="pull_from_git_branch" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Git Branch To Pull From</label>
+                    <depends>
+                        <field id="pull_from_git">1</field>
+                    </depends>
+                    <backend_model>Magefan\ZeroDowntimeDeploy\Model\Adminhtml\Backend\BranchValidation</backend_model>
+                    <comment><![CDATA[Specify a Git branch.]]></comment>
+                </field>
+                <field id="webhooks_enabled" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enable Webhooks</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[<p id="webhook_url" class="note"><span></span></p><p id="webhook_command" class="note"><span></span></p>]]></comment>
+                    <depends>
+                        <field id="pull_from_git">1</field>
+                    </depends>
+                </field>
+                <field id="secret" translate="label" type="obscure" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Webhooks Secret</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                    <comment><![CDATA[Please enter some random characters in "Secret Key" field, save config, and use this URL in Git settings for Webhooks.]]></comment>
+                    <depends>
+                        <field id="pull_from_git">1</field>
+                        <field id="webhooks_enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

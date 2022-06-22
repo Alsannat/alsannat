@@ -1,0 +1,10 @@
+var config = {
+    map: {
+        '*': {
+            select2: 'Evincemage_District/js/select2.min'
+        }
+    },
+    shim: {
+        select2: ['jquery']
+    }
+};

@@ -1,0 +1,110 @@
+<!-- @category   Naqel
+  @package    Naqel_Shipping -->
+<div class="admin__page-section-content order-comments-history">
+   <div class="admin__page-section-item">
+      <hr/>
+      <div class="admin__page-section-item-title">
+         <span class="title">Naqel Details</span>
+      </div>
+      <div class="admin__page-section-item-content">
+         <div id="order-history_form" class="admin__field">
+            
+            <label style="margin-top:7px" class="admin__field-label" for="shipment_comment_text">
+            <span>Is Insured</span></label>
+            <div class="admin__field-control">
+               <select class="admin__control-select"  name="shipment[is_ensured]" id="is_ensured" >
+                  <option data-title="yes" value="yes">Yes</option>
+                  <option data-title="no" value="no" selected>No</option>
+               </select>
+            </div>
+            <div class="is_ensurance" style="margin-top:7px">
+               <label class="admin__field-label" for="shipment_comment_text">
+               <span>Insurance Amount</span></label>
+               <div class="admin__field-control">
+                  <input type="text" class="admin__control-text" name="shipment[ensurance_ammount]">
+               </div>
+            </div>
+            <label class="admin__field-label" for="shipment_comment_text" style="margin-top:7px">
+            <span>Goods Vat Amount</span></label>
+            <div class="admin__field-control">
+               <input type="text" class="admin__control-text" name="shipment[goods_vat_ammount]" value="0">
+            </div>
+
+            <label class="admin__field-label" for="shipment_comment_text" style="margin-top:7px">
+            <span>Piece count</span></label>
+            <div class="admin__field-control">
+               <input type="text" class="admin__control-text" name="shipment[piece_count]" value="1">
+            </div>
+
+            <label class="admin__field-label" for="shipment_comment_text" style="margin-top:7px">
+            <span>Is Custom Duty Pay By</span></label>
+            <div class="admin__field-control">
+               <select class="admin__control-select"  name="shipment[is_custom_duty_pay_by]" id="is_custom_duty_pay_by" id="is_custom_duty_pay_by">
+                  <option data-title="yes" value="yes">Yes</option>
+                  <option data-title="no" value="no" selected>No</option>
+               </select>
+            </div>
+            
+            <div id="custom_duty_ammount_div">
+               <label class="admin__field-label" for="shipment_comment_text" style="margin-top:7px;">
+               <span>Custom Duty amount</span></label>
+               <div class="admin__field-control">
+                  <input type="text" class="admin__control-text" name="shipment[custom_duty_ammount]">
+               </div>
+            </div>
+            
+            <label class="admin__field-label" for="shipment_delivered_value" style="margin-top:7px">
+            <span>Delivered Value</span></label>
+            <div class="admin__field-control">
+               <input type="text" class="admin__control-text" name="shipment[DeliveredValue]" id="shipment_delivered_value" value="0">
+            </div>
+
+            <label class="admin__field-label" for="shipment_comment_text" style="margin-top:7px">
+            <span>Delivery Instruction</span></label>
+            <div class="admin__field-control">
+               <input type="text" class="admin__control-text" name="shipment[DeliveryInstruction]">
+            </div>
+
+            <label class="admin__field-label" for="shipment_comment_text" style="margin-top:7px">
+            <span>Reference1</span></label>
+            <div class="admin__field-control">
+               <input type="text" class="admin__control-text" name="shipment[reference1]">
+            </div>
+
+            <label class="admin__field-label" for="shipment_comment_text" style="margin-top:7px">
+            <span>Reference12</span></label>
+            <div class="admin__field-control" style="margin-top:7px">
+               <input type="text" class="admin__control-text" name="shipment[reference2]">
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<script>
+   require (['jquery'], function ($) {
+       $(document).ready(function(){
+           $('.is_ensurance').hide();
+       });
+       $(document).ready(function(){
+           $('#custom_duty_ammount_div').hide();
+       });
+       
+       $('#is_ensured').change(function(){
+           if(this.value == "yes"){
+               $('.is_ensurance').show();
+           }else if(this.value == "no"){
+               $('.is_ensurance').hide();
+           }
+           //alert(this.value);
+       });
+       $('#is_custom_duty_pay_by').change(function(){
+           if(this.value == "yes"){
+               $('#custom_duty_ammount_div').show();
+           }else if(this.value == "no"){
+               $('#custom_duty_ammount_div').hide();
+           }
+           //alert(this.value);
+       });
+
+   });
+</script>

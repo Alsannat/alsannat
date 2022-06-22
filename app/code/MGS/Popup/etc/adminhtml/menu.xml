@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 MGS. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Backend/etc/menu.xsd">
+    <menu>
+    
+		<!-- MGS Popup Menu -->
+		<add id="MGS_Popup::popup" title="Popup" module="MGS_Popup" sortOrder="80" parent="Magento_Backend::mgs" resource="MGS_Popup::popup"/>
+        <add id="MGS_Popup::mgs_popupgrid_index" title="Manage Popups" module="MGS_Popup" parent="MGS_Popup::popup"  sortOrder="20" dependsOnModule="MGS_Popup" action="popup/popupgrid/index" resource="MGS_Popup::mgs_popupgrid_index"/>
+		
+    </menu>
+</config>

@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="trackemail_smsa_track_email_template" label="SMSA Track Email Template" file="smsa_track_email.html" type="html" module="Lotus_SMSAShipment" area="frontend"/>
+</config>

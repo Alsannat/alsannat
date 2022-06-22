@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+  <!-- @category   Naqel
+  @package    Naqel_Shipping -->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+    
+    <body>
+      <referenceContainer name="content">
+          <block class="Naqel\Shipping\Block\Adminhtml\Bulkcity\Index" name="item_city" template="Naqel_Shipping::bulkcity/index.phtml" />
+      </referenceContainer>
+    </body>
+</page>

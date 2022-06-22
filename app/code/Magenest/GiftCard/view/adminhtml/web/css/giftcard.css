@@ -1,0 +1,59 @@
+.admin__field-control.control {
+    line-height: 3.2rem;
+}
+#rule_giftcard_fieldset ,
+#rule_order_fieldset{
+    width: 48%;
+    display: inline-block;
+    vertical-align: top;
+    padding: 30px;
+    margin-bottom: 20px;
+}
+#rule_giftcard_fieldset {
+    background-color: #F1F1F1;
+    margin-right: 3%;
+}
+#rule_recipient_fieldset .admin__field.field {
+    width: 48%;
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 0;
+}
+
+#rule_personal_design {
+    display:none;
+}
+
+span.delete-image {
+    display: none;
+}
+
+tr.giftcard-price-tr {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.mandatory > .admin__field-label > span:after {
+    color: #e22626;
+    content: '*';
+    display: inline-block;
+    font-size: 1.6rem;
+    font-weight: 500;
+    line-height: 1;
+    margin-left: 10px;
+    margin-top: .2rem;
+    position: absolute;
+    z-index: 1;
+}
+.span-mandatory:after {
+    color: #e22626;
+    content: '*';
+    display: inline-block;
+    font-size: 1.6rem;
+    font-weight: 500;
+    line-height: 1;
+    margin-left: 10px;
+    margin-top: .2rem;
+    position: absolute;
+    z-index: 1;
+}

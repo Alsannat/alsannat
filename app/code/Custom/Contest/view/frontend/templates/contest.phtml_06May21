@@ -1,0 +1,314 @@
+<div class="contest-wrapper row">
+    <div class="contest-left col-12 col-md-8">
+    <div class="page contest-title">
+<h1><?= $block->escapeHtmlAttr(__('Prepare your luggage.. Win your car')) ?></h1>
+</div>
+ <form class="form contest-register"
+        action="<?= $block->escapeUrl($block->getFormAction()) ?>"
+        id="contest-form"
+        method="post"
+        data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
+        data-mage-init='{"validation":{}}'>
+        <?= /* @noEscape */ $block->getBlockHtml('formkey') ?>
+    <fieldset class="fieldset">
+        <legend class="legend"><span><?= $block->escapeHtml(__('Participation page')) ?></span></legend>
+        
+        <div class="field note no-label"><?= $block->escapeHtml(__('please fill in all the data below and click on the Send button after following up our social media accounts')) ?></div>
+        <div class="field firstname required">
+            <label class="label" for="name"><span><?= $block->escapeHtml(__('First Name')) ?></span></label>
+            <div class="control">
+                <input name="first_name" id="first_name" title="<?= $block->escapeHtmlAttr(__('First Name')) ?>"  class="input-text" type="text" data-validate="{required:true}"/>
+            </div>
+        </div>
+        <div class="field fathername required">
+            <label class="label" for="name"><span><?= $block->escapeHtml(__('Father Name')) ?></span></label>
+            <div class="control">
+                <input name="father_name" id="father_name" title="<?= $block->escapeHtmlAttr(__('Father Name')) ?>"  class="input-text" type="text" data-validate="{required:true}"/>
+            </div>
+        </div>
+        <div class="field lastname required">
+            <label class="label" for="name"><span><?= $block->escapeHtml(__('Last Name')) ?></span></label>
+            <div class="control">
+                <input name="last_name" id="last_name" title="<?= $block->escapeHtmlAttr(__('Last Name')) ?>"  class="input-text" type="text" data-validate="{required:true}"/>
+            </div>
+        </div>
+       
+        <div class="field telephone required">
+            <label class="label" for="telephone"><span><?= $block->escapeHtml(__('Phone Number')) ?></span></label>
+            <div class="control">
+                <input name="phone_no" id="phone_no" placeholder="055xxxxxxx" title="<?= $block->escapeHtmlAttr(__('Phone Number')) ?>" 
+                class="input-text no-whitespace validate-length maximum-length-15 minimum-length-9"
+                  type="tel" inputmode="numeric" maxlength="15" data-validate="{required:true,'validate-length':true}"/>
+                  <span class="telephone_span_error" style="display:none; color:red; font-weight:500;"><?= $block->escapeHtml(__('Number Invalid')) ?></span>
+            </div>
+        </div>
+        <div class="field email required">
+            <label class="label" for="email"><span><?= $block->escapeHtml(__('Email')) ?></span></label>
+            <div class="control">
+                <input name="email" id="email" title="<?= $block->escapeHtmlAttr(__('Email')) ?>"  class="input-text" type="email" data-validate="{required:true, 'validate-email':true}"/>
+            </div>
+        </div>
+        <div class="field city required">
+                <label class="label" for="city">
+                <span><?= $block->escapeHtml(__('City')) ?></span>
+                </label>
+                <div class="control">
+                    <input class="city-text" name="city" id="city" title="<?= $block->escapeHtmlAttr(__('City')) ?>"  class="input-text" type="text" required/>
+                    <?php $cities = $block->getSACityList(); ?>
+                    <select class="city-dropdown" name="city" required style="display: none;">
+                        <option disabled selected hidden value=""><?= $block->escapeHtml(__('--Select City--')) ?></option>
+                        <?php foreach ($cities as $city) { ?>
+                            <option value="<?php echo trim($city); ?>"><?php echo trim($city); ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+         </div>
+        <div class="field gender required">
+                <label class="label" for="gender">
+                <span><?= $block->escapeHtml(__('Gender')) ?></span>
+                </label>
+                <div class="control">
+                    <select name="gender" required>
+                        <option disabled selected hidden value=""><?= $block->escapeHtml(__('--Select Gender--')) ?></option>
+                        <option value="male"><?= $block->escapeHtml(__('Male')) ?></option>
+                        <option value="female"><?= $block->escapeHtml(__('Female')) ?></option>
+                    </select>
+                </div>
+         </div>
+         
+         <div class="field country required">
+                <label class="label" for="nationality">
+                <span><?= $block->escapeHtml(__('Nationality')) ?></span>
+                </label>
+                <?php $countries = $block->getCountryList(); ?>
+                <div class="control">
+                    <select name="nationality">
+                        <option disabled selected hidden value=""><?= $block->escapeHtml(__('--Select Nationality--')) ?></option>
+                    <?php foreach ($countries as $country) { 
+                        $country = htmlentities($country, null, 'utf-8');
+                        $country = str_replace("&nbsp;", "", $country);
+                        $country = html_entity_decode($country);
+                        ?>
+                        <option value="<?php echo $country; ?>"><?php echo $country; ?></option>
+                        
+                    <?php } ?>
+                    </select>
+                </div>
+         </div>
+         <div class="field age group required">
+                <label class="label" for="age group">
+                <span><?= $block->escapeHtml(__('Age group classification')) ?></span>
+                </label>
+                <div class="control">
+                    <select name="age_group" required>
+                        <option disabled selected hidden value=""><?= $block->escapeHtml(__('--Select Age Group--')) ?></option>
+                        <?php for($i=1; $i<65; $i++){ ?>
+                            <option  value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                        <?php } ?>
+                        <option value="65+"><?= $block->escapeHtml(__('65+')) ?></option>
+                        
+                    </select>
+                </div>
+         </div>
+         
+         <div class="field aboutus required">
+                <label class="label" for="about us">
+                <span><?= $block->escapeHtml(__('How did you know about us ?')) ?></span>
+                </label>
+                <div class="control">
+                <span class="input-choice"><input type="radio" id="snapchat" name="about_us" value="snapchat" required><label for="snapchat"><?= $block->escapeHtml(__('Snapchat')) ?></label></span>
+                <span class="input-choice"><input type="radio" id="instagram" name="about_us" value="instagram"><label for="instagram"><?= $block->escapeHtml(__('Instagram')) ?></label></span>
+                <span class="input-choice"><input type="radio" id="twitter" name="about_us" value="twitter"><label for="twitter"><?= $block->escapeHtml(__('Twitter')) ?></label></span>
+                <span class="input-choice"><input type="radio" id="google_add" name="about_us" value="Google Ads"><label for="google add"><?= $block->escapeHtml(__('Google Ads')) ?></label></span>
+                <span class="input-choice"><input type="radio" id="friends" name="about_us" value="friends"><label for="friends"><?= $block->escapeHtml(__('Friends')) ?></label></span>
+                <span class="input-choice"><input type="radio" id="branches" name="about_us" value="branches"><label for="branches"><?= $block->escapeHtml(__('Branches')) ?></label></span>
+                <span class="input-choice"><input type="radio" id="sociel_media" name="about_us" value="social media"><label for="sociel media"><?= $block->escapeHtml(__('Sociel Media')) ?></label></span>
+                <span class="input-choice"><input type="radio" id="direct" name="about_us" value="direct"><label for="direct"><?= $block->escapeHtml(__('Direct')) ?></label></span>
+                
+                </div>
+        </div>
+        <div class="social-wrapper-outer">
+	<div class="social-wrapper">
+		<span><?= $block->escapeHtml(__('Follow us in Twitter')) ?></span>
+		<a href="https://twitter.com/alsannat?lang=ar" class="twitter">
+			<i class="fa fa-twitter"></i>
+			<?= $block->escapeHtml(__('Twitter')) ?>
+		</a>
+	</div>
+	<div class="social-wrapper">
+		<span><?= $block->escapeHtml(__('Follow us in Instagram')) ?></span>
+		<a href="https://www.instagram.com/alsannat/" class="instagram">
+			<i class="fa fa-instagram"></i>
+			<?= $block->escapeHtml(__('Instagram')) ?>
+		</a>
+	</div>
+</div>
+    </fieldset>
+    <div class="actions-toolbar">
+    <span><?= $block->escapeHtml(__('*Terms and conditions apply')) ?></span>
+        <div class="primary">
+           
+            <button type="button" title="<?= $block->escapeHtmlAttr(__('Send')) ?>" class="action submit black-btn">
+                <span><?= $block->escapeHtml(__('Send')) ?></span>
+            </button>
+        </div>
+    </div>
+</form>
+</div>
+<div class="contest-right col-12 col-md-4">
+    <?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('contest_image')->toHtml() ?>
+</div>
+</div>
+
+<?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('contest_terms_and_condition')->toHtml() ?>
+
+<script>
+require([
+        'jquery','mage/url', 'jquery/ui', 'jquery/validate', 'mage/translate', 'mage/mage','mage/validation', 'Magento_Ui/js/modal/alert', 'jquery/jquery.cookie'
+    ], function($, url){
+
+        var cityTextVal;
+
+        $('.city-dropdown').hide();
+
+        $('.city-text').keyup(function() {
+            cityTextVal = $(this).val();
+        }).keyup();
+
+        $('.country select').on('change', function() {
+            var countryVal = this.value;
+
+            if(countryVal == 'السعودية' || countryVal == 'Saudi Arabia'){
+                $(".city-text").val('');
+                $('.city-dropdown').show();
+                $('.city-text').hide();
+            }else{
+                $(".city-dropdown").val('');
+                $('.city-dropdown').hide();
+                $('.city-text').show();
+                $('.city-text').val(cityTextVal);
+            }
+        });
+
+        $(document).on("keypress","#phone_no",function(e){
+            if(window.event) { // IE                    
+                keynum = e.keyCode;
+            } else if(e.which){ // Netscape/Firefox/Opera                   
+                keynum = e.which;
+            }
+
+            if(keynum < 48 || keynum > 57){
+              return false;
+            }
+            
+            if($(this).val().length <= 3){
+                prefixPhonenumber('#phone_no');
+                }
+        });
+                        
+        $(document).on("keyup","#phone_no",function(e){
+              validationPhonenumber(this);
+        });
+        $(document).on("keydown","#phone_no",function(e){
+              validationPhonenumber(this);
+        });
+        function validationPhonenumber(ele){
+          var value = $(ele).val();
+          
+            var re = /^(055)([0-9]{0,12})$/.test(value);
+            if(re == false) {
+            
+                $(".telephone_span_error").show();
+                $('.submit').attr('disabled','disabled');
+            }
+            else if(re == true) {
+                $(".telephone_span_error").hide();
+                $('.submit').removeAttr('disabled');
+            } 
+        }
+        function prefixPhonenumber(ele){
+          var value=$(ele).val();
+          if($(ele).val()  == "" || $(ele).val().length <= 3){
+           $(ele).val("055");
+          }
+          else{
+            validationPhonenumber(this);
+          }
+        }
+        $('.submit').click(function(event) {
+            if (jQuery('#contest-form').valid()) {
+                var submitUrl = $('#contest-form').attr('action');
+                $.ajax({
+                    url : submitUrl,
+                    dataType : 'json',  
+                    type : 'POST',
+                    showLoader: true,
+                    data: $('#contest-form').serialize(),
+                    success :function(data) {
+                        if(data.status){
+                            var date = new Date();
+                            var minutes = 1;
+                            date.setTime(date.getTime() + (minutes * 60 * 1000));
+                            $.cookie("contest-success", "1", { expires: date });
+                            window.location.href = url.build('contest-success');
+                        }else{
+                            alert(data.message);
+                            //return false;
+                        }
+                    }
+                });
+            }
+        });
+});
+
+</script>
+<!--script id='_webengage_script_tag' type='text/javascript'>
+require(['jquery','mage/validation'], function($){
+    $('.submit').click(function(event) {
+        console.log('==click==');
+        console.log($("[name='first_name']").val());
+        console.log($("[name='father_name']").val());
+        console.log($("[name='last_name']").val());
+        console.log($("[name='phone_no']").val());
+        console.log($("[name='email']").val());
+        console.log($("[name='gender']").val());
+        console.log($("[name='city']").val());
+        console.log($("[name='nationality']").val());
+        console.log($("[name='age_group']").val());
+        console.log($("[name='about_us']").val());
+        
+        if (jQuery('#contest-form').valid()) {
+            //console.log('====');
+            webengage.user.login($("[name='email']").val()); 
+            webengage.track('Contest Form Submit', []);
+            webengage.user.setAttribute('we_first_name', $("[name='first_name']").val()); // Forename(System Attribute)
+            webengage.user.setAttribute("Father Name", $("[name='father_name']").val()); // Father Name (Custom Attribute)
+            webengage.user.setAttribute('we_last_name', $("[name='last_name']").val()); // FamilyName(System Attribute)
+            webengage.user.setAttribute('we_phone', $("[name='phone_no']").val()); // Phone(System Attribute)
+            webengage.user.setAttribute('we_email', $("[name='email']").val()); //Email (System Attribute)
+            webengage.user.setAttribute('we_gender', $("[name='gender']").val()); // Sex (System Attribute)
+            webengage.user.setAttribute("City",$("[name='city']").val()); // Age Group (Custom Attribute)
+            webengage.user.setAttribute("Nationality",$("[name='nationality']").val()); // Age Group (Custom Attribute)
+            webengage.user.setAttribute("Age Group",$("[name='age_group']").val()); // Age Group (Custom Attribute)
+            webengage.user.setAttribute("How did you know about us ?",$("[name='about_us']").val()); // Age Group (Custom Attribute)
+
+            webengage.track("Contest Form Submit", {
+                "Age Group"      : $("[name='age_group']").val(),
+                "we_phone"   : $("[name='phone_no']").val(),
+                "we_first_name"    : $("[name='first_name']").val(),
+                "we_last_name"    : $("[name='last_name']").val(),
+                "Father Name"    : $("[name='father_name']").val(),
+                "we_email"   : $("[name='email']").val(),
+                "we_gender"   : $("[name='gender']").val(),
+                "City"   : $("[name='city']").val(),
+                "Nationality"   : $("[name='nationality']").val(),
+                "How did you know about us ?"   : $("[name='about_us']").val()
+            });
+        }
+
+
+
+        alert('hello');
+    });
+});
+</script-->

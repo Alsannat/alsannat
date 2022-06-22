@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<head>
+    	<css src="Vnecoms_Sms::css/intlTelInput.css"/>
+        <css src="Vnecoms_Sms::css/styles.css"/>
+        <!-- <title>Registration</title> -->
+    </head>
+    <body>
+    	<referenceBlock name="head.components">
+            <block class="Magento\Framework\View\Element\Js\Components" name="customer_account_create_head_components" template="Magento_Customer::js/components.phtml"/>
+        </referenceBlock>
+        
+
+        <referenceContainer name="content">
+            <!-- <block class="Magento\Framework\View\Element\Template" name="Checkout_login_register" template="Custom_Checkoutform::form.phtml"/> -->
+            <block class="Magento\Framework\View\Element\Template" name="Checkout_login_register" template="Custom_Checkoutform::form.phtml" >
+            	<block class="Vnecoms\Sms\Block\Customer\Register\Mobile" name="customer-number-html" template="Vnecoms_Sms::customer/register/mobile.phtml"/>
+            </block>
+      	</referenceContainer> 
+
+      	
+    </body>
+</page>

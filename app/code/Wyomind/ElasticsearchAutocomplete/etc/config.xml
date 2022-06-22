@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!--
+ Copyright © 2018 Wyomind. All rights reserved.
+ See LICENSE.txt for license details.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Core/etc/config.xsd">
+    <default>
+        <wyomind_elasticsearchautocomplete>
+            <license>
+                <extension_label>Elasticsearch Autocomplete</extension_label>
+                <extension_version>7.3.1</extension_version>
+                <extension_code>els</extension_code>
+                <activation_key/>
+                <license_code/>
+            <activation_key>FCJDUPJIU9TJ4UYE7</activation_key></license>
+            <settings>
+                <enable>1</enable>
+                <enable_debug_mode>0</enable_debug_mode>
+                <general>
+                    <enable_highlight>1</enable_highlight>
+                    <enable_all_results>1</enable_all_results>
+                    <labels>
+                        <all_results><![CDATA[See all results for <b>{{term}}</b> >>]]></all_results>
+                        <didyoumean>Did you mean?</didyoumean>
+                        <products>Products</products>
+                        <categories>Categories</categories>
+                        <cms>Pages</cms>
+                        <no_category>No category found</no_category>
+                        <no_cms>No page found</no_cms>
+                        <no_product>No product found</no_product>
+                    </labels>
+                </general>
+                <didyoumean>
+                    <enable_search>1</enable_search>
+                    <enable_autocomplete>1</enable_autocomplete>
+                    <autocomplete_limit>5</autocomplete_limit>
+                </didyoumean>
+                <product>
+                    <enable_autocomplete>1</enable_autocomplete>
+                    <autocomplete_limit>6</autocomplete_limit>
+                </product>
+                <category>
+                    <enable_search>1</enable_search>
+                    <enable_autocomplete>1</enable_autocomplete>
+                    <display_empty_autocomplete>0</display_empty_autocomplete>
+                    <autocomplete_limit>5</autocomplete_limit>
+                    <search_limit>5</search_limit>
+                </category>
+                <cms>
+                    <enable_search>1</enable_search>
+                    <enable_autocomplete>1</enable_autocomplete>
+                    <display_empty_autocomplete>0</display_empty_autocomplete>
+                    <autocomplete_limit>5</autocomplete_limit>
+                    <search_limit>5</search_limit>
+                </cms>
+            </settings>
+        </wyomind_elasticsearchautocomplete>
+    </default>
+</config>

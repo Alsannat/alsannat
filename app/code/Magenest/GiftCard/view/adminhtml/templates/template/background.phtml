@@ -1,0 +1,50 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: qhauict13
+ * Date: 16/02/2016
+ * Time: 22:15
+ */
+/** @var \Magenest\GiftCard\Block\Adminhtml\Template\Edit\Tab\Background $block */
+$background = $block->getSavedBackgroundImage();
+
+$selectedBg = $block->getSelectedBackground();
+?>
+
+<fieldset class="fieldset admin__fieldset " id="background_fieldset">
+    <legend class="legend">
+        <span><?php echo __('Background Image Upload Manager') ?></span>
+    </legend>
+    <div class="note">Recommended resolution: <em>880x500 pixels</em><br>
+    </div>
+    <button id="add-image-background" type="button" title="Add more Image" onclick="addBackgroundUpload()">Add Image</button><br><br>
+
+    <div class="loading-mask" data-role="loader" data-role="loader-mask" style="display: none">
+        <div class="loader">
+            <img alt="<?php echo __('Loading') ?>" src="<?php echo $block->getViewFileUrl('Magenest_GiftCard::images/spinner.gif')?>">
+            <p><?php echo __('Loading')  ?></p>
+        </div>
+    </div>
+    <div id="background-upload-container"></div><br><br><br><br>
+
+    <legend class="legend">
+        <span>Uploaded Images</span>
+    </legend>
+
+    <input id="template_delete_background_count" name="template[delete_background_count]" style="display: none" value=""/>
+    <input  id="template_saved_background_selected" name="template[saved_background_selected]" style="display: none" value="<?php echo $selectedBg ?>"/>
+
+    <div id="template_saved_images_background">
+        <?php foreach($background as $key=>$item){
+            $cnt = $key + 1;
+
+            ?>
+            <div class="saved_images_container_background" style="float: left" align="center">
+                <input type="hidden" name="background_img[<?php echo $cnt ?>][name]" value="<?php echo $item['name'] ?>">
+                <input type="hidden" name="background_img[<?php echo $cnt ?>][file]" value="<?php echo $item['file'] ?>">
+                <img class="saved_image_background <?php if (isset($item['selected'])) { echo "selected"; } ?> " onclick="addBorderBackground(event)" src="<?php echo $block->getMediaUrl().'giftcard/template/background'.$item['file']?>"><br>
+                <button style="" onclick="deleteBackgroundImage(event)">Delete</button>
+            </div>
+        <?php } ?>
+    </div>
+</fieldset>

@@ -1,0 +1,20 @@
+<?php
+$indexers = $block->getIndexers();
+$selectedIndice = $block->getSelectedIndice();
+?>
+<label for="elasticsearchcore-indice"><h3 style="float: left; margin-top: 5px; margin-right: 15px;">Indice</h3></label>
+<select id="elasticsearchcore-indice" onChange="document.location.href=this.value" class="admin__control-select" style="position:absolute;z-index:99">
+    <?php foreach ($indexers as $indexer): ?>
+        <?php $indices = $block->getIndices($indexer->getType()); ?>
+        <?php if ($indices): ?>
+            <optgroup label="<?php echo $indexer->getName() ?>">
+                <?php foreach ($indices as $indice) : ?>
+                    <option <?php if ($selectedIndice != null && $indice['indice'] == $selectedIndice) echo 'selected="selected"'; ?>
+                            value="<?php echo $block->getUrl('*/*', ['type' => $indice['type'], 'indice' => $indice['indice'], 'store' => $indice['storeCode'], 'storeId' => $indice['storeId']]) ?>">
+                        <?php echo $indice['indice'] ?>
+                    </option>
+                <?php endforeach; ?>
+            </optgroup>
+        <?php endif; ?>
+    <?php endforeach; ?>
+</select>

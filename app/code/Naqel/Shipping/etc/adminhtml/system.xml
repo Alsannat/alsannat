@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="carriers" translate="label" type="text" sortOrder="320" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="naqelshipping" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Naqel Shipping</label>
+                <field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0" >
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="title" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Title</label>
+                    <validate>required-entry</validate>
+                </field>
+
+                <field id="client_id" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1" >
+                    <label>Client ID</label>
+                    <validate>required-entry</validate>
+                </field>
+
+                <field id="password" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Password</label>
+                    <validate>required-entry</validate>
+                </field>
+
+                <field id="naqel_api_version" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>API Version</label>
+                    <validate>required-entry</validate>
+                </field>
+
+                <field id="naqel_api_endpoint_url" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>API endpoint address (URL)</label>
+                    <validate>required-entry</validate>
+                </field>
+
+
+                <field id="client_name" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1" >
+                    <label>Client Name</label>
+                    <validate>required-entry</validate>
+                </field>
+
+                <field id="client_email" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1" >
+                    <label>Client Email</label>
+                    <validate>required-entry</validate>
+                </field>
+
+                <field id="client_phone_no" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1" >
+                    <label>Phone Number</label>
+                    <validate>required-entry</validate>
+                </field>
+
+                <field id="client_mobile_no" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1" >
+                    <label>Mobile No</label>
+                    <validate>required-entry</validate>
+                </field>
+
+                <field id="client_po_box" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1" >
+                    <label>POBox</label>
+                    <validate>required-entry</validate>
+                </field>
+
+                <field id="client_zip_code" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1" >
+                    <label>ZipCode</label>
+                    <validate>required-entry</validate>
+                </field>
+
+                <field id="client_fax" translate="label" type="text" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="1" >
+                    <label>Fax</label>
+                    <validate>required-entry</validate>
+                </field>
+
+                <field id="client_first_address" translate="label" type="text" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="1" >
+                    <label>First Address</label>
+                    <validate>required-entry</validate>
+                </field>
+
+                <field id="client_country_code" translate="label" type="select" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1" >
+                    <label>Country Code</label>
+                    <comment><![CDATA[
+                    <script type="text/javascript">//<![CDATA[
+                        require(['jquery'], function($){                        
+                           //$(document).ready(function () {
+                           //});
+                           $('#carriers_naqelshipping_client_country_code').change(function() {  
+                             $('#save').click();
+                          });
+                        });
+                    </script>]]>
+                    </comment>
+                    <validate>required-entry</validate>
+                    <source_model>Naqel\Shipping\Model\Config\Source\Country</source_model>                
+                </field>
+                
+                <field id="client_city_code" translate="label" type="select" sortOrder="140" showInDefault="1" showInWebsite="1" showInStore="1" >
+                    <label>City Code</label>
+                    <!--<validate>required-entry</validate>-->
+                    <source_model>Naqel\Shipping\Model\Config\Source\City</source_model>
+                </field>
+                
+                <field id="client_location" translate="label" type="text" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="1" >
+                    <label>Location</label>
+                    <validate>required-entry</validate>
+                </field>
+                
+                <field id="generate_piece_bar_code" translate="label" type="select" sortOrder="151" showInDefault="1" showInWebsite="1" showInStore="1" >
+                    <label>Generate Piece Bar Code</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="create_booking" translate="label" type="select" sortOrder="152" showInDefault="1" showInWebsite="1" showInStore="1" >
+                    <label>Create Booking</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="price" translate="label" type="text" sortOrder="160" showInDefault="1" showInWebsite="1" showInStore="0" >
+                    <label>Shipping Fees</label>
+
+                    <validate>validate-number validate-zero-or-greater</validate>
+                </field>
+
+                <!--<field id="min_order_total" translate="label" type="text" sortOrder="170" showInDefault="1" showInWebsite="1" showInStore="0" >
+                    <label>Min. Price</label>
+                    <validate>validate-number validate-zero-or-greater</validate>
+                </field>-->
+
+                <!--<field id="cod_charge" translate="label" type="text" sortOrder="170" showInDefault="1" showInWebsite="1" showInStore="0" >
+                    <label>COD Charge</label>
+                    <validate>validate-number validate-zero-or-greater</validate>
+                </field>-->
+                
+                <field id="sort_order" translate="label" type="text" sortOrder="180" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Sort Order</label>
+                </field>
+                
+                <field id="sallowspecific" translate="label" type="select" sortOrder="190" showInDefault="1" showInWebsite="1" showInStore="0" >
+                    <label>Ship to Applicable Countries</label>
+                    <frontend_class>shipping-applicable-country</frontend_class>
+                    <source_model>Magento\Shipping\Model\Config\Source\Allspecificcountries</source_model>
+                </field>
+                <field id="specificcountry" translate="label" type="multiselect" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Ship to Specific Countries</label>
+                    <source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+
+                <field id="client_loadtype" translate="label" type="select" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="1" >
+                    <label>Load type</label>
+                    <validate>required-entry</validate>
+                    <source_model>Naqel\Shipping\Model\Config\Source\Loadtype</source_model>
+                </field>
+
+                <!--<field id="client_billtype" translate="label" type="select" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="1" >
+                    <label>Bill type</label>
+                    <validate>required-entry</validate>
+                    <source_model>Naqel\Shipping\Model\Config\Source\Billtype</source_model>
+                </field>-->
+
+                <!--<field id="client_StickerSize" translate="label" type="select" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="1" >
+                    <label>Sticker Size</label>
+                    <validate>required-entry</validate>
+                    <source_model>Naqel\Shipping\Model\Config\Source\Stickersize</source_model>
+                </field>-->
+
+                <field id="client_currencyid" translate="label" type="select" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="1" >
+                    <label>Currency Id</label>
+                    <validate>required-entry</validate>
+                    <source_model>Naqel\Shipping\Model\Config\Source\CurrencyId</source_model>
+                </field>
+                
+            </group>
+        </section>
+    </system>
+</config>
