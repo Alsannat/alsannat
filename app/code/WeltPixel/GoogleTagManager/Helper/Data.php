@@ -665,7 +665,12 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         if (empty($this->storeCategories)) {
             $this->_populateStoreCategories();
         }
-        $categoryId = $categoryIds[0];
+        // $categoryId = $categoryIds[0];
+        if(isset($categoryIds[1])){
+           $categoryId = $categoryIds[1];
+        }else{
+           $categoryId = $categoryIds[0];
+        }
         $categoryPath = '';
         if (isset($this->storeCategories[$categoryId])) {
             $categoryPath = $this->storeCategories[$categoryId]['path'];

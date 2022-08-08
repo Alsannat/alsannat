@@ -21,6 +21,7 @@
 
         $this->setEcommerceData('purchase', $purchaseData);
         $this->setEcommerceData('currencyCode', $this->getCurrencyCode());
+        $this->setDataLayerOption('event', 'orderSuccess');
 
         if ($helper->isAdWordConversionTrackingEnabled()) :
             $this->setDataLayerOption(\WeltPixel\GoogleTagManager\Model\Api\ConversionTracking::FIELD_CONVERSION_TRACKING_CONVERSION_VALUE, $this->getOrderTotal());

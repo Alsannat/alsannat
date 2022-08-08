@@ -73,6 +73,10 @@ class Shipping extends \Magento\Shipping\Model\Carrier\AbstractCarrier implement
         if (!$this->getConfigFlag('active')) {
             return false;
         }
+        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+		$cart = $objectManager->get('\Magento\Checkout\Model\Cart'); 
+		$couponCodeApplied = $cart->getQuote()->getCouponCode();
+       
         $total = $request->getPackageValue();
         $minTotal = $this->getConfigData('min_order_total');
         if(!empty($minTotal) && ($total < $minTotal)) {
@@ -107,11 +111,23 @@ class Shipping extends \Magento\Shipping\Model\Carrier\AbstractCarrier implement
     					}
     				}
     			}
-    		}else{
-    			if($total>300){
-    				$amount = 0;
-    			}
     		}
+            /*if($couponCodeApplied == "eid" || $couponCodeApplied == "EID"){
+                $amount = 0;
+            }*/
+            /*else{
+    		 	if($total>300){
+    		 		$amount = 0;
+    		 	}
+    		}*/
+        $salesruleIds = explode(',', $cart->getQuote()->getAppliedRuleIds());
+        for($i = 0; $i< count($salesruleIds); $i++){
+            $rule = $objectManager->create('Magento\SalesRule\Model\Rule')->load($salesruleIds[$i]); 
+            if (count($salesruleIds) > 0 && $rule->getSimpleFreeShipping() == 1) {
+               $amount = 0;
+            }
+        }
+            
         $method->setPrice($amount);
         $method->setCost($amount);
         $result->append($method);

@@ -18,7 +18,8 @@
 
         $productDetails['products'][] = $productDetail;
         ?>
-        <?php $this->setEcommerceData('detail', $productDetails); ?>
+        <?php $this->setEcommerceData('detail', $productDetails); 
+        $this->setDataLayerOption('event', 'productView'); ?>
 
         <?php
 
