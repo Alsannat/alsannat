@@ -5,21 +5,24 @@
  */
 -->
 <div class="payment-method" data-bind="css: {'_active': (getCode() == isChecked())}">
-    <div class="payment-method-title field choice">
+    <div class="payment-method-title field choice" style="display: flex; align-items: center;">
         <input type="radio"
                name="payment[method]"
                class="radio"
                data-bind="attr: {'id': getCode()}, value: getCode(), checked: isChecked, click: selectPaymentMethod, visible: isRadioButtonVisible()"/>
-        <label class="label" data-bind="attr: {'for': getCode()}">
-            <span data-bind="text: getTitle()"></span>
-        </label>
         <!-- ko if: isTotalAmountInLimit() -->
-        <div style="width: 255px; display: inline-block; margin-left: 16px;">
+        <div style="display: inline-block; margin-left: 16px;">
             <a class="tamara-product-widget" data-bind="attr: {'id':'tamara-product-widget-' + getNumberOfInstalments(), 'data-lang': getPaymentLanguage(), 'data-price': getGrandTotal(), 'data-currency': currencyCode, 'data-payment-type': 'installment', 'data-number-of-installments': getNumberOfInstalments(), 'data-inject-template': 'false', 'data-installment-minimum-amount': getMinLimitAmount(), 'href': 'javascript:void(0)'}">
-                <img data-bind="attr: {src: tamaraImageSrc, alt: $t('Tamara'), height: '36', width: '208' }" class="payment-icon" />
+                <img data-bind="attr: {src: tamaraImageSrc, alt: $t('Tamara'), height: '36', width: '208' }" class="payment-icon" style="width: auto;" />
             </a>
         </div>
         <!-- /ko -->
+        <label class="label" data-bind="attr: {'for': getCode()}">
+            <span data-bind="text: getTitle()"></span>
+        </label>
+    </div>
+    <div class="custom-notice">
+        <span data-bind="i18n: 'Pay a fraction of your total now, and the rest over time. No hidden fees, no interest!'"></span>
     </div>
 
     <div class="payment-method-content">

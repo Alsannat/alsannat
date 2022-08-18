@@ -253,4 +253,20 @@
     margin-bottom: 0;
 }
 
+/* mobile css */
+
+@media (max-width: 767px) {
+    .opc-payment .payment-methods .payment-method .payment-method-title .label {
+        font-size: 13px !important;
+    }
+    .payment-method-title div {
+      margin-right: 15px;
+    }
+    a.tamara-product-widget img {
+        max-width: 50px;
+        height: auto;
+    }
+}
+/* end  */
+
 /* End Tamarapayment css */
