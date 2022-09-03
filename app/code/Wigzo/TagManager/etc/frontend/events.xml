@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="checkout_cart_add_product_complete">
+        <observer name="wigzo_tagmanager_addtocart" instance="Wigzo\TagManager\Observer\AddToCart"/>
+    </event>
+	 <event name="checkout_onepage_controller_success_action">
+        <observer name="wigzo_tagmanager_buy" instance="Wigzo\TagManager\Observer\Buy"/>
+    </event>
+
+    <event name="controller_front_send_response_before">
+        <observer name="wigzo_tagmanager_product_view" instance="Wigzo\TagManager\Observer\Catalog"/>
+    </event>
+
+    <event name="controller_action_predispatch_checkout_index_index">
+        <observer name="wigzo_tagmanager_checkoutstarted" instance="Wigzo\TagManager\Observer\Checkout"/>
+    </event>
+
+    <event name="customer_login">
+        <observer name="wigzo_customer_login" instance="Wigzo\TagManager\Observer\CustomerAuthenticated" />
+    </event>
+
+    <event name="customer_register_success">
+        <observer name="wigzo_register_success" instance="Wigzo\TagManager\Observer\CustomerAuthenticated" />
+    </event>
+
+<!--    <event name="sales_order_place_before">-->
+<!--        <observer name="wigzo_sales_order_place_before" instance="Wigzo\TagManager\Observer\" />-->
+<!--    </event>-->
+</config>
+
+

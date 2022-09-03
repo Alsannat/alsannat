@@ -1,0 +1,10 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../lib/internal/Magento/Framework/App/etc/routes.xsd">
+    <router id="standard">
+        <route id="tagmanager" frontName="gcm_manifest">
+            <module name="Wigzo_TagManager" />
+        </route>
+        <route id="serviceworker" frontName="gcm_serviceworker">
+            <module name="Wigzo_TagManager" />
+        </route>
+    </router>
+</config>

@@ -1,0 +1,41 @@
+<?php
+	$item = $block->getCartItems();
+	$current_url = $block->getCurrentUrl();
+?>
+<?php if ($block->getData("enabled")) { 
+	$host = $block->getData("host");
+	$trimhost = trim($host,"https:");
+?>
+<script type="text/javascript">
+(function(w,i,g,z,o){
+    var a,m;w['WigzoObject']=o;w[o]=w[o]||function(){
+    (w[o].q=w[o].q||[]).push(arguments)},w[o].l=1*new Date();w[o].h=z;a=i.createElement(g),
+    m=i.getElementsByTagName(g)[0];a.async=1;a.src=z;m.parentNode.insertBefore(a,m)
+})(window,document,'script','<?php echo $trimhost; ?>/wigzo.js','wigzo');
+		<?php //} 
+		if($block->getData("userIdentifier") !== NULL || $block->getData("userIdentifier") !== ""){?>
+	        wigzo ('configure', '<?php echo $block->getData('orgidentifier'); ?>', '<?php echo $block->getData("userIdentifier"); ?>');
+		<?php } else{?>
+			wigzo ('configure', '<?php echo $block->getData('orgidentifier'); ?>');
+		<?php } ?>
+   </script>
+</script>
+<script>
+		require.config({
+            deps: [
+                'jquery'
+            ],
+            callback: function ($) {
+				var searchStartVal = $("#search_mini_form input[type=text]").val();
+				$("#search_mini_form").submit(function (e) {
+					var currentval = $(e.currentTarget).find("input[type=text]").val();
+					if (currentval == searchStartVal) {
+						return;
+					}
+					wigzo ("track", "search", currentval || "");
+				});
+			}
+		});
+</script>
+
+<?php } 

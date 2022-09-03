@@ -1,0 +1,9 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+    <body>
+
+        <referenceContainer name="head.additional">
+            <block class="Wigzo\TagManager\Block\ScriptTag\Index" name="wigzo_script" template="Wigzo_TagManager::headscript.phtml" />
+        </referenceContainer>
+
+    </body>
+</page>

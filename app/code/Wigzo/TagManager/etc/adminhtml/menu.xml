@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Backend/etc/menu.xsd">
+    <menu>
+        <add id="Wigzo_TagManager::parent" title="Wigzo" module="Wigzo_TagManager" sortOrder="100" resource="Wigzo_TagManager::parent"/>
+        <add id="Wigzo_TagManager::index" title="Configuration" module="Wigzo_TagManager" sortOrder="10" action="tagmanager/index" resource="Wigzo_TagManager::index" parent="Wigzo_TagManager::parent"/>
+		
+    </menu>
+</config>
