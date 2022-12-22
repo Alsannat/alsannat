@@ -7,6 +7,11 @@
 // @codingStandardsIgnoreFile
 
 ?>
+<style type="text/css">
+.deal-timer .days {
+    display: none !important;
+}
+</style>
 <?php /** @var $block \Magento\Catalog\Block\Product\View */ ?>
 
 <?php $_product = $block->getProduct(); ?>
@@ -105,7 +110,11 @@
 		</script>
 	<?php else: ?>
 		<div class="row product-detail-infomation-sticky-parent">
-			<div class="col-sm-6 col-xs-12<?php if($galleryPopup): ?> product-gallery-popup<?php endif ?>">
+			<div class="test1 col-sm-6 col-xs-12<?php if($galleryPopup): ?> product-gallery-popup<?php endif ?>">
+				<div class="productname_rating">
+					<p class="product_name"><?php echo __($_product->getName()) ?></p>
+					<?php echo $block->getChildHtml('product.info.review') ?>
+				</div>
 				<div class="<?php echo $class; ?>">
 					<?php echo $block->getChildHtml('product.info.media.image') ?>
 				</div>
