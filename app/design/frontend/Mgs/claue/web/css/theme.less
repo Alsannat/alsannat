@@ -18050,6 +18050,7 @@ span.rating-summary {
 	
 	.catalog-product-view .review-form-merged .product-image-review img {
 		max-width: 100px;
+		width: 100%;
 	}
 }
 
@@ -18326,6 +18327,12 @@ span.rating-summary {
   #mp-review-write-review-button {
     width:auto !important;
   }
+
+  .catalog-category-view .product-reviews-summary.short .rating-summary{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
 }
 
 @media (max-width: 767px) {
@@ -18354,7 +18361,7 @@ span.rating-summary {
 }
 
 .product-reviews-summary.short .rating-summary .rating-result {
-  width: 93px;
+  width: 100px;
 }
 
 .product-reviews-summary.short .rating-summary .product-reviews-summary:hover {
@@ -18511,4 +18518,8 @@ span.rating-summary {
 .block-title-head h2{
 	text-decoration: underline;
 }
+
+.catalog-category-view .product-reviews-summary.short .rating-summary .product-reviews-summary{
+	display:none;
+  }
 /*  End here */
