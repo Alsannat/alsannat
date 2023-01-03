@@ -6,50 +6,11 @@ namespace WeltPixel\GoogleTagManager\Block;
  */
 class Order extends \WeltPixel\GoogleTagManager\Block\Core
 {
-
-    protected $_image;
-
-    protected $frontUrlModel;
-
-    public function __construct(
-        \Magento\Catalog\Helper\Image $_image,
-        \Magento\Framework\UrlInterface $frontUrlModel
-    ) {
-        $this->_image = $_image;
-        $this->frontUrlModel = $frontUrlModel;
-    }
-
-    private function getProductImageUrl($product) {
-        return $this->_image->init($product, 'product_base_image')->constrainOnly(FALSE)
-            ->keepAspectRatio(TRUE)
-            ->keepFrame(FALSE)
-            ->getUrl();
-    }
-
-    private function getProductUrl($product, $storeCode = 'default', $categoryId = null) {
-        $routeParams = [ '_nosid' => true, '_query' => ['___store' => $storeCode]];
-
-        $routeParams['id'] = $product->getId();
-        $routeParams['s'] = $product->getUrlKey();
-        
-        if ($categoryId) {
-            $routeParams['category'] = $categoryId;
-        }
-        
-        return $this->frontUrlModel->getUrl('catalog/category/view', $routeParams);
-    }
-
     /**
      * Returns the product details for the purchase gtm event
      * @return array
      */
     public function getProducts() {
-        $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/templog22.log');
-        $logger = new \Zend\Log\Logger();
-        $logger->addWriter($writer);
-        $logger->info('**************************');
-
-
         $order = $this->getOrder();
         $products = [];
 
@@ -77,11 +38,8 @@ class Order extends \WeltPixel\GoogleTagManager\Block\Core
             $productDetail['category'] = $categoryName;
             $productDetail['list'] = $categoryName;
             $productDetail['quantity'] = $item->getQtyOrdered();
-            $productDetail['product_url'] = $this->getProductUrl($product);
-            $productDetail['image_url'] = $this->getProductImageUrl($product);
             $products[] = $productDetail;
         }
-        $logger->info($products);
 
         return $products;
     }
