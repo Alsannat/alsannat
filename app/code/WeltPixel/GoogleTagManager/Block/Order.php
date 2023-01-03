@@ -38,10 +38,24 @@ class Order extends \WeltPixel\GoogleTagManager\Block\Core
             $productDetail['category'] = $categoryName;
             $productDetail['list'] = $categoryName;
             $productDetail['quantity'] = $item->getQtyOrdered();
+            $productDetail['product_url'] = $product->getProductUrl();
+            $productDetail['product_imageurl'] = $this->getProductThumbnailImage($product);
+            
             $products[] = $productDetail;
         }
 
         return $products;
+    }
+
+    public function getProductThumbnailImage($product){
+        $objectManager =\Magento\Framework\App\ObjectManager::getInstance();
+        $helperImport = $objectManager->get('\Magento\Catalog\Helper\Image');
+
+        $imageUrl = $helperImport->init($product, 'product_page_image_small')
+                ->setImageFile($product->getSmallImage()) // image,small_image,thumbnail
+                ->getUrl();
+                
+        return $imageUrl;
     }
 
     /**
