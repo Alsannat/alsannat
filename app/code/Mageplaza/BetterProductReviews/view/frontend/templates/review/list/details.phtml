@@ -168,20 +168,22 @@ $format = \IntlDateFormatter::LONG;
                 <?php if ($_review->getReplyEnabled() && $block->isStoreOwnerReplyEnabled()) : ?>
                     <div class="mp-review-reply">
                         <div class="mp-reply-details">
+                            <div class="mp-reply-author">
+                                <span class="mp-reply-details-label"><?php /* @escapeNotVerified */
+                                    echo __('Response from') ?></span>
+                                <span class="mp-reply-details-value">
+                                    <?php echo __($block->escapeHtml($_review->getReplyNickname())) ?>
+                                :</span>
+                            </div>
                             <div class="mp-reply-date">
+                                <span class="bv-author bv-content-author-department"><?php /* @escapeNotVerified */
+                                    echo __('eCommerce') ?></span>
                                 <time class="mp-review-reply-value" datetime="<?php /* @escapeNotVerified */
                                 echo $block->formatDate(
                                     $_review->getReplyCreatedAt(),
                                     $format
                                                                               ) ?>"><?php /* @escapeNotVerified */
                                     echo $block->formatDate($_review->getReplyCreatedAt(), $format) ?></time>
-                            </div>
-                            <div class="mp-reply-author">
-                                <span class="mp-reply-details-label"><?php /* @escapeNotVerified */
-                                    echo __('Reply by') ?></span>
-                                <span class="mp-reply-details-value">
-                            <?php echo __('%1 - Store Owner', $block->escapeHtml($_review->getReplyNickname())) ?>
-                        </span>
                             </div>
                             <div class="mp-reply-content">
                                 <?php echo nl2br($block->escapeHtml($_review->getReplyContent())) ?>

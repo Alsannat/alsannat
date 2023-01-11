@@ -18336,11 +18336,19 @@ span.rating-summary {
 }
 
 @media (max-width: 767px) {
-  .mp-review-images a.mp-review-image-link {
-    width: 47%;
-  }
+	.mp-review-images a.mp-review-image-link {
+		width: 47%;
+	}
 	.mp-review-statistic .bv-secondary-rating-summary-header h3.bv-content-title {
 		padding-top: 15px;
+	}
+	#mp-review-list .mp-review-helpful .mp-review-helpful-btn {
+		margin-top: 9px;
+		height: auto!important;
+	}
+	
+	#mp-review-list .mp-review-reply {
+		margin-left: 0!important;
 	}
 }  
 
@@ -18522,4 +18530,32 @@ span.rating-summary {
 .catalog-category-view .product-reviews-summary.short .rating-summary .product-reviews-summary{
 	display:none;
   }
+
+  #mp-review-list .mp-review-reply {
+    margin-left: 0!important;
+    background-color: #f5f6fa!important;
+    padding: 2px 10px 7px;
+}
+
+#mp-review-list .mp-review-reply .mp-reply-content {
+    margin-bottom: 0;
+    margin-top: 7px;
+    color: #666;
+    line-height: 20px;
+}
+
+#mp-review-list .mp-review-reply .mp-reply-author {
+    font-size: 16px;
+    color: #000;
+    font-weight: 700;
+}
+
+.mp-reply-date span.bv-author.bv-content-author-department {
+    color: #d81a24;
+    font-weight: 400;
+}
+
+#mp-review-list .mp-review-reply time.mp-review-reply-value {
+    margin-left: 8px;
+}
 /*  End here */

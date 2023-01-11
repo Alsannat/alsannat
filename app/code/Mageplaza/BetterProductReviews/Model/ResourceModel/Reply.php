@@ -26,6 +26,8 @@ use Magento\Framework\Model\AbstractModel;
 use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 use Magento\Framework\Model\ResourceModel\Db\Context;
 use Magento\Framework\Stdlib\DateTime\DateTime;
+use Mageplaza\BetterProductReviews\Helper\Data;
+use Magento\Customer\Api\CustomerRepositoryInterface;
 
 /**
  * Class Reply
@@ -47,19 +49,34 @@ class Reply extends AbstractDb
     protected $_reviewDetailTable;
 
     /**
+     * @var Data
+     */
+    protected $_reviewHelper;
+
+    /**
+     * @var CustomerRepositoryInterface
+     */
+    protected $_customerRepository;
+
+    /**
      * Reply constructor.
      *
      * @param Context $context
      * @param DateTime $dateTime
+     * @param Data $_reviewHelper
+     * @param CustomerRepositoryInterface $_customerRepository
      * @param null $connectionName
      */
     public function __construct(
         Context $context,
         DateTime $dateTime,
+        Data $_reviewHelper,
+        CustomerRepositoryInterface $_customerRepository,
         $connectionName = null
     ) {
         $this->_dateTime = $dateTime;
-
+        $this->_reviewHelper = $_reviewHelper;
+        $this->_customerRepository = $_customerRepository;
         parent::__construct($context, $connectionName);
     }
 
@@ -113,6 +130,10 @@ class Reply extends AbstractDb
      */
     public function saveReviewExtraFields($reviewId, $data)
     {
+        $flag = $this->_reviewHelper->isPurchaserGuest($data['entity_pk_value'],$data['mp_bpr_email']);
+        $customer = $this->_customerRepository->get($data['mp_bpr_email']);
+        $customerId = $customer->getId();
+
         $connection = $this->getConnection();
         $detail     = [];
         /**
@@ -132,6 +153,12 @@ class Reply extends AbstractDb
         }
         if (isset($data['mp_bpr_verified_buyer'])) {
             $detail['mp_bpr_verified_buyer'] = $data['mp_bpr_verified_buyer'];
+        }
+        if (isset($data['mp_bpr_verified_buyer']) && $data['mp_bpr_verified_buyer'] == false && $flag == true) {
+            $detail['mp_bpr_verified_buyer'] = $data['mp_bpr_verified_buyer'] = 1;
+        }
+        if($data['customer_id'] == null && $customerId != null){
+            $detail['customer_id'] = $data['customer_id'] = $customerId;
         }
         if (isset($data['mp_bpr_email'])) {
             $detail['mp_bpr_email'] = $data['mp_bpr_email'];

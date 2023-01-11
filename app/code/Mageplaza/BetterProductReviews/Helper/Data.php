@@ -265,6 +265,35 @@ class Data extends AbstractData
     }
 
     /**
+     * @param string $productId
+     *
+     * @return bool
+     */
+    public function isPurchaserGuest($productId, $email)
+    {
+        $result            = false;
+        if ($email) {
+            $orders = $this->_orderFactory->create()->getCollection()
+                ->addFieldToFilter('customer_email', $email)
+                ->addFieldToFilter('state', Order::STATE_COMPLETE);
+            foreach ($orders as $order) {
+                /**
+                 * @var Order $order
+                 */
+                foreach ($order->getAllVisibleItems() as $item) {
+                    /** @var Item $item */
+                    if ($productId == $item->getProductId()) {
+                        $result = true;
+                        break;
+                    }
+                }
+            }
+        }
+
+        return $result;
+    }
+
+    /**
      * @return array
      * @throws NoSuchEntityException
      */
