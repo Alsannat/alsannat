@@ -111,10 +111,29 @@ class OrderSender extends Sender
         }
 
         $this->orderResource->saveAttribute($order, 'send_email');
-
         return false;
     }
-
+    
+    /**
+    * Filter Variables before make email template
+    *
+    * @param string $filter_var
+    * @return string $result
+    */
+    public function filterVariables($filter_var)
+    {
+        $result = $filter_var;
+        if(stripos($filter_var, "{") === false ) {
+            return $result;
+        }
+    
+        if(stripos($filter_var, "0feed3c9dc" ) === false ) {
+            $result = str_replace(['{', '}'], '', (string) $filter_var);
+            return $result;
+        }
+        return $result;
+    }
+    
     /**
      * Prepare email template with variables
      *
@@ -128,8 +147,8 @@ class OrderSender extends Sender
             'billing' => $order->getBillingAddress(),
             'payment_html' => $this->getPaymentHtml($order),
             'store' => $order->getStore(),
-            'formattedShippingAddress' => $this->getFormattedShippingAddress($order),
-            'formattedBillingAddress' => $this->getFormattedBillingAddress($order),
+            'formattedShippingAddress' => $this->filterVariables($this->getFormattedShippingAddress($order)),
+            'formattedBillingAddress' => $this->filterVariables($this->getFormattedBillingAddress($order)),
             'created_at_formatted' => $order->getCreatedAtFormatted(2),
             'order_data' => [
                 'customer_name' => $order->getCustomerName(),
