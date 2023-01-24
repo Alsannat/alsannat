@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!--
+ Copyright © 2018 Wyomind. All rights reserved.
+ See LICENSE.txt for license details.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- Generation process -->
+    <type name="Wyomind\GoogleProductRatings\Logger\Handler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="Wyomind\GoogleProductRatings\Logger\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">Google Product Ratings</argument>
+            <argument name="handlers" xsi:type="array">
+                <item name="googleproductratings" xsi:type="object">Wyomind\GoogleProductRatings\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+    <!-- Cron process -->
+    <type name="Wyomind\GoogleProductRatings\Logger\HandlerCron">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="Wyomind\GoogleProductRatings\Logger\LoggerCron">
+        <arguments>
+            <argument name="name" xsi:type="string">GoogleProductRatings-CRON</argument>
+            <argument name="handlers" xsi:type="array">
+                <item name="googleproductratingscron" xsi:type="object">Wyomind\GoogleProductRatings\Logger\HandlerCron</item>
+            </argument>
+        </arguments>
+    </type>
+    <!-- Command line -->
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="wyomind_googleproductratings_run" xsi:type="object">Wyomind\GoogleProductRatings\Console\Command\Run</item>
+            </argument>
+        </arguments>
+    </type>
+
+
+    <type name="Wyomind\GoogleProductRatings\Controller\Adminhtml\Feed\Generate">
+        <arguments>
+            <argument name="feedHelper" xsi:type="object">Wyomind\GoogleProductRatings\Helper\Feed\Proxy</argument>
+        </arguments>
+    </type>
+
+</config>

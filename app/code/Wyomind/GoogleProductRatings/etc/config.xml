@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!--
+ Copyright © 2018 Wyomind. All rights reserved.
+ See LICENSE.txt for license details.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <googleproductratings>
+            <license>
+                <extension_label>Google Product Ratings</extension_label>
+                <extension_version>1.6.0</extension_version>
+                <extension_code>gpr</extension_code>
+                <get_online_license>1</get_online_license>
+            <activation_key>F0QAJQMDRNLPOVXGM</activation_key></license>
+            <settings>
+                <log>0</log>
+            </settings>
+            <data_feed_settings>
+                <publisher_name>Publisher Name</publisher_name>
+                <collection_method>unsolicited</collection_method>
+                <rating_range_min>1</rating_range_min>
+                <rating_range_max>5</rating_range_max>
+                <anonymous_reviewer>0</anonymous_reviewer>
+            </data_feed_settings>
+            <options>
+                <use_minimal_configuration>1</use_minimal_configuration>
+                <product_settings>
+                    <filter_unavailable>0</filter_unavailable>
+                    <product_sku>sku</product_sku>
+                    <product_brand>brand</product_brand>
+                    <product_name>name</product_name>
+                </product_settings>
+            </options>
+            <cron_job>
+                <enable_reporting>0</enable_reporting>
+                <reporting_settings>
+                    <subject>Google Product Ratings - Cron Job Report</subject>
+                </reporting_settings>
+            </cron_job>
+            <storage>
+                <file_path>feeds/ratings</file_path>
+                <file_name>GoogleRatings</file_name>
+            </storage>
+        </googleproductratings>
+    </default>
+</config>
