@@ -1,0 +1,17 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <type name="Mirasvit\Core\Block\Adminhtml\Menu">
+        <arguments>
+            <argument name="menu" xsi:type="array">
+                <item name="reports" xsi:type="object">Mirasvit\Reports\Block\Adminhtml\Menu</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\Acl\AclResource\Provider">
+        <plugin name="Mirasvit_Reports::addReportsToAcl" type="Mirasvit\Reports\Plugin\Framework\Acl\AddReportsToAclPlugin" sortOrder="1000"/>
+    </type>
+
+    <preference for="Mirasvit\Reports\Api\Service\PostcodeServiceInterface" type="Mirasvit\Reports\Service\PostcodeService"/>
+</config>
