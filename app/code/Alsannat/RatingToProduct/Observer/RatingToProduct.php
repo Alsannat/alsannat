@@ -20,15 +20,14 @@ class RatingToProduct implements \Magento\Framework\Event\ObserverInterface
 
         if($reviewObject->getStatusId() == 1) // Approved case
         {
-            $proId = (int)$reviewObject->getEntityPkValue();
+		$proId = (int)$reviewObject->getEntityPkValue();
             $proObj = $this->productRepository->getById($proId);
 
             $_ratingSummary = $this->reviewSummary->getRatingSummary($proObj);
             $rating = number_format((float)($_ratingSummary / 20), 1);
             
             $proObj->setFeedRating($rating);
-            $this->productRepository->save($proObj);   
+	    $this->productRepository->save($proObj); 
         }
-        
     }
 }

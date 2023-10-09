@@ -111,6 +111,11 @@ class Discount extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
         $this->calculator->init($store->getWebsiteId(), $quote->getCustomerGroupId(), $quote->getCouponCode());
         $this->calculator->initTotals($items, $address);
 
+        // $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/templog_coup.log');
+        // $logger = new \Zend\Log\Logger();
+        // $logger->addWriter($writer);
+        // $logger->info('*******************');
+
         $address->setDiscountDescription([]);
         $items = $this->calculator->sortItemsByPriority($items, $address);
         $address->getExtensionAttributes()->setDiscounts([]);
@@ -120,13 +125,14 @@ class Discount extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
         /** @var \Magento\Quote\Model\Quote\Item $item */
         foreach ($items as $item) {
             $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-            $_product = $objectManager->create('Magento\Catalog\Model\Product')->load($item->getProductId());
+            $_product = $objectManager->create('Magento\Catalog\Model\Product')->loadByAttribute('sku', $item->getSku());
             $orgprice = $_product->getPrice();
             $specialprice = $_product->getSpecialPrice();
             $specialfromdate = $_product->getSpecialFromDate();
             $specialtodate = $_product->getSpecialToDate();
+
             $today = time();
-            $couponList = ["AMH10"];
+            $couponList = ["AMH10","سفر23","سفر٢٣","JMH10"];
             $flag = null;
             if(in_array(strtoupper($quote->getCouponCode()), $couponList)){
                 if (!$specialprice)
@@ -134,10 +140,12 @@ class Discount extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
                 if ($specialprice < $orgprice) {
                     if ((is_null($specialfromdate) &&is_null($specialtodate)) || ($today >= strtotime($specialfromdate) &&is_null($specialtodate)) || ($today <= strtotime($specialtodate) &&is_null($specialfromdate)) || ($today >= strtotime($specialfromdate) && $today <= strtotime($specialtodate))) {
                         // 'product has a special price'
+                        // $logger->info('product has a special price');
                         $flag = 1;
                     }
                 }
             }
+            // $logger->info($flag . " : " . $_product->getSku());
             
             if($flag == null){
                 if ($item->getNoDiscount() || !$this->calculator->canApplyDiscount($item)) {

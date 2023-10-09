@@ -4,7 +4,10 @@
 <?php if($this->isEnabled()) : ?>
     <?php $helper = $this->helper('WeltPixel\GoogleTagManager\Helper\Data'); ?>
     <?php $order = $this->getOrder(); ?>
-    <?php $products = $this->getProducts(); ?>
+    <?php $products = $this->getProducts();
+    $email = $order->getCustomerEmail();
+    $phoneNumber = $order->getBillingAddress()->getTelephone();
+    ?>
 
     <?php
         $purchaseData = [];
@@ -14,7 +17,9 @@
             'revenue' => $this->getOrderTotal(),
             'coupon' => (string)$order->getCouponCode(),
             'tax' => $order->getTaxAmount(),
-            'shipping' => $order->getShippingAmount()
+            'shipping' => $order->getShippingAmount(),
+            'email' => $email,
+            'telephone' => $phoneNumber
         ];
 
         $purchaseData['products'] = $products;

@@ -15,21 +15,21 @@ class Grid
      */
     public function afterSearch($intercepter, $collection)
     {
-        if ($collection->getMainTable() === $collection->getConnection()->getTableName(self::$table)) {
+        // if ($collection->getMainTable() === $collection->getConnection()->getTableName(self::$table)) {
 
-            $leftJoinTableName = $collection->getConnection()->getTableName(self::$leftJoinTable);
-            $collection
-                ->getSelect()
-                ->joinLeft(
-                    ['co'=>$leftJoinTableName],
-                    "co.entity_id = main_table.entity_id",
-                    [
-                        'waybill_no' => 'co.waybill_no'
-                    ]
-                );
-            $where = $collection->getSelect()->getPart(\Magento\Framework\DB\Select::WHERE);
-            $collection->getSelect()->setPart(\Magento\Framework\DB\Select::WHERE, $where); 
-        }
+        //     $leftJoinTableName = $collection->getConnection()->getTableName(self::$leftJoinTable);
+        //     $collection
+        //         ->getSelect()
+        //         ->joinLeft(
+        //             ['co'=>$leftJoinTableName],
+        //             "co.entity_id = main_table.entity_id",
+        //             [
+        //                 'waybill_no' => 'co.waybill_no'
+        //             ]
+        //         );
+        //     $where = $collection->getSelect()->getPart(\Magento\Framework\DB\Select::WHERE);
+        //     $collection->getSelect()->setPart(\Magento\Framework\DB\Select::WHERE, $where); 
+        // }
         return $collection;
     }
 }

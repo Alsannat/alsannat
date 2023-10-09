@@ -428,23 +428,23 @@ class S3storage extends DataObject
     public function loadByFilename($filename)
     {
         $fail = false;
-        try {
-            $object = $this->_client->getObject([
-                'Bucket' => $this->getBucket(),
-                'Key' => $filename,
-            ]);
+        // try {
+        //     $object = $this->_client->getObject([
+        //         'Bucket' => $this->getBucket(),
+        //         'Key' => $filename,
+        //     ]);
 
-            if ($object['Body']) {
-                $this->setData('id', $filename);
-                $this->setData('filename', $filename);
-                $this->setData('content', (string)$object['Body']);
-            } else {
-                $fail = true;
-            }
-        } catch (\Exception $e) {
-            $fail = true;
-            $this->_logger->info($e->getMessage());
-        }
+        //     if ($object['Body']) {
+        //         $this->setData('id', $filename);
+        //         $this->setData('filename', $filename);
+        //         $this->setData('content', (string)$object['Body']);
+        //     } else {
+        //         $fail = true;
+        //     }
+        // } catch (\Exception $e) {
+        //     $fail = true;
+        //     $this->_logger->info($e->getMessage());
+        // }
 
         if ($fail) {
             $this->unsetData();

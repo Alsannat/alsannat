@@ -6,12 +6,14 @@
 
 // @codingStandardsIgnoreFile
 
+
 ?>
+<?php $order = $block->getLastOrder()->getOrder(); ?>
 <!-- BEGIN GTAG PURCHASE TAG -->
 <?php if ($block->getGtagConfig()->getId()): ?>
     <?php
     /** @var \Magento\Sales\Model\Order $order */
-    $order = $block->getLastOrder()->getOrder();
+
     ?>
     <script>
         gtag('event', 'purchase', {
@@ -22,3 +24,32 @@
     </script>
 <?php endif; ?>
 <!-- END GTAG PURCHASE TAG -->
+<?php 
+$proSku = $block->getLastOrder()->getOrderItemSkusReview();
+?>
+<script src="https://apis.google.com/js/platform.js?onload=renderOptIn" async defer></script>
+<script>
+    var d = new Date();
+    d.setDate(d.getDate()+5);
+    var month = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
+    var date = d.getFullYear() + "-" + month[d.getMonth()] + "-" + d.getDate();
+
+  window.renderOptIn = function() {
+    window.gapi.load('surveyoptin', function() {
+      window.gapi.surveyoptin.render(
+        {
+          // REQUIRED FIELDS
+          "merchant_id": 368272138,
+          "order_id": "<?php echo $order->getIncrementId(); ?>",
+          "email": "<?php echo $order->getCustomerEmail(); ?>",
+          "delivery_country": "SAU",
+          "estimated_delivery_date": date,
+          
+          // OPTIONAL FIELDS
+          "products": [<?php echo $proSku; ?>]
+        });
+    });
+  }
+
+  
+</script>

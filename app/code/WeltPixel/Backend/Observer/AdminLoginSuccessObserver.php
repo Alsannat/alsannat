@@ -37,10 +37,10 @@ class AdminLoginSuccessObserver implements ObserverInterface
      */
     public function execute(\Magento\Framework\Event\Observer $observer)
     {
-        $this->session->setWeltPixelExtensions(null);
-        $this->session->setWeltPixelExtensionsUserFriendlyNames(null);
-        $this->wpHelper->checkAndUpdate();
-        $this->wpHelper->updMdsInf();
+        //~ $this->session->setWeltPixelExtensions(null);
+        //~ $this->session->setWeltPixelExtensionsUserFriendlyNames(null);
+        //~ $this->wpHelper->checkAndUpdate();
+        //~ $this->wpHelper->updMdsInf();
         return $this;
     }
 }

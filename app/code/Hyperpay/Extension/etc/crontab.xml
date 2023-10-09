@@ -2,7 +2,7 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
     <group id="hyperpay_cancel_orders">
         <job name="hyperpay_extension_cancel_order_pending" instance="Hyperpay\Extension\Cron\CancelOrderPending" method="execute">
-            <schedule>* * * * *</schedule>
+            <schedule>15 * * * *</schedule>
         </job>
     </group>
 </config>
