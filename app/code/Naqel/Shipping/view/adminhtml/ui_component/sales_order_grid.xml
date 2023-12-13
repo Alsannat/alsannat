@@ -66,7 +66,7 @@
     </listingToolbar>
      
     <columns name="sales_order_columns">
-         <column name="waybill_no" class="Naqel\Shipping\Ui\Component\Listing\Column\Waybillnocolumn">
+         <!-- <column name="waybill_no" class="Naqel\Shipping\Ui\Component\Listing\Column\Waybillnocolumn">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="filter" xsi:type="string">text</item>
@@ -75,13 +75,13 @@
                     <item name="visible" xsi:type="boolean">true</item>
                 </item>
             </argument>
-        </column>
-        <column name="shipping_information">
+        </column> -->
+        <!-- <column name="shipping_information">
             <settings>
                 <filter>text</filter>
                 <label translate="true">Shipping Information</label>
                 <visible>true</visible>
             </settings>
-        </column>
+        </column> -->
     </columns>
 </listing>

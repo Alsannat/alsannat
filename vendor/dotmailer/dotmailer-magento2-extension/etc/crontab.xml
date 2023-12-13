@@ -10,9 +10,9 @@
         <job name="ddg_automation_status" instance="Dotdigitalgroup\Email\Model\Cron" method="syncAutomation">
             <schedule>*/15 * * * *</schedule>
         </job>
-        <job name="ddg_automation_abandonedcarts" instance="Dotdigitalgroup\Email\Model\Cron" method="abandonedCarts">
+        <!-- <job name="ddg_automation_abandonedcarts" instance="Dotdigitalgroup\Email\Model\Cron" method="abandonedCarts">
             <schedule>*/5 * * * *</schedule>
-        </job>
+        </job> -->
         <job name="ddg_automation_reviews_and_wishlist" instance="Dotdigitalgroup\Email\Model\Cron" method="reviewsAndWishlist">
             <config_path>connector_developer_settings/cron_schedules/review_wishlist</config_path>
         </job>

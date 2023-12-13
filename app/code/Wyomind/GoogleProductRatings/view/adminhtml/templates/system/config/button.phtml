@@ -1,0 +1,10 @@
+<script>
+    require(["jquery", "gpr_feed"], function ($, feed) {
+        "use strict";
+        $("#googleproductratings_button").on("click", function () {
+            var url = $(this).data("url");
+            feed.generate(url);
+        });
+    });
+</script>
+<?php echo $this->getButtonHtml();

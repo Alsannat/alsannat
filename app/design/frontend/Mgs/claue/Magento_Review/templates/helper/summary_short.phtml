@@ -19,16 +19,23 @@
 					<span style="width:<?php /* @escapeNotVerified */ echo $rating; ?>%"><span><?php /* @escapeNotVerified */ echo $rating; ?>%</span></span>
 				</span>
 			</a>
+			<p class="rating_count"> <?php echo number_format((float)($rating / 20), 1); ?> <?php echo '('.$block->getReviewsCount().')' ?></p>
+			<a class="product-reviews-summary custom-reviews-summary" id="openpopupmodal" title="<?php echo __('Write a Review') ?>">
+				<?php echo __('Write a Review') ?>
+			</a>
 		</div>
 		<?php endif;?>
 	</div>
 <?php elseif ($block->getDisplayIfEmpty()): ?>
-	<div class="product-reviews-summary short empty">
+	<div class="product-reviews-summary short empty test2">
 		<div class="rating-summary">
 			<a title="<?php /* @escapeNotVerified */ echo __('Be the first to review this product') ?>" href="<?php /* @escapeNotVerified */ echo $url ?>">
 				<span class="rating-result">
 					<span style="width: 0;"></span>
 				</span>
+			</a>
+			<a class="product-reviews-summary custom-reviews-summary" id="openpopupmodal" title="<?php echo __('Write a Review') ?>">
+				<?php echo __('Write a Review') ?>
 			</a>
 		</div>
 	</div>

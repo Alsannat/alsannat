@@ -7,8 +7,8 @@
         <job name="amasty_acart_history" instance="Amasty\Acart\Cron\ClearHistory" method="execute">
             <schedule>0 0 * * *</schedule>
         </job>
-        <job name="amasty_acart_refresh" instance="Amasty\Acart\Cron\RefreshHistory" method="execute">
+        <!-- <job name="amasty_acart_refresh" instance="Amasty\Acart\Cron\RefreshHistory" method="execute">
             <schedule>*/5 * * * *</schedule>
-        </job>
+        </job> -->
     </group>
 </config>

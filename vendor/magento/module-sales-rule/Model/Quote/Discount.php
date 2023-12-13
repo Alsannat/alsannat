@@ -111,48 +111,79 @@ class Discount extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
         $this->calculator->init($store->getWebsiteId(), $quote->getCustomerGroupId(), $quote->getCouponCode());
         $this->calculator->initTotals($items, $address);
 
+        // $writer = new \Zend\Log\Writer\Stream(BP . '/var/log/templog_coup.log');
+        // $logger = new \Zend\Log\Logger();
+        // $logger->addWriter($writer);
+        // $logger->info('*******************');
+
         $address->setDiscountDescription([]);
         $items = $this->calculator->sortItemsByPriority($items, $address);
         $address->getExtensionAttributes()->setDiscounts([]);
         $addressDiscountAggregator = [];
 
+        $flag = null;
         /** @var \Magento\Quote\Model\Quote\Item $item */
         foreach ($items as $item) {
-            if ($item->getNoDiscount() || !$this->calculator->canApplyDiscount($item)) {
-                $item->setDiscountAmount(0);
-                $item->setBaseDiscountAmount(0);
+            $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+            $_product = $objectManager->create('Magento\Catalog\Model\Product')->loadByAttribute('sku', $item->getSku());
+            $orgprice = $_product->getPrice();
+            $specialprice = $_product->getSpecialPrice();
+            $specialfromdate = $_product->getSpecialFromDate();
+            $specialtodate = $_product->getSpecialToDate();
 
-                // ensure my children are zeroed out
-                if ($item->getHasChildren() && $item->isChildrenCalculated()) {
-                    foreach ($item->getChildren() as $child) {
-                        $child->setDiscountAmount(0);
-                        $child->setBaseDiscountAmount(0);
+            $today = time();
+            $couponList = ["AMH10","سفر23","سفر٢٣","JMH10"];
+            $flag = null;
+            if(in_array(strtoupper($quote->getCouponCode()), $couponList)){
+                if (!$specialprice)
+                $specialprice = $orgprice;
+                if ($specialprice < $orgprice) {
+                    if ((is_null($specialfromdate) &&is_null($specialtodate)) || ($today >= strtotime($specialfromdate) &&is_null($specialtodate)) || ($today <= strtotime($specialtodate) &&is_null($specialfromdate)) || ($today >= strtotime($specialfromdate) && $today <= strtotime($specialtodate))) {
+                        // 'product has a special price'
+                        // $logger->info('product has a special price');
+                        $flag = 1;
                     }
                 }
-                continue;
             }
-            // to determine the child item discount, we calculate the parent
-            if ($item->getParentItem()) {
-                continue;
-            }
+            // $logger->info($flag . " : " . $_product->getSku());
+            
+            if($flag == null){
+                if ($item->getNoDiscount() || !$this->calculator->canApplyDiscount($item)) {
+                    $item->setDiscountAmount(0);
+                    $item->setBaseDiscountAmount(0);
 
-            $eventArgs['item'] = $item;
-            $this->eventManager->dispatch('sales_quote_address_discount_item', $eventArgs);
-
-            if ($item->getHasChildren() && $item->isChildrenCalculated()) {
-                $this->calculator->process($item);
-                $this->distributeDiscount($item);
-                foreach ($item->getChildren() as $child) {
-                    $eventArgs['item'] = $child;
-                    $this->eventManager->dispatch('sales_quote_address_discount_item', $eventArgs);
-                    $this->aggregateItemDiscount($child, $total);
+                    // ensure my children are zeroed out
+                    if ($item->getHasChildren() && $item->isChildrenCalculated()) {
+                        foreach ($item->getChildren() as $child) {
+                            $child->setDiscountAmount(0);
+                            $child->setBaseDiscountAmount(0);
+                        }
+                    }
+                    continue;
                 }
-            } else {
-                $this->calculator->process($item);
-                $this->aggregateItemDiscount($item, $total);
-            }
-            if ($item->getExtensionAttributes()) {
-                $this->aggregateDiscountPerRule($item, $address, $addressDiscountAggregator);
+                // to determine the child item discount, we calculate the parent
+                if ($item->getParentItem()) {
+                    continue;
+                }
+
+                $eventArgs['item'] = $item;
+                $this->eventManager->dispatch('sales_quote_address_discount_item', $eventArgs);
+
+                if ($item->getHasChildren() && $item->isChildrenCalculated()) {
+                    $this->calculator->process($item);
+                    $this->distributeDiscount($item);
+                    foreach ($item->getChildren() as $child) {
+                        $eventArgs['item'] = $child;
+                        $this->eventManager->dispatch('sales_quote_address_discount_item', $eventArgs);
+                        $this->aggregateItemDiscount($child, $total);
+                    }
+                } else {
+                    $this->calculator->process($item);
+                    $this->aggregateItemDiscount($item, $total);
+                }
+                if ($item->getExtensionAttributes()) {
+                    $this->aggregateDiscountPerRule($item, $address, $addressDiscountAggregator);
+                }
             }
         }
 

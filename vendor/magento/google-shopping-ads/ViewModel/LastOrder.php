@@ -51,4 +51,29 @@ class LastOrder implements \Magento\Framework\View\Element\Block\ArgumentInterfa
         $skus = array_values(array_unique($skus));
         return json_encode($skus);
     }
+
+    /**
+     * Gets sku list from order
+     *
+     * @return string
+     */
+    public function getOrderItemSkusReview() : string
+    {
+        $order = $this->getOrder();
+        $skus = [];
+        foreach ($order->getAllItems() as $item) {
+            $skus[] = $item->getSku();
+        }
+        $skus = array_unique($skus);
+        $i = 0;
+        $strinsku = "";
+        foreach ($skus as $item) {
+            if(++$i === count($skus)){
+                $strinsku .= '{"gtin":"' . $item  . '"}';    
+            } else{
+                $strinsku .= '{"gtin":"' . $item  . '"},';
+            }
+        }
+        return $strinsku;
+    }
 }

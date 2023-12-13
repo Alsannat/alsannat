@@ -7,17 +7,12 @@
 	$trimhost = trim($host,"https:");
 ?>
 <script type="text/javascript">
-(function(w,i,g,z,o){
-    var a,m;w['WigzoObject']=o;w[o]=w[o]||function(){
-    (w[o].q=w[o].q||[]).push(arguments)},w[o].l=1*new Date();w[o].h=z;a=i.createElement(g),
-    m=i.getElementsByTagName(g)[0];a.async=1;a.src=z;m.parentNode.insertBefore(a,m)
-})(window,document,'script','<?php echo $trimhost; ?>/wigzo.js','wigzo');
-		<?php //} 
-		if($block->getData("userIdentifier") !== NULL || $block->getData("userIdentifier") !== ""){?>
-	        wigzo ('configure', '<?php echo $block->getData('orgidentifier'); ?>', '<?php echo $block->getData("userIdentifier"); ?>');
-		<?php } else{?>
-			wigzo ('configure', '<?php echo $block->getData('orgidentifier'); ?>');
-		<?php } ?>
+	(function(w,i,g,z,o){
+	 var a,m;w['WigzoObject']=o;w[o]=w[o]||function(){
+	 (w[o].q=w[o].q||[]).push(arguments)},w[o].l=1*new Date();w[o].h=z;a=i.createElement(g),
+	 m=i.getElementsByTagName(g)[0];a.async=1;a.src=z;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//app.wigzo.com/wigzo.compressed.js','wigzo');
+	wigzo ('configure', 'y1S5oflcTkuFIdOrVGkPSw');
    </script>
 </script>
 <script>

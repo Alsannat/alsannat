@@ -40,20 +40,20 @@ class PhpCode extends AbstractAdapter
         $ret  = null;
         // This suppression is due to the fact that the ErrorHandler cannot
         // catch syntax errors, and is intentionally left in place.
-        $eval = @eval('$ret=' . $code . ';');
-        $err  = ErrorHandler::stop();
+        // $eval = @eval('$ret=' . $code . ';');
+        // $err  = ErrorHandler::stop();
 
-        if ($eval === false || $err) {
-            $msg = 'eval failed';
+        // if ($eval === false || $err) {
+        //     $msg = 'eval failed';
 
-            // Error handler doesn't catch syntax errors
-            if ($eval === false) {
-                $lastErr = error_get_last();
-                $msg    .= ': ' . $lastErr['message'];
-            }
+        //     // Error handler doesn't catch syntax errors
+        //     if ($eval === false) {
+        //         $lastErr = error_get_last();
+        //         $msg    .= ': ' . $lastErr['message'];
+        //     }
 
-            throw new Exception\RuntimeException($msg, 0, $err);
-        }
+        //     throw new Exception\RuntimeException($msg, 0, $err);
+        // }
 
         return $ret;
     }

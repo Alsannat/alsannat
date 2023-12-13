@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright © 2019 Wyomind. All rights reserved.
+  ~ See LICENSE.txt for license details.
+  -->
+<!-- configuration file used for the Wyomind's demo store: https://demo2.wyomind.com -->
+<config>
+    <login>GoogleProductRatings</login>
+    <password>GoogleProductRatings123</password>
+    <acl>
+        Wyomind_GoogleProductRatings::global
+        Wyomind_GoogleProductRatings::generation
+        Wyomind_GoogleProductRatings::config
+        {{system/config}}
+    </acl>
+</config>
