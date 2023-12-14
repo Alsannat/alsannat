@@ -27,12 +27,20 @@ $helper = $this->helper(\Mageplaza\BetterProductReviews\Helper\Data::class);
 $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 $imageHelper = $objectManager->get('\Magento\Catalog\Helper\Image');
 
-foreach($block->getProductInfo()->getMediaGalleryImages() as $k=>$image){
-    $thumbnailImage = $imageHelper->init($block->getProductInfo(), 'product_page_main_image_default')
+$request = $objectManager->get('\Magento\Framework\App\Request\Http');
+$controllerName = $request->getControllerName();
+$actionName = $request->getActionName();
+?>
+// Check if the current page is the product view page
+<?php if ($controllerName == 'product' && $actionName == 'view'): ?>
+<?php 
+    foreach($block->getProductInfo()->getMediaGalleryImages() as $k=>$image){
+        $thumbnailImage = $imageHelper->init($block->getProductInfo(), 'product_page_main_image_default')
         ->setImageFile($image->getFile())
         ->getUrl();
         break;
-}
+    }
+
 ?>
 <div id="mp-review-form" class="block review-add">
     <!-- <div class="block-title"><strong><?php /* @escapeNotVerified */
@@ -222,14 +230,15 @@ foreach($block->getProductInfo()->getMediaGalleryImages() as $k=>$image){
 <script type="text/javascript">
     require(['jquery'], function ($) {
         $(document).on( "click", '.recom_yes', function( event ) {
-          console.log('this is the click');
-          $('.recom_no').css( "background-color", "#757575");
-          $(this).css( "background-color", "#4c4c4c");
+            console.log('this is the click');
+            $('.recom_no').css( "background-color", "#757575");
+            $(this).css( "background-color", "#4c4c4c");
         });
         $(document).on( "click", '.recom_no', function( event ) {
-          console.log('this is the click');  
-          $('.recom_yes').css( "background-color", "#757575");  
-          $(this).css( "background-color", "#4c4c4c");
+            console.log('this is the click');  
+            $('.recom_yes').css( "background-color", "#757575");  
+            $(this).css( "background-color", "#4c4c4c");
         });
     });
 </script>
+<?php endif; ?>

@@ -120,7 +120,7 @@ class Add extends \Magento\Checkout\Controller\Cart
             $this->cart->save();
             $redirect = $this->resultFactory->create(\Magento\Framework\Controller\ResultFactory::TYPE_REDIRECT);
             $redirect->setUrl('checkout/cart/index', ['_secure' => true]);
-            $this->messageManager->addSuccessMessage('product add successfullay.');
+            $this->messageManager->addSuccessMessage('Product added to cart successfully');
                 } catch (\Magento\Framework\Exception\LocalizedException $e) {
                     $this->messageManager->addException(
                         $e,

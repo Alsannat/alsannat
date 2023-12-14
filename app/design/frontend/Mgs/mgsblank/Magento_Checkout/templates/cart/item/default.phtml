@@ -129,7 +129,9 @@
                                             title="<?= $block->escapeHtmlAttr(__('Qty')) ?>"
                                             class="input-text qty"
                                             data-validate="{required:true,'validate-greater-than-zero':true}"
-                                            data-role="cart-item-qty"/>
+                                            data-role="cart-item-qty"
+                                            disabled
+                                            />
                                             <button type="button"  id="<?= /* @escapeNotVerified */ $_item->getId() ?>-upt" class="qty-up-fixed-onclick-page-cart increaseQty">+</button>
 
                                     </label>
