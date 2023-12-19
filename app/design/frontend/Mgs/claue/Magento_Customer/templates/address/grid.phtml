@@ -42,10 +42,10 @@ $customerAddressView = $block->getData('customer_address');
 
 <div class="actions-toolbar">
     <div class="primary">
-        <button type="button" role="add-address" title="<?= $block->escapeHtmlAttr(__('Add New Address')) ?>" class="action primary add"><span><?= $block->escapeHtml(__('Add New Address')) ?></span></button>
+        <button type="button" role="add-address" title="<?= $block->escapeHtmlAttr(__('Add New Address')) ?>" class="action primary add btn btn-xs btn-secondary"><span><?= $block->escapeHtml(__('Add New Address')) ?></span></button>
     </div>
     <div class="secondary">
-        <a class="action back" href="<?= $block->escapeUrl($block->getBackUrl()) ?>"><span><?= $block->escapeHtml(__('Back')) ?></span></a>
+        <a class="action back button-rounded" href="<?= $block->escapeUrl($block->getBackUrl()) ?>"><span><?= $block->escapeHtml(__('Back')) ?></span></a>
     </div>
 </div>
 <script type="text/x-magento-init">
