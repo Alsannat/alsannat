@@ -211,14 +211,14 @@ $helperData = $block->getWkMap();
     <div class="actions-toolbar">
         <div class="primary">
             <button type="submit"
-                    class="action save primary"
+                    class="action save btn btn-primary "
                     data-action="save-address"
                     title="<?= $block->escapeHtmlAttr(__('Save Address')) ?>">
                 <span><?= /* @noEscape */ __('Save Address') ?></span>
             </button>
         </div>
         <div class="secondary">
-            <a class="action back" href="<?= $block->escapeUrl($block->getBackUrl()) ?>">
+            <a class="action btn btn-secondary btn-xs back back-address" href="<?= $block->escapeUrl($block->getBackUrl()) ?>">
                 <span><?= /* @noEscape */ __('Go back') ?></span>
             </a>
         </div>
