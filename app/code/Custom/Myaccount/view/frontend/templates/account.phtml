@@ -21,6 +21,15 @@ $image = 'wishlist_thumbnail';
 $padding = $themeHelper->getImagePadding();
 $size = $themeHelper->getImageSize();
 ?>
+
+<?php
+// update the links for localization of enlish and arabic
+$storeManager = $objectManager->get('Magento\Store\Model\StoreManagerInterface');
+$baseUrl = $storeManager->getStore()->getBaseUrl();
+$loginUrl = $baseUrl . "registration?account=1";
+$createAccUrl = $baseUrl . "registration?name=tab2&account=1";
+?>
+?>
 <div class="myaccount-outer">
     <div class="container">
         <div class="row">
@@ -32,8 +41,8 @@ $size = $themeHelper->getImageSize();
                             <p><?= $block->escapeHtml(__('You are not logged in yet')) ?></p>
                         </div>
                         <div class="btn-wrapper">
-                            <a href="/registration?account=1" class="black-btn"><?= $block->escapeHtml(__('Login')) ?></a>
-                            <a href="/registration?name=tab2&account=1" class="create-link"><?= $block->escapeHtml(__('Create a New Account')) ?></a>
+                            <a href="<?php echo $loginUrl; ?>" class="black-btn"><?= $block->escapeHtml(__('Login')) ?></a>
+                            <a href="<?php echo $createAccUrl; ?>" class="create-link"><?= $block->escapeHtml(__('Create a New Account')) ?></a>
                         </div>
                     </div>
                     <div class="account-details">
