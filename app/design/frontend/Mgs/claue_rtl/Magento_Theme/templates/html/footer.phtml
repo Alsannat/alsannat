@@ -424,6 +424,23 @@ iframe, img {
 .footer-item:nth-child(2) {
     text-align: right;
 }
+
+
+@media (max-width:767px){
+    .footer-item {
+        width: 100%;
+        margin-bottom: 25px;
+        text-align: center;
+    }
+    
+    .end-footer {
+        flex-wrap: wrap;
+    }
+
+    .footer-item:nth-child(2) {
+        text-align: center;
+    }
+}
 </style>
 <script>
 require(['jquery'], function ($) {
