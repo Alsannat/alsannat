@@ -1,0 +1,26 @@
+<script>
+    function ConfirmDelete()
+    {
+        var x = confirm("Are you sure you want to delete?");
+        if (x)
+            return true;
+        else
+            return false;
+    }
+</script>
+<fieldset class="fieldset delete-acc">
+    <legend class="legend"><span><?php echo __('Delete Account') ?></span></legend>
+    <p>
+        <?php echo __('Dear customer Remember before deleting your account, all information will be deleted permanently and it will not recover anyhow.') ?>
+    </p>
+    <form action="<?php echo $block->getBaseUrl()?>removeaccount/index/remove" method="post">
+        <button class="action primary add btn btn-xs btn-secondary" onclick="return ConfirmDelete();" type="submit" name="actiondelete" value="1"><?php echo __('Delete Account') ?></button>
+    </form>
+</fieldset>
+<style type="text/css">
+    @media(max-width: 768px) {
+        .delete-acc {
+            margin-top: 20px;
+        }
+    }
+</style>
