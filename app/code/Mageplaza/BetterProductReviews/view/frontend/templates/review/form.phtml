@@ -31,7 +31,6 @@ $request = $objectManager->get('\Magento\Framework\App\Request\Http');
 $controllerName = $request->getControllerName();
 $actionName = $request->getActionName();
 ?>
-// Check if the current page is the product view page
 <?php if ($controllerName == 'product' && $actionName == 'view'): ?>
 <?php 
     foreach($block->getProductInfo()->getMediaGalleryImages() as $k=>$image){
