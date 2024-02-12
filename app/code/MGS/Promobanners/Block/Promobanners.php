@@ -46,7 +46,7 @@ class Promobanners extends Template
 	}
 	
 	public function getBannerImageUrl($banner){
-		$bannerUrl = $this->_urlBuilder->getBaseUrl(['_type' => \Magento\Framework\UrlInterface::URL_TYPE_MEDIA]) . 'promobanners/'.$banner->getFilename();
+		$bannerUrl = $this->_urlBuilder->getBaseUrl(['_type' => \Magento\Framework\UrlInterface::URL_TYPE_MEDIA]) . 'promobanners'.$banner->getFilename();
 		return $bannerUrl;
 	}
 	
