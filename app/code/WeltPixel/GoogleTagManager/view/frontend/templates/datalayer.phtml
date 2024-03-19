@@ -1,6 +1,19 @@
 <?php
 // @codingStandardsIgnoreFile
 ?>
+<?php
+$customerEmail = '';
+$customerPhone = '';
+$customerInfo = $this->getCustomerInfo();
+if(isset($customerInfo)){
+    $customerEmail = $customerInfo['email'];
+    $customerPhone = $customerInfo['phone'];
+}
+
+$ipv4Address = $_SERVER['REMOTE_ADDR'];
+$hashedString = hash('sha256', $ipv4Address);
+$userAgent = $_SERVER['HTTP_USER_AGENT'];
+?>
 <?php if ($this->isEnabled()) : ?>
     <?php $dataLayerObject = $this->getDataLayerAsJson(); ?>
     <script>
@@ -10,6 +23,13 @@
         };
 
         window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({'snap_email': '<?php echo $customerEmail ?>'});
+        window.dataLayer.push({'snap_phone_number': '<?php echo $customerPhone ?>'});
+        window.dataLayer.push({'user_agent': '<?php echo $userAgent ?>'});
+        window.dataLayer.push({'ip_address': '<?php echo $ipv4Address ?>'});
+        window.dataLayer.push({'first_name': '<?php echo $customerInfo['first_name'] ?>'});
+        window.dataLayer.push({'last_name': '<?php echo $customerInfo['last_name'] ?>'});
+        window.dataLayer.push({'zipcode': '<?php echo $customerInfo['zip_code'] ?>'});
         <?php if ($dataLayerObject != '[[]]') : ?>
         var dlObjects = <?php echo $dataLayerObject; ?>;
         for (var i in dlObjects) {

@@ -1,6 +1,9 @@
 <?php
 namespace WeltPixel\GoogleTagManager\Block;
 
+use Magento\Customer\Api\AddressRepositoryInterface;
+use Magento\Customer\Api\Data\AddressInterface;
+
 /**
  * Class \WeltPixel\GoogleTagManager\Block\Core
  */
@@ -21,12 +24,24 @@ class Core extends \Magento\Framework\View\Element\Template
      */
     protected $cookieManager;
 
+    /**
+     * @var \Magento\Customer\Model\Session
+     */
+    protected $customerSession;
+
+    /**
+     * @var \Magento\Customer\Api\AddressRepositoryInterface
+     */
+    protected $addressRepository;
+
 
     /**
      * @param \Magento\Framework\View\Element\Template\Context $context
      * @param \WeltPixel\GoogleTagManager\Helper\Data $helper
      * @param \WeltPixel\GoogleTagManager\Model\Storage $storage
      * @param \WeltPixel\GoogleTagManager\Model\CookieManager $cookieManager
+     * @param \Magento\Customer\Model\Session $customerSession
+     * @param \Magento\Customer\Api\AddressRepositoryInterface $addressRepository
      * @param array $data
      */
     public function __construct(
@@ -34,12 +49,16 @@ class Core extends \Magento\Framework\View\Element\Template
         \WeltPixel\GoogleTagManager\Helper\Data $helper,
         \WeltPixel\GoogleTagManager\Model\Storage $storage,
         \WeltPixel\GoogleTagManager\Model\CookieManager $cookieManager,
+        \Magento\Customer\Model\Session $customerSession,
+        \Magento\Customer\Api\AddressRepositoryInterface $addressRepository,
         array $data = []
     )
     {
         $this->helper = $helper;
         $this->storage = $storage;
         $this->cookieManager = $cookieManager;
+        $this->customerSession = $customerSession;
+        $this->addressRepository = $addressRepository;
         parent::__construct($context, $data);
     }
 
@@ -193,5 +212,48 @@ class Core extends \Magento\Framework\View\Element\Template
     public function getWpCookiesForJs() {
         $cookies = $this->cookieManager->getWpCookies();
         return implode(',', array_map(function ($a) { return "'" . $a . "'"; } ,$cookies));
+    }
+
+    /**
+     * getCustomerInfo function
+     *
+     * @return void
+     */
+    public function getCustomerInfo()
+    {
+        $customerEmail = $billingPhone = $zipCode = '';
+        if ($this->customerSession->isLoggedIn()) {
+            $customer = $this->customerSession->getCustomer();
+            $customerEmail      = $customer->getEmail();
+            $customerFirstName  = strtolower($customer->getFirstname());
+            $customerLastName   = strtolower($customer->getLastname());
+            
+            // Get the default billing address ID for the customer
+            $customerDefaultBillingId = $customer->getDefaultBilling();
+            
+            // Load the billing address using the address repository
+            if ($customerDefaultBillingId) {
+                try {
+                    $billingAddress = $this->addressRepository->getById($customerDefaultBillingId);
+                    $billingPhone   = str_replace("+", "", $billingAddress->getTelephone());
+                    $billingPhone   = str_replace(" ", "", $billingPhone);
+                    $zipCode        = $billingAddress->getPostcode();
+                } catch (\Exception $e) {
+                    // Handle the exception if the address cannot be loaded
+                    $billingPhone = $zipCode = '';
+                }
+            } else {
+                $billingPhone = ''; // No default billing address found
+                $zipCode = '';
+            }
+
+            return [
+                'email'         => $customerEmail,
+                'phone'         => $billingPhone,
+                'first_name'    => $customerFirstName,
+                'last_name'     => $customerLastName,
+                'zip_code'      => $zipCode
+            ];
+        }
     }
 }
