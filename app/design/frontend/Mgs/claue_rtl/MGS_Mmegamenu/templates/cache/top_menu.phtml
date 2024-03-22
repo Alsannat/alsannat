@@ -2,6 +2,7 @@
 <?php $helper = $this->helper('MGS\Mmegamenu\Helper\Data') ?>
 <?php $objectManager =  \Magento\Framework\App\ObjectManager::getInstance(); ?>      
 <?php $logo = $objectManager->get('\Magento\Theme\Block\Html\Header\Logo'); ?>
+<?php $helperWhatsapp = $this->helper(Evincemage\WhatsAppChat\Helper\Data::class);?>
 
 <?php if((count($megaMenu)>0) || $helper->getStoreConfig('megamenu/general/home')):?>
 	<?php if($helper->getStoreConfig('megamenu/general/homeposition') == "" || $helper->getStoreConfig('megamenu/general/homeposition') == 0): ?>
@@ -89,7 +90,7 @@
 		<div class="social-links-row">
 		<div class="social-title-block"><span class="con-name">تواصل معنا</span></div>
 		<ul class="social-links">
-		<li><a href="https://api.whatsapp.com/send?phone=966507340005&amp;text=&amp;source=&amp;data=" rel="nofollow"> <img src="<?php echo $block->getUrl("media/wysiwyg/")?><?php echo "con-one.svg";?>" alt=""><span class="con-name">واتس آب</span> </a></li>
+		<li><a href="https://api.whatsapp.com/send?phone=<?= /* @noEscape */ ltrim($helperWhatsapp->getWAPhone(), '+'); ?>&amp;text=&amp;source=&amp;data=" rel="nofollow"> <img src="<?php echo $block->getUrl("media/wysiwyg/")?><?php echo "con-one.svg";?>" alt=""><span class="con-name">واتس آب</span> </a></li>
 		<li><a href="mailto:support@alsannat.com"> <img src="<?php echo $block->getUrl("media/wysiwyg/")?><?php echo "con_two.svg";?>" alt=""><span class="con-name">بريد إلكتروني</span> </a></li>
 		<li><a href="tel:00966114121765"> <img src="<?php echo $block->getUrl("media/wysiwyg/")?><?php echo"con_three.svg";?>" alt=""><span class="con-name">اتصال</span> </a></li>
 		</ul>

@@ -79,6 +79,12 @@ class ProductByCategory extends \MGS\Mpanel\Block\Products\AbstractProduct
         return $collection;
     }
 	
+	/**
+	 * getProductByCategories function
+	 *
+	 * @param int $categoryIds
+	 * @return void
+	 */
 	public function getProductByCategories($categoryIds){
 		
 		$now = $this->_date->gmtDate();
@@ -87,20 +93,15 @@ class ProductByCategory extends \MGS\Mpanel\Block\Products\AbstractProduct
 		
         $collection = $this->_productCollectionFactory->create();
         $collection->addAttributeToSelect('*');
-        $collection->addAttributeToFilter('custom_position',  array('notnull' => true));
+		// below line creating issue in getting correct product collection on home page slider
+        // $collection->addAttributeToFilter('custom_position',  array('notnull' => true));
         $collection->setVisibility($this->_catalogProductVisibility->getVisibleInCatalogIds());
 		$categoryFilter = ['eq'=>$categoryIds];
         $collection->addCategoriesFilter($categoryFilter);
 
 		$collection->setPageSize($this->getLimit())
-            ->setCurPage($this->getCurrentPage());
-           $collection->addAttributeToSort('custom_position','ASC');
-            
-            //->setOrder('entity_id', 'DESC');
-			//->setOrder('cat_index_position', 'ASC');
-        // echo $collection->getSelect();
-        // echo $collection->getSize();
-        //  echo $collection->getSelect();exit;
+            ->setCurPage($this->getCurrentPage())
+			->setOrder('cat_index_position', 'ASC');
         return $collection;
 	}
 	
@@ -108,6 +109,11 @@ class ProductByCategory extends \MGS\Mpanel\Block\Products\AbstractProduct
 		//return $this->_count;
 	}
 	
+	/**
+	 * getCurrentPage function
+	 *
+	 * @return void
+	 */
 	public function getCurrentPage(){
 		if ($this->getCurPage()) {
             return $this->getCurPage();
@@ -115,6 +121,11 @@ class ProductByCategory extends \MGS\Mpanel\Block\Products\AbstractProduct
 		return 1;
 	}
 	
+	/**
+	 * getProductsPerRow function
+	 *
+	 * @return void
+	 */
 	public function getProductsPerRow(){
 		if ($this->hasData('per_row')) {
             return $this->getData('per_row');
@@ -122,6 +133,11 @@ class ProductByCategory extends \MGS\Mpanel\Block\Products\AbstractProduct
 		return false;
 	}
 	
+	/**
+	 * getCategoryByIds function
+	 *
+	 * @return void
+	 */
 	public function getCategoryByIds(){
 		$result = [];
 		if($this->hasData('category_ids')){

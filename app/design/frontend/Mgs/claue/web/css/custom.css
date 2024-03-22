@@ -1,22 +1,27 @@
 @font-face {
   font-family: 'LoewNext Bold';
   src: url('../fonts/ArbFONTS-Loew-Next-Arabic-Bold.otf');
+  font-display: swap;
 }
 @font-face {
   font-family: 'LoewNext Extra Bold';
   src: url('../fonts/ArbFONTS-Loew-Next-Arabic-ExtraBold.otf');
+  font-display: swap;
 }
 @font-face {
   font-family: 'LoewNext Heavy';
   src: url('../fonts/ArbFONTS-Loew-Next-Arabic-Heavy.otf');
+  font-display: swap;
 }
 @font-face {
   font-family: 'LoewNext Medium';
   src: url('../fonts/ArbFONTS-Loew-Next-Arabic-Medium.otf');
+  font-display: swap;
 }
 @font-face {
   font-family: 'Mikhak Medium';
   src: url('../fonts/ArbFONTS-Mikhak-Medium-1.ttf');
+  font-display: swap;
 }
 
 #checkoutcom_google_pay_container .label {
