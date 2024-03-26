@@ -1,0 +1,149 @@
+<!--
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<div class="payment-method" data-bind="css: {'_active': (getCode() == isChecked())}">
+    <div class="payment-method-title field choice">
+        <input type="radio"
+               name="payment[method]"
+               class="radio"
+               data-bind="attr: {'id': getCode()}, value: getCode(), checked: isChecked, click: selectPaymentMethod, visible: isRadioButtonVisible()"/>
+        <label data-bind="attr: {'for': getCode()}" class="label">
+            <img alt="logo" class="payment-icon"
+                    data-bind="attr: {'src': getIcon()}, visible: hasIcon()"
+                    style="max-height: 30px;">
+            <span data-bind="text: getTitle()"></span>
+        </label>
+    </div>
+    <div class="payment-method-content">
+        <!-- ko foreach: getRegion('messages') -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        <!--/ko-->
+        <div class="payment-method-billing-address">
+            <!-- ko foreach: $parent.getRegion(getBillingAddressFormName()) -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+        </div>
+
+
+        <div class="checkout-agreements-block">
+            <!-- ko foreach: $parent.getRegion('before-place-order') -->
+                <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+        </div>
+
+        <!-- ko if: (isVaultEnabled())-->
+        <div class="field choice pt_vault">
+            <input type="checkbox"
+                name="vault[is_enabled]"
+                class="checkbox"
+                data-bind="attr: {'id': getCode() + '_enable_vault'}, checked: vaultEnabler.isActivePaymentTokenEnabler"/>
+            <label class="label" data-bind="attr: {'for': getCode() + '_enable_vault'}">
+                <span><!-- ko i18n: 'Save for later use.'--><!-- /ko --></span>
+            </label>
+        </div>
+        <!-- /ko -->
+
+        <!-- Dispaly the ClickPay iFrame here -->
+        <div class="clickpay_iframe">
+            <div>
+                <img
+                    data-bind="attr: {'id': 'pt_loader_' + getCode(), 'src': window.checkoutConfig.pt_icons.logo_animation}"
+                    style='width: 150px; margin: auto; display: none;' />
+            </div>
+        </div>
+
+         
+
+                 <!-- Dispaly the ClickPay Mangaged Form here -->
+    <!-- ko if: (isManagedMode())-->        
+    <form action="https://development.brstdev.com:5040/clickpay/index/token"  id="payform" method="post">  
+        <div id="pt_managed_form" class="form-row">
+          <span style="color: red; padding-left: 23px;" id="paymentErrors"></span>
+  
+                  <div class="form-container">
+                      
+                      <div class="field-container">
+                          <label for="name">Name</label>
+                          <input id="name" maxlength="20" type="text">
+                      </div>
+                      <div class="field-container">
+                          <label for="cardnumber">Card Number</label>
+                          <input id="cardnumber" type="text" data-paylib="number" inputmode="numeric">
+                          <!-- <svg id="ccicon" class="ccicon" width="750" height="471" viewBox="0 0 750 471" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                              xmlns:xlink="http://www.w3.org/1999/xlink"> -->
+                              <img src="/media/wysiwyg/mada.png" style="display: none;" class="ccicon">
+              
+                          
+                      </div>
+                      <div class="field-container">
+                          <label for="expirationdate">Expiry Date (MM/YYYY)</label>
+                          <div id="expirationdate"><input type="text" data-paylib="expmonth" size="2"><span style="font-size: 24px;padding: 5px;display: flex; align-items: center;">/</span> 
+                              <input type="text" data-paylib="expyear" size="4"></div>
+                          
+                      </div>
+                      <div class="field-container">
+                          <label for="securitycode">CVV</label>
+                          <input id="securitycode" data-paylib="cvv" type="text" pattern="[0-9]*" inputmode="numeric">
+                      </div>
+  
+                      <input type="hidden" value="" id="pt_token">
+   
+                      <input type="submit" hidden="" id="submitManagedForm">
+                  </div>
+  
+  
+              </div>
+              </form>
+          <!-- /ko -->
+        
+
+        <div
+            data-bind="visible: shippingExcluded()"
+            class="clickpay_shipping" style="margin: 10px; color: #c92f24;">
+                <span>
+                    <span data-bind="text: '(' + shippingTotal() + ')'"></span>
+                    Shipping amount will be excluded from the online payment,
+                    You have to pay them at the delivery time.
+                </span>
+        </div>
+
+        <div
+            data-bind="visible: isPaymentPreorder()"
+            class="clickpay_ref" style="margin-top: 10px; color: #2c89db;"></div>
+
+        <!-- ko if: (isApplePayAvailable() && getCode() === 'applepay') -->
+            <div class="actions-toolbar">
+                <div class="primary">
+                    <apple-pay-button buttonstyle="black" type="plain" locale="en" data-bind="
+                    click: onApplePayButtonClicked"></apple-pay-button>
+                </div>
+            </div>
+        <!-- /ko -->
+        <!-- ko ifnot: (isApplePayAvailable() && getCode() === 'applepay') -->
+        <div class="actions-toolbar">
+            <div class="primary">
+                <button class="action primary checkout btn_place_order"
+                        type="submit"
+                        data-bind="
+                        click: placeOrder,
+                        attr: {title: $t('Place Order')},
+                        css: {disabled: !isPlaceOrderActionAllowed()},
+                        enable: (getCode() == isChecked())
+                        "
+                        disabled>
+                    <span data-bind="i18n: 'Place Order'"></span>
+                </button>
+                <button class="action primary checkout btn_pay"
+                        type="submit"
+                        disabled
+                        style="display: none;">
+                    <span data-bind="i18n: 'Continue to Payment'"></span>
+                </button>
+            </div>
+        </div>
+        <!-- /ko -->
+    </div>
+</div>
